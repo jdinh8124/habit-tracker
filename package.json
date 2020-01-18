@@ -83,6 +83,9 @@
         }
       ],
       "react/prop-types": 0
+    },
+    "parserOptions": {
+      "sourceType": "module"
     }
   },
   "dependencies": {
