@@ -1,8 +1,7 @@
-class ClientError {
-  constructor(message, status) {
-    this.message = message;
-    this.status = status;
-  }
-}
+const pg = require('pg');
 
-module.exports = ClientError;
+const db = new pg.Pool({
+  connectionString: process.env.DATABASE_URL
+});
+
+module.exports = db;
