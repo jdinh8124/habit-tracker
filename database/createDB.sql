@@ -3,7 +3,7 @@ CREATE TABLE "user" (
 	"userName" varchar(255) NOT NULL UNIQUE,
 	"email" varchar(255) NOT NULL,
 	"userPwd" varchar(255) NOT NULL,
-	"createdAt" timestamptz NOT NULL,
+	"createdAt" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT "user_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
@@ -16,7 +16,7 @@ CREATE TABLE "habit" (
 	"habitName" varchar(255) NOT NULL,
 	"habitDescription" TEXT NOT NULL,
 	"createdBy" serial NOT NULL,
-	"createdAt" timestamptz NOT NULL,
+	"createdAt" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT "habit_pk" PRIMARY KEY ("habitId")
 ) WITH (
   OIDS=FALSE
@@ -29,7 +29,7 @@ CREATE TABLE "routine" (
 	"routineName" varchar(255) NOT NULL,
 	"routineDescription" TEXT NOT NULL,
 	"createdBy" serial NOT NULL,
-	"createdAt" timestamptz NOT NULL,
+	"createdAt" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT "routine_pk" PRIMARY KEY ("routineId")
 ) WITH (
   OIDS=FALSE
@@ -42,7 +42,7 @@ CREATE TABLE "chat" (
 	"senderId" serial NOT NULL,
 	"receiverId" serial NOT NULL,
 	"message" TEXT NOT NULL,
-	"createdAt" timestamptz NOT NULL,
+	"createdAt" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT "chat_pk" PRIMARY KEY ("chatId")
 ) WITH (
   OIDS=FALSE
@@ -53,7 +53,7 @@ CREATE TABLE "chat" (
 CREATE TABLE "routineHabit" (
 	"routineId" serial NOT NULL,
 	"habitId" serial NOT NULL,
-	"createdAt" timestamptz NOT NULL
+	"createdAt" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) WITH (
   OIDS=FALSE
 );
@@ -67,7 +67,7 @@ CREATE TABLE "userRoutine" (
 	"routineName" varchar(255) NOT NULL,
 	"accepted?" bool,
 	"requestMessage" TEXT NOT NULL,
-	"createdAt" timestamptz NOT NULL
+	"createdAt" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) WITH (
   OIDS=FALSE
 );
@@ -85,7 +85,7 @@ CREATE TABLE "userHabit" (
 	"duration" varchar(255) NOT NULL,
 	"congratsMessage" TEXT NOT NULL,
 	"motivationalMessage" TEXT NOT NULL,
-	"createdAt" timestamptz NOT NULL
+	"createdAt" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) WITH (
   OIDS=FALSE
 );
