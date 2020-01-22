@@ -22,20 +22,30 @@ app.get('/api/health-check', (req, res, next) => {
 // See upcoming habits
 app.get('/api/habit', (req, res, next) => {
   const userId = parseInt(req.body.userId);
-  const sql = `
+
+  const sqlUser = `
+                  select *
+                  from "user"
+                  where "userId" = $1
+                  `;
+  const params = [userId];
+  const sqlHabits = `
                 select *
                 from "userHabit"
                 left join "habit" ON "userHabit"."habitId" = "habit"."habitId"
                 where "userId" = $1
                 `;
-  const params = [userId];
-  db.query(sql, params)
+
+  db.query(sqlUser, params)
     .then(result => {
       if (result.rows.length === 0) {
         throw new ClientError(`user with id ${userId} could not be found`, 404);
       } else {
-        res.status(200);
-        res.json(result.rows);
+        db.query(sqlHabits, params)
+          .then(userHabits => {
+            res.status(200);
+            res.json(userHabits.rows);
+          });
       }
     })
     .catch(err => next(err));

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import App from './components/app';
-import Test from './test';
+import UserHabit from './components/userHabits';
 
 ReactDOM.render(
-  <Test />,
+  <UserHabit />,
   document.querySelector('#root')
 );
