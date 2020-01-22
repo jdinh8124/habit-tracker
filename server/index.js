@@ -44,7 +44,31 @@ app.get('/api/habit', (req, res, next) => {
 
 // See routines
 app.get('/api/routine', (req, res, next) => {
-  res.sendStatus(501);
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.body.userId)) {
+    next(new ClientError('userId is not an integer', 404));
+  }
+  const userSql = `
+    select "userName"
+    from "user"
+    where "userId" = $1;
+  `;
+  const userRoutineSql = `
+    select *
+      from "userRoutine"
+     where "receiverId" = $1 and "accepted?" = TRUE;
+  `;
+  const value = [parseInt(req.body.userId)];
+  db.query(userSql, value)
+    .then(result => {
+      if (!result.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
+      else {
+        db.query(userRoutineSql, value)
+          .then(result => res.status(200).json(result.rows))
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 // View habits from routines
@@ -107,6 +131,21 @@ app.delete('/api/habit/:id', (req, res, next) => {
 // add habit
 app.post('/api/routine/:id/habit', (req, res, next) => {
   res.sendStatus(501);
+});
+
+app.use('/api', (req, res, next) => {
+  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof ClientError) {
+    res.status(err.status).json({ error: err.message });
+  } else {
+    console.error(err);
+    res.status(500).json({
+      error: 'an unexpected error occurred'
+    });
+  }
 });
 
 app.listen(process.env.PORT, () => {
