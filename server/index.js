@@ -19,24 +19,37 @@ app.get('/api/health-check', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.use('/api', (req, res, next) => {
-  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
-});
-
-app.use((err, req, res, next) => {
-  if (err instanceof ClientError) {
-    res.status(err.status).json({ error: err.message });
-  } else {
-    console.error(err);
-    res.status(500).json({
-      error: 'an unexpected error occurred'
-    });
-  }
-});
-
 // See upcoming habits
 app.get('/api/habit', (req, res, next) => {
-  res.sendStatus(501);
+  const userId = parseInt(req.body.userId);
+
+  const sqlUser = `
+                  select *
+                  from "user"
+                  where "userId" = $1
+                  `;
+  const params = [userId];
+  const sqlHabits = `
+                select *
+                from "userHabit"
+                left join "habit" ON "userHabit"."habitId" = "habit"."habitId"
+                where "userId" = $1
+                `;
+
+  db.query(sqlUser, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        throw new ClientError(`user with id ${userId} could not be found`, 404);
+      } else {
+        db.query(sqlHabits, params)
+          .then(userHabits => {
+            res.status(200);
+            res.json(userHabits.rows);
+          });
+      }
+    })
+    .catch(err => next(err));
+
 });
 
 // See routines
@@ -109,4 +122,19 @@ app.post('/api/routine/:id/habit', (req, res, next) => {
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log('Listening on port', process.env.PORT);
+});
+
+app.use('/api', (req, res, next) => {
+  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof ClientError) {
+    res.status(err.status).json({ error: err.message });
+  } else {
+    console.error(err);
+    res.status(500).json({
+      error: 'an unexpected error occurred'
+    });
+  }
 });
