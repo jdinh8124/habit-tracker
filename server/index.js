@@ -35,46 +35,76 @@ app.use((err, req, res, next) => {
 });
 
 // See upcoming habits
-app.get('/api/habit', (req, res, next) => {});
+app.get('/api/habit', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // See routines
-app.get('/api/routine', (req, res, next) => {});
+app.get('/api/routine', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // View habits from routines
-app.get('/api/routine/:id/habit', (req, res, next) => {});
+app.get('/api/routine/:id/habit', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // Create routine
-app.post('/api/routine', (req, res, next) => {});
+app.post('/api/routine', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // Edit routine
-app.put('/api/routine/:id', (req, res, next) => { });
+app.put('/api/routine/:id', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // Delete routine
-app.delete('/api/routine/:id', (req, res, next) => { });
+app.delete('/api/routine/:id', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // Send routine to user
-app.post('/api/share', (req, res, next) => { });
+app.post('/api/share', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // accept or deny routine
-app.put('/api/request/:id', (req, res, next) => { });
+app.put('/api/request/:id', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // edit habit
-app.put('/api/routine/:id/habit/:id', (req, res, next) => { });
+app.put('/api/routine/:id/habit/:id', (req, res, next) => {
+  res.sendStatus(501);
+});
 
-app.put('/api/habit/:id', (req, res, next) => { });
+app.put('/api/habit/:id', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // mark habit completion
-app.post('/api/routine/:id/habit/:id', (req, res, next) => { });
+app.post('/api/routine/:id/habit/:id', (req, res, next) => {
+  res.sendStatus(501);
+});
 
-app.post('/api/habit/:id', (req, res, next) => { });
+app.post('/api/habit/:id', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // delete habit
-app.delete('/api/routine/:id/habit/:id', (req, res, next) => { });
+app.delete('/api/routine/:id/habit/:id', (req, res, next) => {
+  res.sendStatus(501);
+});
 
-app.delete('/api/habit/:id', (req, res, next) => { });
+app.delete('/api/habit/:id', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 // add habit
-app.post('/api/routine/:id/habit', (req, res, next) => { });
+app.post('/api/routine/:id/habit', (req, res, next) => {
+  res.sendStatus(501);
+});
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
