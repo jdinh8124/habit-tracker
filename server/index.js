@@ -20,8 +20,8 @@ app.get('/api/health-check', (req, res, next) => {
 });
 
 // See upcoming habits
-app.get('/api/habit', (req, res, next) => {
-  const userId = parseInt(req.body.userId);
+app.get('/api/habit/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId);
   const sql = `
                 select *
                 from "userHabit"
@@ -56,7 +56,7 @@ app.get('/api/routine', (req, res, next) => {
   const userRoutineSql = `
     select *
       from "userRoutine"
-     where "receiverId" = $1 and "accepted?" = TRUE;
+      where "receiverId" = $1 and "accepted?" = TRUE;
   `;
   const value = [parseInt(req.body.userId)];
   db.query(userSql, value)

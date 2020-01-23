@@ -2,17 +2,29 @@
 * Main page after user logged in
 */
 
-import React from 'react';
-import Header from './header';
-import Sidebar from './sidebar';
+import React, { useState, useEffect } from 'react';
+// import Header from './header';
+// import Sidebar from './sidebar';
 import HabitList from './habitList';
 
-const UserHabits = () => {
+const UserHabits = props => {
+  const [habits, setHabits] = useState([]);
+
+  function getUserHabits(userId) {
+    fetch(`/api/habit/${userId}`)
+      .then(result => result.json())
+      .then(userHabits => {
+        setHabits(userHabits);
+      });
+  }
+
+  useEffect(() => {
+    getUserHabits(1);
+
+  }, []);
   return (
-    <div>
-      <Header />
-      <Sidebar />
-      <HabitList />
+    <div className ="bg-light h-100">
+      <HabitList userHabits={habits} />
     </div>
   );
 };
