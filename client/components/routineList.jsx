@@ -3,10 +3,18 @@
 */
 
 import React from 'react';
+import Routine from './routine';
 
-const RoutineList = () => {
+const RoutineList = props => {
+  let createList = [];
+  if (props.routine) {
+    createList = props.routine.map(item => <Routine key={item.routineId} routineItem={item} />);
+  } else {
+    createList = [];
+  }
+
   return (
-    <div></div>
+    <div>{createList}</div>
   );
 };
 

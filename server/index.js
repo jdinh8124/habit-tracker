@@ -43,9 +43,9 @@ app.get('/api/habit', (req, res, next) => {
 });
 
 // See routines
-app.get('/api/routine', (req, res, next) => {
+app.get('/api/routine/user/:user', (req, res, next) => {
   const integerTest = /^[1-9]\d*$/;
-  if (!integerTest.exec(req.body.userId)) {
+  if (!integerTest.exec(req.params.user)) {
     next(new ClientError('userId is not an integer', 404));
   }
   const userSql = `
@@ -58,7 +58,7 @@ app.get('/api/routine', (req, res, next) => {
       from "userRoutine"
      where "receiverId" = $1 and "accepted?" = TRUE;
   `;
-  const value = [parseInt(req.body.userId)];
+  const value = [parseInt(req.params.user)];
   db.query(userSql, value)
     .then(result => {
       if (!result.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
