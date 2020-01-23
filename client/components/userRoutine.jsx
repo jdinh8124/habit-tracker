@@ -8,7 +8,6 @@ import Header from './header';
 import Sidebar from './sidebar';
 import RoutineList from './routineList';
 
-
 const UserRoutine = props => {
 
   function isSideBarOpen() {
@@ -30,7 +29,7 @@ const UserRoutine = props => {
 
   return (
     <div className="bg-light h-100">
-    <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
+      <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
       {isSideBarOpen()}
       <RoutineList routine={routine} />
 

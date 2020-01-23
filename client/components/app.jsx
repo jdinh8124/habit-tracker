@@ -8,13 +8,12 @@ import {
   Route
   // Link
 } from 'react-router-dom';
- 
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideBarOpen: true,
+      sideBarOpen: false,
       currentView: ''
     };
     this.openSideBar = this.openSideBar.bind(this);
@@ -37,7 +36,7 @@ export default class App extends React.Component {
         sideBarOpen: true
       }));
     }
-   }
+  }
 
   render() {
     return (

@@ -119,13 +119,17 @@ app.post('/api/habit/:id', (req, res, next) => {
   res.sendStatus(501);
 });
 
-// delete habit
+// delete routine habit
 app.delete('/api/routine/:id/habit/:id', (req, res, next) => {
   res.sendStatus(501);
 });
 
-app.delete('/api/habit/:id', (req, res, next) => {
-  res.sendStatus(501);
+// delete user habit
+app.delete('/api/habit/', (req, res, next) => {
+  const habitId = parseInt(req.body.habitId);
+  if (isNaN(habitId) || !habitId) {
+    throw new ClientError('Habit Id must be a positive integer', 400);
+  }
 });
 
 // add habit
