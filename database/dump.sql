@@ -686,6 +686,10 @@ COPY public."user" ("userId", "userName", email, "userPwd", "createdAt") FROM st
 --
 
 COPY public."userHabit" ("userId", "routineId", "habitId", "timesCompleted", "lastCompleted", frequency, "nextCompletion", duration, "congratsMessage", "motivationalMessage", "createdAt") FROM stdin;
+1	1	2	0	12:16:05.537174	2	2020-01-22	ad	yay	you suck	2020-01-22 12:16:05.537174-08
+1	1	2	0	12:16:55.463105	2	2020-01-22	ad	yay	you suck	2020-01-22 12:16:55.463105-08
+1	1	2	0	12:16:56.40739	2	2020-01-22	ad	yay	you suck	2020-01-22 12:16:56.40739-08
+1	1	2	0	12:16:57.13956	2	2020-01-22	ad	yay	you suck	2020-01-22 12:16:57.13956-08
 \.
 
 
