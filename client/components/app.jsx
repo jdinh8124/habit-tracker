@@ -13,8 +13,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideBarOpen: false,
-      currentView: ''
+      sideBarOpen: false
     };
     this.openSideBar = this.openSideBar.bind(this);
   }
@@ -45,10 +44,10 @@ export default class App extends React.Component {
           <Header />
           <Switch>
             <Route exact path="/">
-              <UserHabits isOpen={this.state.sideBarOpen} sideRender={this.state.currentView} openSideBar={this.openSideBar} />
+              <UserHabits isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />
             </Route>
             <Route exact path="/userRoutine">
-              <UserRoutine isOpen={this.state.sideBarOpen} sideRender={this.state.currentView} openSideBar={this.openSideBar} />
+              <UserRoutine isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />
             </Route>
           </Switch>
         </div>

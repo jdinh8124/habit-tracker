@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './components/app';
-import Test from './test';
+import App from './components/app';
+// import Test from './test';
 
 ReactDOM.render(
-  <Test />,
+  <App />,
   document.querySelector('#root')
 );
