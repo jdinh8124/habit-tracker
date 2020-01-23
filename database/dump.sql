@@ -648,6 +648,10 @@ COPY public.chat ("chatId", "senderId", "receiverId", message, "createdAt") FROM
 --
 
 COPY public.habit ("habitId", "habitName", "habitDescription", "createdBy", "createdAt") FROM stdin;
+1	Take a Walk	Taking a walk outside	1	2020-01-22 17:25:08.386083-08
+2	Drink water	So you can stay alive	2	2020-01-22 17:25:08.386083-08
+3	Work Out	Make yourself tired	1	2020-01-22 17:25:08.386083-08
+4	Code Everyday	Stay sharp	2	2020-01-22 17:25:08.386083-08
 \.
 
 
@@ -686,6 +690,10 @@ COPY public."user" ("userId", "userName", email, "userPwd", "createdAt") FROM st
 --
 
 COPY public."userHabit" ("userId", "routineId", "habitId", "timesCompleted", "lastCompleted", frequency, "nextCompletion", duration, "congratsMessage", "motivationalMessage", "createdAt") FROM stdin;
+2	1	1	3	17:32:23.37984	1	2020-01-22	30 min	You went outside!	Get out...	2020-01-22 17:32:23.37984-08
+2	2	2	5	17:32:23.37984	2	2020-01-22	1 hour	Stay hydrated!	Get some water...	2020-01-22 17:32:23.37984-08
+2	1	4	12	17:32:23.37984	1	2020-01-22	2 hours	Stay sharp!	Just commit...	2020-01-22 17:32:23.37984-08
+1	2	3	7	17:32:23.37984	2	2020-01-22	1 hour	Get gains!	Hit the gym...	2020-01-22 17:32:23.37984-08
 \.
 
 
@@ -735,7 +743,7 @@ SELECT pg_catalog.setval('public."habit_createdBy_seq"', 1, false);
 -- Name: habit_habitId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."habit_habitId_seq"', 1, false);
+SELECT pg_catalog.setval('public."habit_habitId_seq"', 4, true);
 
 
 --
