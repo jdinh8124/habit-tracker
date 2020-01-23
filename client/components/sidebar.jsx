@@ -4,10 +4,7 @@
 
 import React from 'react';
 import SidebarItem from './sidebaritem';
-import {
-  BrowserRouter as Link
-} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 const Sidebar = props => {
 
   const sideBarItems = () => {
