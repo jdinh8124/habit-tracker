@@ -25,15 +25,32 @@ const UserHabits = props => {
       });
   }
 
+  function deleteUserHabit(habitId) {
+    fetch('/api/habit/', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ habitId: habitId })
+    })
+      .then(response => {
+        const habitsCopy = [...habits];
+        const index = habitsCopy.findIndex(element => element.habitId === habitId);
+        habitsCopy.splice(index, 1);
+        setHabits(habitsCopy);
+
+      });
+  }
+
   useEffect(() => {
-    getUserHabits(1);
+    getUserHabits(2);
 
   }, []);
   return (
     <div className ="bg-light h-100">
       <Header title={'User Habits'} headerView={'main'} openSideBar={props.openSideBar}/>
       {isSideBarOpen()}
-      <HabitList userHabits={habits} />
+      <HabitList userHabits={habits} deleteHabit={deleteUserHabit} />
     </div>
   );
 };
