@@ -130,6 +130,20 @@ app.delete('/api/habit/', (req, res, next) => {
   if (isNaN(habitId) || !habitId) {
     throw new ClientError('Habit Id must be a positive integer', 400);
   }
+
+  const deleteSQL = `
+                    delete from "userHabit"
+                    where "habitId" = $1
+                    `;
+  const params = [habitId];
+  db.query(deleteSQL, params)
+    .then(result => {
+      if (!result.rowCount) {
+        throw new ClientError(`cannot find item with habitId: ${habitId}`);
+      } else {
+        res.status(204).json({});
+      }
+    }).catch(err => next(err));
 });
 
 // add habit
