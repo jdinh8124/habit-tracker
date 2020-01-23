@@ -3,7 +3,7 @@ body{
 }
 
 .titleSize{
-  font-size: 50px;
+  font-size: 40px;
   color: white;
   top: 2px;
 }
@@ -14,14 +14,14 @@ body{
   width: 100vw;
   background-color: black;
   opacity: 0.5;
-  /* transition: ease-in 0.5s; */
+  transition: ease-in 0.5s;
 }
 
 .open-side {
   background-color: white;
   height: 100vh;
   width: 60vw;
-  /* transition: ease-out 0.5s; */
+  transition: ease-out 0.5s;
   overflow-x: hidden;
 }
 .side-item{

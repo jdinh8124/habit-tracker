@@ -16,7 +16,7 @@ const UserHabits = props => {
   }
   return (
     <div>
-      <Header title={props.title} headerView={props.headerView} openSideBar={props.openSideBar}/>
+      <Header title={'User Habits'} headerView={'main'} openSideBar={props.openSideBar}/>
       {isSideBarOpen()}
       <HabitList />
     </div>

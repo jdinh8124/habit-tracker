@@ -8,11 +8,18 @@ import Header from './header';
 import Sidebar from './sidebar';
 import RoutineList from './routineList';
 
-const UserRoutine = () => {
+const UserRoutine = props => {
+
+  function isSideBarOpen() {
+    if (props.isOpen) {
+      return <Sidebar sideRender={props.sideRender} />;
+    }
+  }
+
   return (
     <div>
-      <Header />
-      <Sidebar />
+      <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
+      {isSideBarOpen()}
       <RoutineList />
     </div>
   );
