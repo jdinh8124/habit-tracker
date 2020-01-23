@@ -160,10 +160,6 @@ app.put('/api/routine/:id/habit/:id', (req, res, next) => {
   res.sendStatus(501);
 });
 
-app.put('/api/habit/:id', (req, res, next) => {
-  res.sendStatus(501);
-});
-
 // mark habit completion
 app.post('/api/routine/:id/habit/:id', (req, res, next) => {
   res.sendStatus(501);
