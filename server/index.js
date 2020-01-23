@@ -19,29 +19,56 @@ app.get('/api/health-check', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.use('/api', (req, res, next) => {
-  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
-});
-
-app.use((err, req, res, next) => {
-  if (err instanceof ClientError) {
-    res.status(err.status).json({ error: err.message });
-  } else {
-    console.error(err);
-    res.status(500).json({
-      error: 'an unexpected error occurred'
-    });
-  }
-});
-
 // See upcoming habits
-app.get('/api/habit', (req, res, next) => {
-  res.sendStatus(501);
+app.get('/api/habit/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId);
+  const sql = `
+                select *
+                from "userHabit"
+                left join "habit" ON "userHabit"."habitId" = "habit"."habitId"
+                where "userId" = $1
+                `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        throw new ClientError(`user with id ${userId} could not be found`, 404);
+      } else {
+        res.status(200);
+        res.json(result.rows);
+      }
+    })
+    .catch(err => next(err));
+
 });
 
 // See routines
-app.get('/api/routine', (req, res, next) => {
-  res.sendStatus(501);
+app.get('/api/routine/user/:user', (req, res, next) => {
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.user)) {
+    next(new ClientError('userId is not an integer', 404));
+  }
+  const userSql = `
+    select "userName"
+    from "user"
+    where "userId" = $1;
+  `;
+  const userRoutineSql = `
+    select *
+      from "userRoutine"
+      where "receiverId" = $1 and "accepted?" = TRUE;
+  `;
+  const value = [parseInt(req.params.user)];
+  db.query(userSql, value)
+    .then(result => {
+      if (!result.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
+      else {
+        db.query(userRoutineSql, value)
+          .then(result => res.status(200).json(result.rows))
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 // View habits from routines
@@ -106,7 +133,37 @@ app.post('/api/routine/:id/habit', (req, res, next) => {
   res.sendStatus(501);
 });
 
+app.use('/api', (req, res, next) => {
+  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof ClientError) {
+    res.status(err.status).json({ error: err.message });
+  } else {
+    console.error(err);
+    res.status(500).json({
+      error: 'an unexpected error occurred'
+    });
+  }
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log('Listening on port', process.env.PORT);
+});
+
+app.use('/api', (req, res, next) => {
+  next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof ClientError) {
+    res.status(err.status).json({ error: err.message });
+  } else {
+    console.error(err);
+    res.status(500).json({
+      error: 'an unexpected error occurred'
+    });
+  }
 });

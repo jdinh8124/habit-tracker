@@ -1,5 +1,6 @@
 body{
   margin: 0;
+   height: 100vh;
 }
 
 .titleSize{
@@ -32,4 +33,12 @@ body{
   border-bottom: solid 4px white;
   width: 85%;
   font-size: 30px;
+}
+
+#root{
+  height: 100%;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }

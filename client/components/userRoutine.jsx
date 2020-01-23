@@ -8,6 +8,7 @@ import Header from './header';
 import Sidebar from './sidebar';
 import RoutineList from './routineList';
 
+
 const UserRoutine = props => {
 
   function isSideBarOpen() {
@@ -16,11 +17,23 @@ const UserRoutine = props => {
     }
   }
 
+  const [routine, setRoutine] = React.useState(null);
+  const userId = 2;
+
+  React.useEffect(
+    () => {
+      fetch(`/api/routine/user/${userId}`)
+        .then(res => res.json())
+        .then(res => setRoutine(res));
+    }, []
+  );
+
   return (
-    <div>
-      <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
+    <div className="bg-light h-100">
+    <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
       {isSideBarOpen()}
-      <RoutineList />
+      <RoutineList routine={routine} />
+
     </div>
   );
 };
