@@ -11,7 +11,7 @@ const UserHabits = props => {
 
   function isSideBarOpen() {
     if (props.isOpen) {
-      return <Sidebar sideRender={props.sideRender} />;
+      return <Sidebar sideRender={'inHabits'} closeSideBar={props.openSideBar} />;
     }
   }
 
@@ -25,8 +25,25 @@ const UserHabits = props => {
       });
   }
 
+  function deleteUserHabit(habitId) {
+    fetch('/api/habit/', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ habitId: habitId })
+    })
+      .then(response => {
+        const habitsCopy = [...habits];
+        const index = habitsCopy.findIndex(element => element.habitId === habitId);
+        habitsCopy.splice(index, 1);
+        setHabits(habitsCopy);
+
+      });
+  }
+
   useEffect(() => {
-    getUserHabits(1);
+    getUserHabits(2);
 
   }, []);
   return (

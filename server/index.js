@@ -198,17 +198,32 @@ app.put('/api/routine/:id/habit/:id', (req, res, next) => {
   res.sendStatus(501);
 });
 
-app.put('/api/habit/:id', (req, res, next) => {
-  res.sendStatus(501);
-});
-
-// mark habit completion
 app.post('/api/routine/:id/habit/:id', (req, res, next) => {
   res.sendStatus(501);
 });
 
-app.post('/api/habit/:id', (req, res, next) => {
-  res.sendStatus(501);
+// mark habit completion
+app.post('/api/user/habit', (req, res, next) => {
+  const habitId = parseInt(req.body.habitId);
+  const userId = parseInt(req.body.userId);
+  if (!habitId || !userId) {
+    throw ClientError('HabitId and userId are required');
+  }
+  const updateSQL = `update "userHabit"
+                    set "lastCompleted" = CURRENT_TIME,
+                        "timesCompleted" = "timesCompleted" + 1,
+                        "nextCompletion" = CURRENT_DATE + interval '1 day'
+                    where "userId" = $1 and "habitId" = $2
+                    returning *
+                    `;
+  const params = [habitId, userId];
+  db.query(updateSQL, params)
+    .then(result => {
+      if (!result.rowCount) {
+        throw new ClientError(`cannot find item with habitId: ${habitId} under userId: ${userId}`);
+      }
+      res.status(200).json(result.rows);
+    });
 });
 
 // delete routine habit
