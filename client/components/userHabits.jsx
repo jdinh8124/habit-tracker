@@ -11,7 +11,7 @@ const UserHabits = props => {
 
   function isSideBarOpen() {
     if (props.isOpen) {
-      return <Sidebar sideRender={props.sideRender} />;
+      return <Sidebar sideRender={'inHabits'} closeSideBar={props.openSideBar} />;
     }
   }
 

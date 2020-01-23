@@ -12,7 +12,7 @@ const UserRoutine = props => {
 
   function isSideBarOpen() {
     if (props.isOpen) {
-      return <Sidebar sideRender={props.sideRender} />;
+      return <Sidebar sideRender={'inRoutines'} closeSideBar={props.openSideBar} />;
     }
   }
 
