@@ -2,7 +2,6 @@ import React from 'react';
 import UserHabits from './userHabits';
 import UserRoutine from './userRoutine';
 import Header from './header';
-import Sidebar from './sidebar';
 import {
   BrowserRouter as Router,
   Switch,
@@ -41,21 +40,14 @@ export default class App extends React.Component {
     }
   }
 
-  isSideBarOpen() {
-    if (this.state.sideBarOpen) {
-      return <Sidebar sideRender={this.state.currentView} />;
-    }
-  }
-
   render() {
     return (
       <Router>
         <div>
-          <Header title={this.state.title} headerView={this.state.view} openSideBar={this.openSideBar} />
-          {this.isSideBarOpen()}
+          <Header />
           <Switch>
             <Route exact path="/">
-              <UserHabits />
+              <UserHabits isOpen={this.state.sideBarOpen} sideRender={this.state.currentView} title={this.state.title} headerView={this.state.view} openSideBar={this.openSideBar} />
             </Route>
             <Route exact path="/userRoutine">
               <UserRoutine />

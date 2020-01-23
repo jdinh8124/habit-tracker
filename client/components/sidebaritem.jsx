@@ -3,10 +3,10 @@ import React from 'react';
 const Sidebaritem = props => {
 
   return (
-    <div className="container d-flex flex-col side-item">
+    <div className="container ml-3 side-item">
       <div className="row">
-        <div>{props.text}</div>
         <i className={props.pic}></i>
+        <div>{props.text}</div>
       </div>
       <div className="bottom-line"></div>
     </div>

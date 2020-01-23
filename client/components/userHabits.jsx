@@ -7,11 +7,17 @@ import Header from './header';
 import Sidebar from './sidebar';
 import HabitList from './habitList';
 
-const UserHabits = () => {
+const UserHabits = props => {
+
+  function isSideBarOpen() {
+    if (props.isOpen) {
+      return <Sidebar sideRender={props.sideRender} />;
+    }
+  }
   return (
     <div>
-      <Header />
-      <Sidebar />
+      <Header title={props.title} headerView={props.headerView} openSideBar={props.openSideBar}/>
+      {isSideBarOpen()}
       <HabitList />
     </div>
   );

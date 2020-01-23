@@ -39,7 +39,7 @@ const Sidebar = props => {
 
   return (
     <div className="shadow-div container ">
-      <div className="open-side offset-6 bg-primary ">
+      <div className="open-side offset-5 bg-primary ">
         {sideBarItems()}
       </div>
     </div>
