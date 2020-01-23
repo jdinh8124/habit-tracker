@@ -1,5 +1,5 @@
 import React from 'react';
-import UserRoutine from './components/userRoutine';
+import UserRoutineHabit from './components/userRoutineHabit';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <UserRoutine />
+        <UserRoutineHabit />
       </div>
     );
   }

@@ -648,9 +648,6 @@ COPY public.chat ("chatId", "senderId", "receiverId", message, "createdAt") FROM
 --
 
 COPY public.habit ("habitId", "habitName", "habitDescription", "createdBy", "createdAt") FROM stdin;
-2	Walk	walk	1	2020-01-22 12:00:41.911604-08
-3	run	run	1	2020-01-22 12:00:59.122571-08
-4	relax	relax	1	2020-01-22 12:01:23.917668-08
 \.
 
 
@@ -659,7 +656,10 @@ COPY public.habit ("habitId", "habitName", "habitDescription", "createdBy", "cre
 --
 
 COPY public.routine ("routineId", "routineName", "routineDescription", "createdBy", "createdAt") FROM stdin;
-1	routine	routine stuff	1	2020-01-22 12:06:00.378767-08
+1	Going Out	Bob wants to go outside	1	2020-01-22 12:14:57.795595-08
+2	Stay Healthy	Dob wants to be healthy	2	2020-01-22 12:14:57.795595-08
+3	Be Productive	Bob needs to work more	1	2020-01-22 12:14:57.795595-08
+4	Have Fun	Dob is boring	2	2020-01-22 12:14:57.795595-08
 \.
 
 
@@ -676,8 +676,8 @@ COPY public."routineHabit" ("routineId", "habitId", "createdAt") FROM stdin;
 --
 
 COPY public."user" ("userId", "userName", email, "userPwd", "createdAt") FROM stdin;
-1	spongebob	email	alkdf	2020-01-22 11:54:36.523522-08
-3	sandy	email	alkdf	2020-01-22 11:58:46.84434-08
+1	bob	bob@imail.com	bob123	2020-01-22 11:49:27.832874-08
+2	dob	dob@imail.com	dob456	2020-01-22 11:49:27.832874-08
 \.
 
 
@@ -698,6 +698,12 @@ COPY public."userHabit" ("userId", "routineId", "habitId", "timesCompleted", "la
 --
 
 COPY public."userRoutine" ("receiverId", "senderId", "routineId", "routineName", "accepted?", "requestMessage", "createdAt") FROM stdin;
+2	1	1	Going out	t	Dob please accept this routine	2020-01-22 12:33:50.164023-08
+2	2	4	Have Fun	t	Fun routine for me	2020-01-22 12:33:50.164023-08
+2	1	3	Work!	f	Dob be more productive	2020-01-22 12:33:50.164023-08
+2	2	2	Be Healthy	\N	Stopb being a fatass	2020-01-22 12:33:50.164023-08
+1	2	4	Have Some Fun	f	You should try this	2020-01-22 12:33:50.164023-08
+1	2	2	Be More Healthy	t	Stay healthy	2020-01-22 12:33:50.164023-08
 \.
 
 
@@ -733,7 +739,7 @@ SELECT pg_catalog.setval('public."habit_createdBy_seq"', 1, false);
 -- Name: habit_habitId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."habit_habitId_seq"', 4, true);
+SELECT pg_catalog.setval('public."habit_habitId_seq"', 1, false);
 
 
 --
@@ -761,7 +767,7 @@ SELECT pg_catalog.setval('public."routine_createdBy_seq"', 1, false);
 -- Name: routine_routineId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."routine_routineId_seq"', 1, true);
+SELECT pg_catalog.setval('public."routine_routineId_seq"', 4, true);
 
 
 --
@@ -810,7 +816,7 @@ SELECT pg_catalog.setval('public."userRoutine_senderId_seq"', 1, false);
 -- Name: user_userId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."user_userId_seq"', 3, true);
+SELECT pg_catalog.setval('public."user_userId_seq"', 2, true);
 
 
 --
