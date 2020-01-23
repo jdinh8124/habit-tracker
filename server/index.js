@@ -111,26 +111,64 @@ app.post('/api/routine', (req, res, next) => {
   if (!integerTest.exec(req.body.user)) {
     next(new ClientError(`userId ${req.body.user} is not an integer`, 404));
   }
+  let routineId = null;
   const userSql = `
     select "userName"
-    from "user"
-    where "userId" = $1;
+      from "user"
+     where "userId" = $1;
+  `;
+  const duplicateRoutineSql = `
+    select *
+      from "routine"
+     where "routineName" = $1 and "createdBy" = $2;
   `;
   const postRoutineSql = `
     insert into "routine" ("routineName", "routineDescription", "createdBy")
     values ($2, $3, $1)
     returning *;
   `;
+  const selectRoutineSql = `
+    select "routineId"
+      from "routine"
+     where "routineName" = $1 and "createdBy" = $2;
+  `;
+  const selfRoutineSql = `
+    insert into "userRoutine" ("receiverId", "senderId", "routineId", "routineName", "accepted?", "requestMessage")
+    values ($1, $2, $3, $4, $5, $6)
+    returning *;
+  `;
   const userValue = [parseInt(req.body.user)];
+  const routineNameValue = [req.body.routineName, parseInt(req.body.user)];
   const routineValue = [parseInt(req.body.user), req.body.routineName, req.body.routineDesc];
+  const selfValue = [parseInt(req.body.user), parseInt(req.body.user), routineId, req.body.routineName, true, 'Self-created routine'];
   db.query(userSql, userValue)
-    .then(result => {
-      if (!result.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
+    .then(userResult => {
+      if (!userResult.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
       else {
-        db.query(postRoutineSql, routineValue)
-          .then(result => res.status(204).json(result.rows))
+        db.query(duplicateRoutineSql, routineNameValue)
+          .then(routineResult => {
+            if (routineResult.rows.length) next(new ClientError(`routine name ${req.body.routineName} already existed`, 400));
+            else {
+              db.query(postRoutineSql, routineValue)
+                .then(result => result.rows)
+                .catch(err => next(err));
+            }
+          })
           .catch(err => next(err));
       }
+    })
+    .then(result => {
+      db.query(selectRoutineSql, routineNameValue)
+        .then(routineIdResult => {
+          routineId = parseInt(routineIdResult.rows[0].routineId);
+        })
+        .then(result => {
+          selfValue[2] = routineId;
+          db.query(selfRoutineSql, selfValue)
+            .then(result => res.status(200).json(result.rows))
+            .catch(err => next(err));
+        })
+        .catch(err => next(err));
     })
     .catch(err => next(err));
 });
