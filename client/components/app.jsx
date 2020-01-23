@@ -1,18 +1,18 @@
 import React from 'react';
 import UserHabits from './userHabits';
-import UserRoutine from './userRoutine';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      userHabits: []
+    };
   }
 
   render() {
     return (
-      <div>
+      <div className='h-100'>
         <UserHabits />
-        <UserRoutine />
       </div>
     );
   }
