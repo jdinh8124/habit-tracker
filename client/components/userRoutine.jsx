@@ -30,7 +30,8 @@ const UserRoutine = props => {
   );
 
   const createBlank = () => {
-    return blank && <BlankCard setBlank={setBlank} />;
+    return blank && <BlankCard setBlank={setBlank}
+      user={userId} routine={routine} setRoutine={setRoutine} />;
   };
 
   return (
