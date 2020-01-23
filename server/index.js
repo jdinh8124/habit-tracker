@@ -104,7 +104,35 @@ app.get('/api/routine/:id/user/:user', (req, res, next) => {
 
 // Create routine
 app.post('/api/routine', (req, res, next) => {
-  res.sendStatus(501);
+  if (!req.body.user) next(new ClientError('Please enter a userId', 400));
+  else if (!req.body.routineName) next(new ClientError('Please enter a routine name', 400));
+  else if (!req.body.routineDesc) next(new ClientError('Please enter a routine description', 400));
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.body.user)) {
+    next(new ClientError(`userId ${req.body.user} is not an integer`, 404));
+  }
+  const userSql = `
+    select "userName"
+    from "user"
+    where "userId" = $1;
+  `;
+  const postRoutineSql = `
+    insert into "routine" ("routineName", "routineDescription", "createdBy")
+    values ($2, $3, $1)
+    returning *;
+  `;
+  const userValue = [parseInt(req.body.user)];
+  const routineValue = [parseInt(req.body.user), req.body.routineName, req.body.routineDesc];
+  db.query(userSql, userValue)
+    .then(result => {
+      if (!result.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
+      else {
+        db.query(postRoutineSql, routineValue)
+          .then(result => res.status(204).json(result.rows))
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 // Edit routine

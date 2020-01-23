@@ -6,6 +6,8 @@ import React, { useState, useEffect } from 'react';
 import Header from './header';
 import Sidebar from './sidebar';
 import HabitList from './habitList';
+import Footer from './footer';
+import BlankCard from './blankCard';
 
 const UserHabits = props => {
 
@@ -16,6 +18,7 @@ const UserHabits = props => {
   }
 
   const [habits, setHabits] = useState([]);
+  const [blank, setBlank] = React.useState(false);
 
   function getUserHabits(userId) {
     fetch(`/api/habit/${userId}`)
@@ -46,11 +49,18 @@ const UserHabits = props => {
     getUserHabits(2);
 
   }, []);
+
+  const createBlank = () => {
+    return blank && <BlankCard setBlank={setBlank} />;
+  };
+
   return (
     <div className ="bg-light h-100">
       <Header title={'User Habits'} headerView={'main'} openSideBar={props.openSideBar}/>
       {isSideBarOpen()}
       <HabitList userHabits={habits} deleteHabit={deleteUserHabit} />
+      {createBlank()}
+      <Footer setBlank={setBlank} />
     </div>
   );
 };
