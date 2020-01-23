@@ -72,8 +72,34 @@ app.get('/api/routine/user/:user', (req, res, next) => {
 });
 
 // View habits from routines
-app.get('/api/routine/:id/habit', (req, res, next) => {
-  res.sendStatus(501);
+app.get('/api/routine/:id/user/:user', (req, res, next) => {
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.user) || !integerTest.exec(req.params.id)) {
+    next(new ClientError('userId or routineId is not an integer', 404));
+  }
+  const userSql = `
+    select "userName"
+    from "user"
+    where "userId" = $1;
+  `;
+  const userRoutineSql = `
+    select *
+    from "userHabit"
+    left join "habit" ON "userHabit"."habitId" = "habit"."habitId"
+    where "userId" = $1 and "routineId" = $2;
+  `;
+  const userValue = [parseInt(req.params.user)];
+  const routineValue = [parseInt(req.params.user), parseInt(req.params.id)];
+  db.query(userSql, userValue)
+    .then(result => {
+      if (!result.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
+      else {
+        db.query(userRoutineSql, routineValue)
+          .then(result => res.status(200).json(result.rows))
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 // Create routine
