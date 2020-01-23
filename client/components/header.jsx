@@ -13,7 +13,7 @@ export default function Header(props) {
       return (
         <>
           <div className="col-3 titleSize offset-1" >{props.title}</div>
-          <div onClick={props.openSideBar} className="titleSize"><i className="fas fa-bars"></i></div>
+          <div onClick={props.openSideBar} className="titleSize"><i className="fas fa-bars cursor-pointer"></i></div>
         </>
       );
     } else if (props.headerView === 'subMain') {
