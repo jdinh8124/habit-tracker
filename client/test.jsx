@@ -1,5 +1,6 @@
 import React from 'react';
-import UserRoutineHabit from './components/userRoutineHabit';
+// import UserRoutineHabit from './components/userRoutineHabit';
+import UserHabits from './components/userHabits';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <UserRoutineHabit />
+        <UserHabits />
       </div>
     );
   }
