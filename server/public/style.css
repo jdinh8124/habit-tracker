@@ -1,6 +1,38 @@
 body{
   margin: 0;
+   height: 100vh;
+}
+
+.titleSize{
+  font-size: 40px;
+  color: white;
+  top: 2px;
+}
+
+.shadow-div {
+  position: fixed;
   height: 100vh;
+  width: 100vw;
+  background-color: black;
+  opacity: 0.5;
+  transition: ease-in 0.5s;
+}
+
+.open-side {
+  background-color: white;
+  height: 100vh;
+  width: 60vw;
+  transition: ease-out 0.5s;
+  overflow-x: hidden;
+}
+.side-item{
+  margin: 2vw 0 0 8vw;
+  height: 20%;
+  z-index: 2;
+  color: white;
+  border-bottom: solid 4px white;
+  width: 85%;
+  font-size: 30px;
 }
 
 #root{

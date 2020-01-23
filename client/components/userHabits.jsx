@@ -8,6 +8,13 @@ import React, { useState, useEffect } from 'react';
 import HabitList from './habitList';
 
 const UserHabits = props => {
+
+  function isSideBarOpen() {
+    if (props.isOpen) {
+      return <Sidebar sideRender={props.sideRender} />;
+    }
+  }
+
   const [habits, setHabits] = useState([]);
 
   function getUserHabits(userId) {
@@ -24,6 +31,8 @@ const UserHabits = props => {
   }, []);
   return (
     <div className ="bg-light h-100">
+       <Header title={'User Habits'} headerView={'main'} openSideBar={props.openSideBar}/>
+      {isSideBarOpen()}
       <HabitList userHabits={habits} />
     </div>
   );
