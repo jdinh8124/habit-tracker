@@ -42,6 +42,28 @@ app.get('/api/habit/:userId', (req, res, next) => {
 
 });
 
+// get specific habit
+app.get('/api/user/:userId/habit/:habitId', (req, res, next) => {
+  const userId = parseInt(req.params.userId);
+  const habitId = parseInt(req.params.habitId);
+  const sql = `
+                select *
+                from "userHabit"
+                where "userId" = $1 and "habitId" = $2
+                `;
+  const params = [userId, habitId];
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        throw new ClientError(`luser with id: ${userId} does not have habit with id: ${habitId}`, 404);
+      } else {
+        res.status(200);
+        res.json(result.row);
+      }
+    })
+    .catch(err => next(err));
+});
+
 // See routines
 app.get('/api/routine/user/:user', (req, res, next) => {
   const integerTest = /^[1-9]\d*$/;
@@ -283,14 +305,14 @@ app.post('/api/user/habit', (req, res, next) => {
                     where "userId" = $1 and "habitId" = $2
                     returning *
                     `;
-  const params = [habitId, userId];
+  const params = [userId, habitId];
   db.query(updateSQL, params)
     .then(result => {
       if (!result.rowCount) {
-        throw new ClientError(`cannot find item with habitId: ${habitId} under userId: ${userId}`);
+        throw new ClientError(`cannot find item with habitId: ${habitId} under userId: ${userId}`, 400);
       }
       res.status(200).json(result.rows);
-    });
+    }).catch(err => next(err));
 });
 
 // delete routine habit

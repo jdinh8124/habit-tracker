@@ -7,7 +7,9 @@
 import React from 'react';
 
 export default function Header(props) {
-
+  const currentURL = new URL(window.location.href);
+  const currentPage = currentURL.pathname;
+  let className;
   function headerTypeToRender() {
     if (props.headerView === 'main') {
       return (
@@ -34,8 +36,14 @@ export default function Header(props) {
     }
   }
 
+  if (currentPage === '/scheduledHabits') {
+    className = 'hide';
+  } else {
+    className = 'paddingTop navbar navbar-light pb-4 bg-primary';
+  }
+
   return (
-    <header className=" paddingTop navbar navbar-light pb-4 bg-primary">
+    <header className={className}>
       {headerTypeToRender()}
     </header>
   );

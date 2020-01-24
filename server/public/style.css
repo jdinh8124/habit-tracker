@@ -38,8 +38,12 @@ body{
   height: 100%;
 }
 
-.cursor-pointer{
-  cursor: pointer;
+.hide{
+  display: none;
+}
+
+.blue-purple-gradient{
+  background-image: linear-gradient(#80C3DF, #B5BAE8);
 }
 
 .input-text{
