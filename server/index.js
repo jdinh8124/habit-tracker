@@ -181,10 +181,11 @@ app.post('/api/habit', (req, res, next) => {
 
   const sql = `
     insert into "userHabit"("userId", "routineId", "habitId", "timesCompleted", "lastCompleted", "frequency", "nextCompletion", "duration", "congratsMessage", "motivationalMessage")
-    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
+    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    returning *;
   `;
-  const userValues = [req.body.userId, req.body.routineId, req.body.habitId, 0, 2020 - 12 - 31, req.body.frequency, req.body.nextCompletion, req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
 
+  const userValues = [req.body.userId, req.body.routineId, req.body.habitId, 0, '04:05:06.789', req.body.frequency, '2019-02-08', req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
   // console.log('before query', sql, userValues);
   db.query(sql, userValues)
     .then(result => res.status(201).json(result.rows[0]))

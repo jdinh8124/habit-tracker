@@ -18,9 +18,15 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      newHabitToPush: null,
       sideBarOpen: false,
-      newUserHabit: {}
+      newUserHabit: {
+        userId: 2,
+        routineId: 2,
+        habitId: 3
+      }
     };
+
     this.openSideBar = this.openSideBar.bind(this);
     this.addingInputInfoToState = this.addingInputInfoToState.bind(this);
     this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
@@ -46,7 +52,6 @@ export default class App extends React.Component {
   }
 
   addingInputInfoToState(property, inputInfo) {
-
     const newObject = { ...this.state.newUserHabit };
     newObject[property] = inputInfo;
     this.setState(previousState => ({ newUserHabit: newObject }));
@@ -55,17 +60,20 @@ export default class App extends React.Component {
     }
   }
 
-  addingNewUserHabit() {
-    const newInfo = { ...this.state.newUserHabit };
+  addingNewUserHabit(newObject) {
     fetch('/api/habit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newInfo)
+      body: JSON.stringify(newObject)
     })
-      .then(data => {
-
+      .then(response => {
+        return response.json();
+      })
+      .then(myJson => {
+        this.setState(previousState => ({ newHabitToPush: myJson, newUserHabit: {} })
+        );
       })
       .catch(error => {
         console.error(error);
@@ -78,24 +86,12 @@ export default class App extends React.Component {
         <div>
           <Header />
           <Switch>
-            <Route exact path="/">
-              <UserHabits isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />
-            </Route>
-            <Route exact path="/userRoutine">
-              <UserRoutine isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />
-            </Route>
-            <Route exact path="/frequency">
-              <Frequency addingInfo={this.addingInputInfoToState}/>
-            </Route>
-            <Route exact path="/duration">
-              <Duration addingInfo={this.addingInputInfoToState} />
-            </Route>
-            <Route exact path="/congrats">
-              <Congrats addingInfo={this.addingInputInfoToState} />
-            </Route>
-            <Route exact path="/motivation">
-              <Motivation addingInfo={this.addingInputInfoToState} />
-            </Route>
+            <Route exact path="/" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
+            <Route exact path="/userRoutine" render={props => <UserRoutine {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />}/>
+            <Route exact path="/frequency" render={props => <Frequency {...props} addingInfo={this.addingInputInfoToState} />} />
+            <Route exact path="/duration" render={props => <Duration {...props} addingInfo={this.addingInputInfoToState} />}/>
+            <Route exact path="/congrats" render={props => <Congrats {...props} addingInfo={this.addingInputInfoToState} />} />
+            <Route exact path="/motivation" render={props => <Motivation {...props} addingInfo={this.addingInputInfoToState} />} />
           </Switch>
         </div>
       </Router>

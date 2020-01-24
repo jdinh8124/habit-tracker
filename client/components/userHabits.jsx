@@ -42,9 +42,17 @@ const UserHabits = props => {
       });
   }
 
+  function newHabit() {
+    if (props.newHabit) {
+      const habitsCopy = [...habits];
+      habitsCopy.push(props.newHabit);
+      setHabits(habitsCopy);
+    }
+  }
+
   useEffect(() => {
     getUserHabits(2);
-
+    newHabit();
   }, []);
   return (
     <div className ="bg-light h-100">

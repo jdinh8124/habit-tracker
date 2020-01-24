@@ -13,15 +13,15 @@ export default class Frequnecy extends React.Component {
   }
 
   updateInfoDaily() {
-    this.props.addingInfo('frequncy', 'daily');
+    this.props.addingInfo('frequency', 1);
   }
 
   updateInfoWeekly(event) {
-    this.props.addingInfo('frequncy', 'weekly');
+    this.props.addingInfo('frequency', 7);
   }
 
   updateInfoMonthly(event) {
-    this.props.addingInfo('frequncy', 'monthly');
+    this.props.addingInfo('frequency', 30);
   }
 
   render() {
