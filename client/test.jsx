@@ -1,6 +1,15 @@
 import React from 'react';
-import UserRoutine from './components/userRoutine';
-import Footer from './components/footer';
+// import UserRoutineHabit from './components/userRoutineHabit';
+// import UserHabits from './components/userHabits';
+// import Congrats from './components/congrats';
+
+import {
+  BrowserRouter as Router
+  // Switch,
+  // Route
+  // Link
+} from 'react-router-dom';
+import Frequnecy from './components/frequency';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,8 +20,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <UserRoutine />
-        <Footer />
+        <Router>
+          <Frequnecy/>
+        </Router>
       </div>
     );
   }
