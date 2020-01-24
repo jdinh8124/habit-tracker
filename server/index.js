@@ -172,9 +172,28 @@ app.delete('/api/habit/', (req, res, next) => {
     }).catch(err => next(err));
 });
 
-// add habit
+// adding habit to userHabit
+app.post('/api/habit', (req, res, next) => {
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.body.userId) || !integerTest.exec(req.body.routineId) || !integerTest.exec(req.body.habitId)) {
+    next(new ClientError('habit, userID, or HabitID is not an integer', 404));
+  }
+
+  const sql = `
+    insert into "userHabit"("userId", "routineId", "habitId", "timesCompleted", "lastCompleted", "frequency", "nextCompletion", "duration", "congratsMessage", "motivationalMessage")
+    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
+  `;
+  const userValues = [req.body.userId, req.body.routineId, req.body.habitId, 0, 2020 - 12 - 31, req.body.frequency, req.body.nextCompletion, req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
+
+  // console.log('before query', sql, userValues);
+  db.query(sql, userValues)
+    .then(result => res.status(201).json(result.rows[0]))
+    .catch(err => next(err));
+});
+
+// add habit to routine
 app.post('/api/routine/:id/habit', (req, res, next) => {
-  res.sendStatus(501);
+
 });
 
 app.use('/api', (req, res, next) => {

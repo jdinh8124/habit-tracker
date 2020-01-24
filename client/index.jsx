@@ -4,6 +4,6 @@ import App from './components/app';
 // import Test from './test';
 
 ReactDOM.render(
-  <App />,
+  <App/>,
   document.querySelector('#root')
 );

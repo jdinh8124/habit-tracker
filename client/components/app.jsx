@@ -2,6 +2,11 @@ import React from 'react';
 import UserHabits from './userHabits';
 import UserRoutine from './userRoutine';
 import Header from './header';
+import Frequency from './frequency';
+import Duration from './duration';
+import Congrats from './congrats';
+import Motivation from './motivation';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,9 +18,12 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideBarOpen: false
+      sideBarOpen: false,
+      newUserHabit: {}
     };
     this.openSideBar = this.openSideBar.bind(this);
+    this.addingInputInfoToState = this.addingInputInfoToState.bind(this);
+    this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
   }
 
   setTitle(object) {
@@ -37,6 +45,33 @@ export default class App extends React.Component {
     }
   }
 
+  addingInputInfoToState(property, inputInfo) {
+
+    const newObject = { ...this.state.newUserHabit };
+    newObject[property] = inputInfo;
+    this.setState(previousState => ({ newUserHabit: newObject }));
+    if (property === 'motivationalMessage') {
+      this.addingNewUserHabit(newObject);
+    }
+  }
+
+  addingNewUserHabit() {
+    const newInfo = { ...this.state.newUserHabit };
+    fetch('/api/habit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newInfo)
+    })
+      .then(data => {
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   render() {
     return (
       <Router>
@@ -48,6 +83,18 @@ export default class App extends React.Component {
             </Route>
             <Route exact path="/userRoutine">
               <UserRoutine isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />
+            </Route>
+            <Route exact path="/frequency">
+              <Frequency addingInfo={this.addingInputInfoToState}/>
+            </Route>
+            <Route exact path="/duration">
+              <Duration addingInfo={this.addingInputInfoToState} />
+            </Route>
+            <Route exact path="/congrats">
+              <Congrats addingInfo={this.addingInputInfoToState} />
+            </Route>
+            <Route exact path="/motivation">
+              <Motivation addingInfo={this.addingInputInfoToState} />
             </Route>
           </Switch>
         </div>

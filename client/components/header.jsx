@@ -19,16 +19,16 @@ export default function Header(props) {
     } else if (props.headerView === 'subMain') {
       return (
         <div>
-          <div className="col-3 titleSize offset-1"><i className="fas fa-chevron-left"></i></div>
+          <div className="col-3 titleSize offset-1"><i className="fas fa-chevron-left cursor-pointer"></i></div>
           <div>{props.title}</div>
         </div>
       );
     } else if (props.headerView === 'newList') {
       return (
         <div>
-          <div className="col-3 titleSize offset-1"><i className="fas fa-chevron-left"></i></div>
+          <div className="col-3 titleSize offset-1"><i className="fas fa-chevron-left cursor-pointer"></i></div>
           <div>{props.title}</div>
-          <div><i className="fas fa-check"></i></div>
+          <div><i className="fas fa-check cursor-pointer"></i></div>
         </div>
       );
     }

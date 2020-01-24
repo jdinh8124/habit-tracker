@@ -41,3 +41,8 @@ body{
 .cursor-pointer{
   cursor: pointer;
 }
+
+.input-text{
+  font-size: 11vw;
+  text-align: center;
+}
