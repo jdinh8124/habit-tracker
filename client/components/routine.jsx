@@ -52,7 +52,19 @@ const Routine = props => {
               if (props.editList === '') props.setEditList(props.routineItem.routineName);
             }
           }></i>
-          <i className="fas fa-trash-alt text-secondary col-2 fa-2x"></i>
+          <i className="fas fa-trash-alt text-secondary col-2 fa-2x" onClick={
+            () => {
+              const init = {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              };
+              fetch(`/api/routine/${props.routineId}`, init)
+                .then(res => true)
+                .then(res => window.location.reload(true));
+            }
+          }></i>
         </>
       );
   };

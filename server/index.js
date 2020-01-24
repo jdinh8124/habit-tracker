@@ -221,7 +221,33 @@ app.put('/api/routine/:id', (req, res, next) => {
 
 // Delete routine
 app.delete('/api/routine/:id', (req, res, next) => {
-  res.sendStatus(501);
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.id)) {
+    next(new ClientError(`routineId ${req.params.id} is not an integer`, 404));
+  }
+  const routineCheckSql = `
+    select *
+      from "userRoutine"
+     where "routineId" = $1;
+  `;
+  const sql = `
+    delete
+      from "userRoutine"
+     where "routineId" = $1;
+  `;
+  const value = [parseInt(req.params.id)];
+  db.query(routineCheckSql, value)
+    .then(result => {
+      if (!result.rows.length) next(new ClientError(`routineId ${req.params.id} does not exist`, 404));
+      else {
+        db.query(sql, value)
+          .then(result => {
+            res.status(204).json();
+          })
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 // Send routine to user
