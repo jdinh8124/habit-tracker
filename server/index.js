@@ -197,12 +197,79 @@ app.post('/api/routine', (req, res, next) => {
 
 // Edit routine
 app.put('/api/routine/:id', (req, res, next) => {
-  res.sendStatus(501);
+  if (!req.body.routineName) next(new ClientError('Please enter a new routine name', 400));
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.id)) {
+    next(new ClientError(`routineId ${req.params.id} is not an integer`, 404));
+  }
+  const routineCheckSql = `
+    select *
+      from "userRoutine"
+     where "routineId" = $1;
+  `;
+  const routineNameCheckSql = `
+    select *
+      from "userRoutine"
+     where "routineName" = $1 and "receiverId" = $2;
+  `;
+  const sql = `
+    update "userRoutine"
+       set "routineName" = $1
+     where "routineId" = $2;
+  `;
+  const routineCheckValue = [parseInt(req.params.id)];
+  const routineNameCheckValue = [req.body.routineName, parseInt(req.body.user)];
+  const value = [req.body.routineName, parseInt(req.params.id)];
+  db.query(routineCheckSql, routineCheckValue)
+    .then(result => {
+      if (!result.rows.length) next(new ClientError(`routineId ${req.params.id} does not exist`, 404));
+      else {
+        db.query(routineNameCheckSql, routineNameCheckValue)
+          .then(routineResult => {
+            if (routineResult.rows.length) next(new ClientError(`routine name ${req.body.routineName} already exists`, 400));
+            else {
+              db.query(sql, value)
+                .then(result => {
+                  res.status(204).json();
+                })
+                .catch(err => next(err));
+            }
+          })
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 // Delete routine
 app.delete('/api/routine/:id', (req, res, next) => {
-  res.sendStatus(501);
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.id)) {
+    next(new ClientError(`routineId ${req.params.id} is not an integer`, 404));
+  }
+  const routineCheckSql = `
+    select *
+      from "userRoutine"
+     where "routineId" = $1;
+  `;
+  const sql = `
+    delete
+      from "userRoutine"
+     where "routineId" = $1;
+  `;
+  const value = [parseInt(req.params.id)];
+  db.query(routineCheckSql, value)
+    .then(result => {
+      if (!result.rows.length) next(new ClientError(`routineId ${req.params.id} does not exist`, 404));
+      else {
+        db.query(sql, value)
+          .then(result => {
+            res.status(204).json();
+          })
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 // Send routine to user
@@ -275,9 +342,29 @@ app.delete('/api/habit/', (req, res, next) => {
     }).catch(err => next(err));
 });
 
-// add habit
+// adding habit to userHabit
+app.post('/api/habit', (req, res, next) => {
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.body.userId) || !integerTest.exec(req.body.routineId) || !integerTest.exec(req.body.habitId)) {
+    next(new ClientError('habit, userID, or HabitID is not an integer', 404));
+  }
+
+  const sql = `
+    insert into "userHabit"("userId", "routineId", "habitId", "timesCompleted", "lastCompleted", "frequency", "nextCompletion", "duration", "congratsMessage", "motivationalMessage")
+    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    returning *;
+  `;
+
+  const userValues = [req.body.userId, req.body.routineId, req.body.habitId, 0, '04:05:06.789', req.body.frequency, '2019-02-08', req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
+  // console.log('before query', sql, userValues);
+  db.query(sql, userValues)
+    .then(result => res.status(201).json(result.rows[0]))
+    .catch(err => next(err));
+});
+
+// add habit to routine
 app.post('/api/routine/:id/habit', (req, res, next) => {
-  res.sendStatus(501);
+
 });
 
 app.use('/api', (req, res, next) => {

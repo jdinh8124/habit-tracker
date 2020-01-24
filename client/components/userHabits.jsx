@@ -59,9 +59,19 @@ const UserHabits = props => {
   function changeView(currentView) {
     setView(currentView);
   }
+        
+          function newHabit() {
+    if (props.newHabit) {
+      const habitsCopy = [...habits];
+      habitsCopy.push(props.newHabit);
+      setHabits(habitsCopy);
+    }
+  }
 
   useEffect(() => {
     getUserHabits(userId);
+     newHabit();
+
   }, []);
 
   function checkView() {

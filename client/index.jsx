@@ -9,5 +9,6 @@ ReactDOM.render(
   <Router>
     <App />
   </Router>,
+
   document.querySelector('#root')
 );

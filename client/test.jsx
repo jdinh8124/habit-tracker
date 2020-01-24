@@ -2,6 +2,7 @@ import React from 'react';
 // import UserHabits from './components/userHabits';
 import ScheduledHabit from './components/scheduledHabit';
 
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +12,7 @@ export default class App extends React.Component {
   render() {
     return (
       <ScheduledHabit />
+
 
     );
   }
