@@ -3,17 +3,19 @@ import UserHabits from './userHabits';
 import UserRoutine from './userRoutine';
 import Header from './header';
 import {
-  BrowserRouter as Router,
   Switch,
   Route
   // Link
 } from 'react-router-dom';
+import ScheduledHabit from './scheduledHabit';
+import Message from './message';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideBarOpen: false
+      sideBarOpen: false,
+      hiderHide: false
     };
     this.openSideBar = this.openSideBar.bind(this);
   }
@@ -39,19 +41,15 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <div>
-          <Header />
-          <Switch>
-            <Route exact path="/">
-              <UserHabits isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />
-            </Route>
-            <Route exact path="/userRoutine">
-              <UserRoutine isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+      <>
+        <Header />
+        <Switch>
+          <Route exact path="/" render={props => <UserHabits {...props} openSideBar={this.openSideBar} isOpen={this.state.sideBarOpen} />} />
+          <Route exact path="/userRoutine" render={props => <UserRoutine {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
+          <Route exact path="/scheduledHabits" render={props => <ScheduledHabit {...props}/>} />
+          <Route exact path="/message" render={props => <Message {...props} />} />
+        </Switch>
+      </>
     );
   }
 }
