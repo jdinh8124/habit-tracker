@@ -58,7 +58,7 @@ const UserHabits = props => {
     <div className ="bg-light h-100">
       <Header title={'User Habits'} headerView={'main'} openSideBar={props.openSideBar}/>
       {isSideBarOpen()}
-      <HabitList userHabits={habits} deleteHabit={deleteUserHabit} />
+      <HabitList userHabits={habits} deleteHabit={deleteUserHabit}/>
     </div>
   );
 };

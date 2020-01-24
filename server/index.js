@@ -104,17 +104,150 @@ app.get('/api/routine/:id/user/:user', (req, res, next) => {
 
 // Create routine
 app.post('/api/routine', (req, res, next) => {
-  res.sendStatus(501);
+  if (!req.body.user) next(new ClientError('Please enter a userId', 400));
+  else if (!req.body.routineName) next(new ClientError('Please enter a routine name', 400));
+  else if (!req.body.routineDesc) next(new ClientError('Please enter a routine description', 400));
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.body.user)) {
+    next(new ClientError(`userId ${req.body.user} is not an integer`, 404));
+  }
+  let routineId = null;
+  const userSql = `
+    select "userName"
+      from "user"
+     where "userId" = $1;
+  `;
+  const duplicateRoutineSql = `
+    select *
+      from "routine"
+     where "routineName" = $1 and "createdBy" = $2;
+  `;
+  const postRoutineSql = `
+    insert into "routine" ("routineName", "routineDescription", "createdBy")
+    values ($2, $3, $1)
+    returning *;
+  `;
+  const selectRoutineSql = `
+    select "routineId"
+      from "routine"
+     where "routineName" = $1 and "createdBy" = $2;
+  `;
+  const selfRoutineSql = `
+    insert into "userRoutine" ("receiverId", "senderId", "routineId", "routineName", "accepted?", "requestMessage")
+    values ($1, $2, $3, $4, $5, $6)
+    returning *;
+  `;
+  const userValue = [parseInt(req.body.user)];
+  const routineNameValue = [req.body.routineName, parseInt(req.body.user)];
+  const routineValue = [parseInt(req.body.user), req.body.routineName, req.body.routineDesc];
+  const selfValue = [parseInt(req.body.user), parseInt(req.body.user), routineId, req.body.routineName, true, 'Self-created routine'];
+  db.query(userSql, userValue)
+    .then(userResult => {
+      if (!userResult.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
+      else {
+        db.query(duplicateRoutineSql, routineNameValue)
+          .then(routineResult => {
+            if (routineResult.rows.length) next(new ClientError(`routine name ${req.body.routineName} already existed`, 400));
+            else {
+              db.query(postRoutineSql, routineValue)
+                .then(result => result.rows)
+                .catch(err => next(err));
+            }
+          })
+          .catch(err => next(err));
+      }
+    })
+    .then(result => {
+      db.query(selectRoutineSql, routineNameValue)
+        .then(routineIdResult => {
+          routineId = parseInt(routineIdResult.rows[0].routineId);
+        })
+        .then(result => {
+          selfValue[2] = routineId;
+          db.query(selfRoutineSql, selfValue)
+            .then(result => res.status(200).json(result.rows))
+            .catch(err => next(err));
+        })
+        .catch(err => next(err));
+    })
+    .catch(err => next(err));
 });
 
 // Edit routine
 app.put('/api/routine/:id', (req, res, next) => {
-  res.sendStatus(501);
+  if (!req.body.routineName) next(new ClientError('Please enter a new routine name', 400));
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.id)) {
+    next(new ClientError(`routineId ${req.params.id} is not an integer`, 404));
+  }
+  const routineCheckSql = `
+    select *
+      from "userRoutine"
+     where "routineId" = $1;
+  `;
+  const routineNameCheckSql = `
+    select *
+      from "userRoutine"
+     where "routineName" = $1 and "receiverId" = $2;
+  `;
+  const sql = `
+    update "userRoutine"
+       set "routineName" = $1
+     where "routineId" = $2;
+  `;
+  const routineCheckValue = [parseInt(req.params.id)];
+  const routineNameCheckValue = [req.body.routineName, parseInt(req.body.user)];
+  const value = [req.body.routineName, parseInt(req.params.id)];
+  db.query(routineCheckSql, routineCheckValue)
+    .then(result => {
+      if (!result.rows.length) next(new ClientError(`routineId ${req.params.id} does not exist`, 404));
+      else {
+        db.query(routineNameCheckSql, routineNameCheckValue)
+          .then(routineResult => {
+            if (routineResult.rows.length) next(new ClientError(`routine name ${req.body.routineName} already exists`, 400));
+            else {
+              db.query(sql, value)
+                .then(result => {
+                  res.status(204).json();
+                })
+                .catch(err => next(err));
+            }
+          })
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 // Delete routine
 app.delete('/api/routine/:id', (req, res, next) => {
-  res.sendStatus(501);
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.id)) {
+    next(new ClientError(`routineId ${req.params.id} is not an integer`, 404));
+  }
+  const routineCheckSql = `
+    select *
+      from "userRoutine"
+     where "routineId" = $1;
+  `;
+  const sql = `
+    delete
+      from "userRoutine"
+     where "routineId" = $1;
+  `;
+  const value = [parseInt(req.params.id)];
+  db.query(routineCheckSql, value)
+    .then(result => {
+      if (!result.rows.length) next(new ClientError(`routineId ${req.params.id} does not exist`, 404));
+      else {
+        db.query(sql, value)
+          .then(result => {
+            res.status(204).json();
+          })
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 // Send routine to user
@@ -132,17 +265,32 @@ app.put('/api/routine/:id/habit/:id', (req, res, next) => {
   res.sendStatus(501);
 });
 
-app.put('/api/habit/:id', (req, res, next) => {
-  res.sendStatus(501);
-});
-
-// mark habit completion
 app.post('/api/routine/:id/habit/:id', (req, res, next) => {
   res.sendStatus(501);
 });
 
-app.post('/api/habit/:id', (req, res, next) => {
-  res.sendStatus(501);
+// mark habit completion
+app.post('/api/user/habit', (req, res, next) => {
+  const habitId = parseInt(req.body.habitId);
+  const userId = parseInt(req.body.userId);
+  if (!habitId || !userId) {
+    throw ClientError('HabitId and userId are required');
+  }
+  const updateSQL = `update "userHabit"
+                    set "lastCompleted" = CURRENT_TIME,
+                        "timesCompleted" = "timesCompleted" + 1,
+                        "nextCompletion" = CURRENT_DATE + interval '1 day'
+                    where "userId" = $1 and "habitId" = $2
+                    returning *
+                    `;
+  const params = [habitId, userId];
+  db.query(updateSQL, params)
+    .then(result => {
+      if (!result.rowCount) {
+        throw new ClientError(`cannot find item with habitId: ${habitId} under userId: ${userId}`);
+      }
+      res.status(200).json(result.rows);
+    });
 });
 
 // delete routine habit

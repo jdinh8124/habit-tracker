@@ -7,17 +7,19 @@ import React from 'react';
 import Header from './header';
 import Sidebar from './sidebar';
 import RoutineList from './routineList';
+import Footer from './footer';
+import BlankCard from './blankCard';
 
 const UserRoutine = props => {
+  const [routine, setRoutine] = React.useState(null);
+  const [blank, setBlank] = React.useState(false);
+  const userId = 2;
 
   function isSideBarOpen() {
     if (props.isOpen) {
       return <Sidebar sideRender={'inRoutines'} closeSideBar={props.openSideBar} />;
     }
   }
-
-  const [routine, setRoutine] = React.useState(null);
-  const userId = 2;
 
   React.useEffect(
     () => {
@@ -27,12 +29,18 @@ const UserRoutine = props => {
     }, []
   );
 
+  const createBlank = () => {
+    return blank && <BlankCard setBlank={setBlank}
+      user={userId} routine={routine} setRoutine={setRoutine} />;
+  };
+
   return (
     <div className="bg-light h-100">
       <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
       {isSideBarOpen()}
-      <RoutineList routine={routine} />
-
+      <RoutineList routine={routine} userId={userId} />
+      {createBlank()}
+      <Footer setBlank={setBlank} />
     </div>
   );
 };
