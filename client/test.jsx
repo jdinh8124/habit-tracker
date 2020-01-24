@@ -1,5 +1,6 @@
 import React from 'react';
 import UserRoutine from './components/userRoutine';
+import Footer from './components/footer';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class App extends React.Component {
     return (
       <div>
         <UserRoutine />
+        <Footer />
       </div>
     );
   }
