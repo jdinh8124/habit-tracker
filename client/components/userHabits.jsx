@@ -15,6 +15,8 @@ const UserHabits = props => {
 
   const [habits, setHabits] = useState([]);
   const [view, setView] = useState('');
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [currentHabit, setCurrentHabit] = useState(0);
 
   function getUserHabits(userId) {
     fetch(`/api/habit/${userId}`)
@@ -52,15 +54,33 @@ const UserHabits = props => {
         userId: userId
       })
     })
+      .then(response => response.json())
       .then(response => {
+        const habitsCopy = [...habits];
+        const index = habitsCopy.findIndex(element => element.habitId === habitId);
+        habitsCopy[index].lastCompleted = response.lastCompleted;
+        habitsCopy[index].timesCompleted = response.timesCompleted;
+        habitsCopy[index].nextCompletion = response.nextCompletion;
+        setHabits(habitsCopy);
+        setCurrentMessage(response.congratsMessage);
+
       });
+  }
+
+  function motivationalMessage(habitId) {
+    const index = habits.findIndex(element => element.habitId === habitId);
+    setCurrentMessage(habits[index].motivationalMessage);
+  }
+
+  function findCurrentHabit(id) {
+    setCurrentHabit(id);
   }
 
   function changeView(currentView) {
     setView(currentView);
   }
-        
-          function newHabit() {
+
+  function newHabit() {
     if (props.newHabit) {
       const habitsCopy = [...habits];
       habitsCopy.push(props.newHabit);
@@ -70,21 +90,21 @@ const UserHabits = props => {
 
   useEffect(() => {
     getUserHabits(userId);
-     newHabit();
+    newHabit();
 
   }, []);
 
   function checkView() {
     if (view === 'scheduledHabit') {
-      return <ScheduledHabit update={updateLastCompletion} changeView={changeView}/>;
+      return <ScheduledHabit id={currentHabit} motivationalMessage= {motivationalMessage} update={updateLastCompletion} changeView={changeView}/>;
     } else if (view === 'message') {
-      return <Message changeView= {changeView} messageToSelf='test'/>;
+      return <Message changeView= {changeView} messageToSelf={currentMessage}/>;
     } else {
       return (
         <div className="bg-light h-100">
           <Header title={'User Habits'} headerView={'main'} openSideBar={props.openSideBar} />
           {isSideBarOpen()}
-          <HabitList changeView={changeView} deleteHabit={deleteUserHabit} userId={userId} userHabits={habits} />
+          <HabitList currentId={findCurrentHabit} changeView={changeView} deleteHabit={deleteUserHabit} userId={userId} userHabits={habits} />
         </div>);
     }
 

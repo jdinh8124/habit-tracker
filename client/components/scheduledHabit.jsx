@@ -4,12 +4,12 @@ const ScheduledHabit = props => {
 
   const handleYesClick = () => {
     props.changeView('message');
-    props.update(4);
+    props.update(props.id);
   };
 
   const handleNoClick = () => {
     props.changeView('message');
-
+    props.motivationalMessage(props.id);
   };
 
   return (
