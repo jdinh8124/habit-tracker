@@ -4,7 +4,7 @@ import UserRoutineHabitRequest from './userRoutineHabitRequest';
 import UserRoutineHabitForm from './userRoutineHabitForm';
 import UserRoutineHabitSent from './userRoutineHabitSent';
 
-const UserRoutineHabit = () => {
+const UserRoutineHabit = props => {
   const [view, setView] = React.useState('main');
   const [routine, setRoutine] = React.useState({});
   const userId = 2;
@@ -14,7 +14,7 @@ const UserRoutineHabit = () => {
     switch (view) {
       case 'main':
         page = <UserRoutineHabitMain setView={setView} setRoutine={setRoutine}
-          userId={userId}/>;
+          userId={userId} routineId={props.routineId}/>;
         break;
       case 'request':
         page = <UserRoutineHabitRequest routineName={routine.routineName} setView={setView}/>;

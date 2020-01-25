@@ -43,7 +43,7 @@ const Routine = props => {
         </>
       )
       : (
-        <>
+        <div onClick={() => props.setView(props.routineId)}>
           <h2 className="text-secondary col-8">{props.routineItem.routineName
           }</h2>
           <i className="fas fa-edit text-secondary col-2 fa-2x" onClick={
@@ -65,7 +65,7 @@ const Routine = props => {
                 .then(res => window.location.reload(true));
             }
           }></i>
-        </>
+        </div>
       );
   };
 
