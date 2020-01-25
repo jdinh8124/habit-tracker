@@ -7,6 +7,7 @@ const Habit = props => {
 
   function handleClick() {
     props.changeView('scheduledHabit');
+    props.currentHabit(props.id);
   }
 
   return (

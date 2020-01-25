@@ -311,7 +311,7 @@ app.post('/api/user/habit', (req, res, next) => {
       if (!result.rowCount) {
         throw new ClientError(`cannot find item with habitId: ${habitId} under userId: ${userId}`, 400);
       }
-      res.status(200).json(result.rows);
+      res.status(200).json(result.rows[0]);
     }).catch(err => next(err));
 });
 
