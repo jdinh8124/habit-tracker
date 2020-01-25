@@ -6,6 +6,7 @@ import Frequency from './frequency';
 import Duration from './duration';
 import Congrats from './congrats';
 import Motivation from './motivation';
+import SignUpandSignIn from './signupandsignin';
 
 import {
   BrowserRouter as Router,
@@ -18,6 +19,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: true,
       newHabitToPush: null,
       sideBarOpen: false,
       newUserHabit: {
@@ -30,13 +32,6 @@ export default class App extends React.Component {
     this.openSideBar = this.openSideBar.bind(this);
     this.addingInputInfoToState = this.addingInputInfoToState.bind(this);
     this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
-  }
-
-  setTitle(object) {
-    this.setState(previousState => ({
-      view: object.view,
-      title: object.title
-    }));
   }
 
   openSideBar() {
@@ -86,7 +81,8 @@ export default class App extends React.Component {
         <div>
           <Header />
           <Switch>
-            <Route exact path="/" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
+            <Route exact path="/" render={props => <SignUpandSignIn />} />
+            <Route exact path="/userHabits" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
             <Route exact path="/userRoutine" render={props => <UserRoutine {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />}/>
             <Route exact path="/frequency" render={props => <Frequency {...props} addingInfo={this.addingInputInfoToState} />} />
             <Route exact path="/duration" render={props => <Duration {...props} addingInfo={this.addingInputInfoToState} />}/>
