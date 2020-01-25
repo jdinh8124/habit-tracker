@@ -1,25 +1,24 @@
 import React from 'react';
 import Header from './header';
-// import Sidebar from './sidebar';
+import Sidebar from './sidebar';
 import HabitList from './habitList';
 import Footer from './footer';
 import BlankCard from './blankCard';
 
 const UserRoutineHabitMain = props => {
-  const routineId = 4;
   const [routineHabit, setRoutineHabit] = React.useState([]);
   const [blank, setBlank] = React.useState(false);
 
   React.useEffect(
     () => {
-      fetch(`/api/routine/${routineId}/user/${props.userId}`)
+      fetch(`/api/routine/${props.routineId}/user/${props.userId}`)
         .then(res => res.json())
         .then(res => setRoutineHabit(res));
       fetch(`/api/routine/user/${props.userId}`)
         .then(res => res.json())
         .then(res => {
           for (const item of res) {
-            if (routineId === item.routineId) {
+            if (props.routineId === item.routineId) {
               props.setRoutine({
                 routineId: item.routineId,
                 routineName: item.routineName
@@ -38,9 +37,10 @@ const UserRoutineHabitMain = props => {
   return (
     <div className="bg-light h-100 vh-100">
       <Header />
+      <Sidebar />
       <HabitList userHabits={routineHabit} />
       {createBlank()}
-      <Footer routineId={routineId} setBlank={setBlank} setView={props.setView}/>
+      <Footer routineId={props.routineId} setBlank={setBlank} setView={props.setView}/>
     </div>
   );
 };
