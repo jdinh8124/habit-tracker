@@ -42,6 +42,28 @@ app.get('/api/habit/:userId', (req, res, next) => {
 
 });
 
+// get specific habit
+app.get('/api/user/:userId/habit/:habitId', (req, res, next) => {
+  const userId = parseInt(req.params.userId);
+  const habitId = parseInt(req.params.habitId);
+  const sql = `
+                select *
+                from "userHabit"
+                where "userId" = $1 and "habitId" = $2
+                `;
+  const params = [userId, habitId];
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        throw new ClientError(`luser with id: ${userId} does not have habit with id: ${habitId}`, 404);
+      } else {
+        res.status(200);
+        res.json(result.row);
+      }
+    })
+    .catch(err => next(err));
+});
+
 // See routines
 app.get('/api/routine/user/:user', (req, res, next) => {
   const integerTest = /^[1-9]\d*$/;
@@ -377,14 +399,14 @@ app.post('/api/user/habit', (req, res, next) => {
                     where "userId" = $1 and "habitId" = $2
                     returning *
                     `;
-  const params = [habitId, userId];
+  const params = [userId, habitId];
   db.query(updateSQL, params)
     .then(result => {
       if (!result.rowCount) {
-        throw new ClientError(`cannot find item with habitId: ${habitId} under userId: ${userId}`);
+        throw new ClientError(`cannot find item with habitId: ${habitId} under userId: ${userId}`, 400);
       }
-      res.status(200).json(result.rows);
-    });
+      res.status(200).json(result.rows[0]);
+    }).catch(err => next(err));
 });
 
 // delete routine habit
@@ -414,9 +436,29 @@ app.delete('/api/habit/', (req, res, next) => {
     }).catch(err => next(err));
 });
 
-// add habit
+// adding habit to userHabit
+app.post('/api/habit', (req, res, next) => {
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.body.userId) || !integerTest.exec(req.body.routineId) || !integerTest.exec(req.body.habitId)) {
+    next(new ClientError('habit, userID, or HabitID is not an integer', 404));
+  }
+
+  const sql = `
+    insert into "userHabit"("userId", "routineId", "habitId", "timesCompleted", "lastCompleted", "frequency", "nextCompletion", "duration", "congratsMessage", "motivationalMessage")
+    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    returning *;
+  `;
+
+  const userValues = [req.body.userId, req.body.routineId, req.body.habitId, 0, '04:05:06.789', req.body.frequency, '2019-02-08', req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
+  // console.log('before query', sql, userValues);
+  db.query(sql, userValues)
+    .then(result => res.status(201).json(result.rows[0]))
+    .catch(err => next(err));
+});
+
+// add habit to routine
 app.post('/api/routine/:id/habit', (req, res, next) => {
-  res.sendStatus(501);
+
 });
 
 app.use('/api', (req, res, next) => {
