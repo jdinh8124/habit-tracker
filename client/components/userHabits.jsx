@@ -4,6 +4,8 @@ import Sidebar from './sidebar';
 import HabitList from './habitList';
 import ScheduledHabit from './scheduledHabit';
 import Message from './message';
+import Footer from './footer';
+import UserRoutine from './userRoutine';
 
 const UserHabits = props => {
   const userId = 2;
@@ -99,12 +101,17 @@ const UserHabits = props => {
       return <ScheduledHabit id={currentHabit} motivationalMessage= {motivationalMessage} update={updateLastCompletion} changeView={changeView}/>;
     } else if (view === 'message') {
       return <Message changeView= {changeView} messageToSelf={currentMessage}/>;
+    } else if (view === 'chooseRoutine') {
+      return (
+        <UserRoutine />
+      );
     } else {
       return (
         <div className="bg-light h-100">
           <Header title={'User Habits'} headerView={'main'} openSideBar={props.openSideBar} />
           {isSideBarOpen()}
           <HabitList currentId={findCurrentHabit} changeView={changeView} deleteHabit={deleteUserHabit} userId={userId} userHabits={habits} />
+          <Footer screen="userHabits" changeView= {changeView}/>
         </div>);
     }
 
