@@ -36,11 +36,12 @@ class SignUp extends React.Component {
   }
 
   createAccount() {
+    event.preventDefault();
     if (this.state.userPwd !== this.state.confirmPassword) {
       return;
     }
     const newObj = { ...this.state };
-    fetch('/auth/signup', {
+    fetch('/api/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -51,8 +52,9 @@ class SignUp extends React.Component {
         return response.json();
       })
       .then(myJson => {
-        // console.log(myJson);
-        this.props.signIn();
+        if (myJson === 'Username exists') {
+          // tslint: disable - next - line: no - console
+        }
       });
   }
 
@@ -63,8 +65,8 @@ class SignUp extends React.Component {
         <form onSubmit={this.createAccount}>
           <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
           <input onChange={this.emailChange} className="form-control" placeholder="Email" />
-          <input onChange={this.passwordChange} className="form-control" placeholder="Password" />
-          <input onChange={this.confirmPasswordChange} className="form-control" placeholder="Confirm Password" />
+          <input type="password" onChange={this.passwordChange} className="form-control" placeholder="Password" />
+          <input type="password" onChange={this.confirmPasswordChange} className="form-control" placeholder="Confirm Password" />
           <button className="btn btn-primary">Submit</button>
         </form>
       </div>

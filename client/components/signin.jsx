@@ -1,5 +1,9 @@
 import React from 'react';
 
+// import {
+//   Route
+// } from 'react-router-dom';
+
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -9,6 +13,7 @@ class SignIn extends React.Component {
     };
     this.userNameChange = this.userNameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
+    this.checkAccount = this.checkAccount.bind(this);
   }
 
   userNameChange(event) {
@@ -21,22 +26,35 @@ class SignIn extends React.Component {
   }
 
   checkAccount() {
-    fetch('/auth/login')
+    const newObj = { ...this.state };
+    event.preventDefault();
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newObj)
+    })
       .then(response => {
-        return response.json();
-      })
-      .then(myJson => {
-        // console.log(myJson);
+        if (response.status === 204) {
+          return (
+          /* eslint-disable no-console */
+            console.log('Correct')
+          );
+        } else {
+        /* eslint-disable no-console */
+          console.log('try again');
+        }
       });
   }
 
   render() {
     return (
       <div className="d-flex flex-column mt-5 align-items-center">
-        <h1>Create Account</h1>
+        <h1>Sign In</h1>
         <form onSubmit={this.checkAccount}>
-          <input className="form-control" placeholder="Username" />
-          <input className="form-control" placeholder="Password" />
+          <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
+          <input type="password" onChange={this.passwordChange} className="form-control" placeholder="Password" />
           <button className="btn btn-primary mb-4">Sign In</button>
         </form>
       </div>
