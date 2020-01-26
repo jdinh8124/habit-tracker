@@ -7,7 +7,9 @@ class SignUp extends React.Component {
       userName: '',
       email: '',
       userPwd: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      duplicateUsername: false
+
     };
     this.userNameChange = this.userNameChange.bind(this);
     this.emailChange = this.emailChange.bind(this);
@@ -53,9 +55,21 @@ class SignUp extends React.Component {
       })
       .then(myJson => {
         if (myJson === 'Username exists') {
-          // tslint: disable - next - line: no - console
+          this.setState(previousState => ({ duplicateUsername: true }));
+        } else {
+          this.props.signIn();
         }
       });
+  }
+
+  isUserNameValid() {
+    if (this.state.duplicateUsername) {
+      return (
+        <div className="invalid-feedback showError">
+          Your Username You Selected Was Taken
+        </div>
+      );
+    }
   }
 
   render() {
@@ -64,9 +78,10 @@ class SignUp extends React.Component {
         <h1>Create Account</h1>
         <form onSubmit={this.createAccount}>
           <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
-          <input onChange={this.emailChange} className="form-control" placeholder="Email" />
-          <input type="password" onChange={this.passwordChange} className="form-control" placeholder="Password" />
-          <input type="password" onChange={this.confirmPasswordChange} className="form-control" placeholder="Confirm Password" />
+          {this.isUserNameValid()}
+          <input onChange={this.emailChange} className="form-control mt-4 mb-4" placeholder="Email" />
+          <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control mb-4" placeholder="Password" />
+          <input type="password" name="password" autoComplete="on" onChange={this.confirmPasswordChange} className="form-control mb-4" placeholder="Confirm Password" />
           <button className="btn btn-primary">Submit</button>
         </form>
       </div>

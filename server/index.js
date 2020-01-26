@@ -347,13 +347,13 @@ app.post('/api/routine/:id/habit', (req, res, next) => {
 });
 
 app.post('/api/signup', (req, res, next) => {
-
   bcrypt.hash(req.body.userPwd, 10, function (err, hash) {
+    console.error(err);
     const sql = `
     insert into "user"("userName", "email", "userPwd", "createdAt")
-    values ($1, $2, $3, current_timestamp)
+    values ($1, $2, $3, current_timestamp);
+    returning userName;
     `;
-    next(err);
     const userValues = [req.body.userName, req.body.email, hash];
     db.query(sql, userValues)
       .then(result => res.status(201).json(result.rows[0]))
@@ -379,10 +379,12 @@ app.post('/api/login', (req, res, next) => {
   db.query(sql, userValues)
     .then(result =>
       bcrypt.compare(req.body.userPwd, result.rows[0].userPwd, function (err, result) {
-        next(err);
+        console.error(err);
         if (result) {
           res.status(204).json();
         } else {
+        /* eslint-disable no-console */
+          console.log(result);
           res.status(401).json();
         }
       })
