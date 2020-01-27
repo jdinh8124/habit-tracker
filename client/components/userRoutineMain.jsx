@@ -40,7 +40,7 @@ const UserRoutineMain = props => {
       {isSideBarOpen()}
       <RoutineList routine={routine} userId={userId} setView={props.setView} />
       {createBlank()}
-      <Footer setBlank={setBlank} />
+      <Footer screen='userRoutine' setBlank={setBlank} />
     </div>
   );
 };

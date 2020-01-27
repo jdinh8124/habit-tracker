@@ -22,7 +22,7 @@ const Footer = props => {
     }
     return null;
   };
-  
+
   return (
     <div className="container footer h-50">
       <div className="row">
