@@ -93,3 +93,11 @@ input:focus{
   color:grey;
   font-size: 30px;
 }
+
+.purple-font {
+  color: #B5BAE8;
+}
+
+.blue-purple-gradient{
+  background-image: linear-gradient(#80C3DF, #B5BAE8);
+}

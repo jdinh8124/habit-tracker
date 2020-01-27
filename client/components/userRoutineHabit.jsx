@@ -1,27 +1,38 @@
 import React from 'react';
-import Header from './header';
-import Sidebar from './sidebar';
-import HabitList from './habitList';
+import UserRoutineHabitMain from './userRoutineHabitMain';
+import UserRoutineHabitRequest from './userRoutineHabitRequest';
+import UserRoutineHabitForm from './userRoutineHabitForm';
+import UserRoutineHabitSent from './userRoutineHabitSent';
 
 const UserRoutineHabit = props => {
-  const routineId = 2;
-  const userId = 1;
-  const [routineHabit, setRoutineHabit] = React.useState([]);
+  const [view, setView] = React.useState('main');
+  const [routine, setRoutine] = React.useState({});
+  const userId = 2;
 
-  React.useEffect(
-    () => {
-      fetch(`/api/routine/${routineId}/user/${userId}`)
-        .then(res => res.json())
-        .then(res => setRoutineHabit(res));
-    }, []
-  );
+  const createPage = () => {
+    let page = null;
+    switch (view) {
+      case 'main':
+        page = <UserRoutineHabitMain setView={setView} setRoutine={setRoutine}
+          userId={userId} routineId={props.routineId}/>;
+        break;
+      case 'request':
+        page = <UserRoutineHabitRequest routineName={routine.routineName} setView={setView}/>;
+        break;
+      case 'form':
+        page = <UserRoutineHabitForm routineName={routine.routineName}
+          setView={setView} routineId={routine.routineId} userId={userId}/>;
+        break;
+      case 'sent':
+        page = <UserRoutineHabitSent setView={setView}/>;
+    }
+    return page;
+  };
 
   return (
-    <div className="bg-light h-100">
-      <Header />
-      <Sidebar />
-      <HabitList userHabits={routineHabit} />
-    </div>
+    <>
+      {createPage()}
+    </>
   );
 };
 
