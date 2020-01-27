@@ -11,7 +11,9 @@ const Sidebar = props => {
     if (props.sideRender === 'inHabits') {
       return (
         <>
-          <SidebarItem onClick={props.closeSideBar} pic="far fa-user" text="Log Out" />
+          <Link to="/">
+            <SidebarItem pic="far fa-user" text="Log Out" />
+          </Link>
           <Link to="/userRoutine">
             <SidebarItem onClick={props.closeSideBar} pic="fas fa-bars" text="Routines" />
           </Link>
@@ -21,8 +23,10 @@ const Sidebar = props => {
     } else if (props.sideRender === 'inRoutines') {
       return (
         <>
-          <SidebarItem onClick={props.closeSideBar} pic="far fa-user" text="Log Out" />
           <Link to="/">
+            <SidebarItem onClick={props.closeSideBar} pic="far fa-user" text="Log Out" />
+          </Link>
+          <Link to="/userHabits">
             <SidebarItem onClick={props.closeSideBar} pic="fas fa-bars" text="Habits" />
           </Link>
           <SidebarItem onClick={props.closeSideBar} pic="fas fa-times" text="Close" />
@@ -31,7 +35,9 @@ const Sidebar = props => {
     } else {
       const nextRequest = (
         <>
-          <SidebarItem pic="far fa-user" text="Log Out" />
+          <Link to="/">
+            <SidebarItem pic="far fa-user" text="Log Out" />
+          </Link>
           <Link to="/userRoutine">
             <SidebarItem pic="fas fa-bars" text="Routines" />
           </Link>

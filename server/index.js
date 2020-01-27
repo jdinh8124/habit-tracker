@@ -5,6 +5,7 @@ const db = require('./database');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
 const sessionMiddleware = require('./session-middleware');
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -458,6 +459,54 @@ app.post('/api/habit', (req, res, next) => {
 
 // add habit to routine
 app.post('/api/routine/:id/habit', (req, res, next) => {
+
+});
+
+app.post('/api/signup', (req, res, next) => {
+  bcrypt.hash(req.body.userPwd, 10, function (err, hash) {
+    console.error(err);
+    const sql = `
+    insert into "user"("userName", "email", "userPwd", "createdAt")
+    values ($1, $2, $3, current_timestamp);
+    returning userName;
+    `;
+    const userValues = [req.body.userName, req.body.email, hash];
+    db.query(sql, userValues)
+      .then(result => res.status(201).json(result.rows[0]))
+      .catch(err => {
+        if (err.code === '23505') {
+          res.status(400).json('Username exists');
+        } next(err)
+        ;
+      }
+      );
+  });
+
+});
+
+app.post('/api/login', (req, res, next) => {
+  const sql = `
+    select "userPwd"
+    from "user"
+    where "userName" = $1;
+    `;
+
+  const userValues = [req.body.userName];
+  db.query(sql, userValues)
+    .then(result =>
+      bcrypt.compare(req.body.userPwd, result.rows[0].userPwd, function (err, result) {
+        console.error(err);
+        if (result) {
+          res.status(204).json();
+        } else {
+        /* eslint-disable no-console */
+          console.log(result);
+          res.status(401).json();
+        }
+      })
+    )
+    .catch(err =>
+      next(err));
 
 });
 

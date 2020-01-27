@@ -14,6 +14,7 @@ const Footer = props => {
         }></i>);
     }
   }
+
   const createPlane = () => {
     if (props.routineId) {
       return <i className="fas fa-paper-plane" onClick={

@@ -59,6 +59,10 @@ body{
   text-align: center;
 }
 
+.showError{
+  display: block;
+}
+
 .cursor-pointer{
   cursor: pointer;
 }
