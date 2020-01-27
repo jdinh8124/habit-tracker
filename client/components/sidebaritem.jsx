@@ -5,23 +5,21 @@ const Sidebaritem = props => {
   function isItCloseDiv() {
     if (props.onClick) {
       return (<div onClick={props.onClick} className="row cursor-pointer">
-        <i className={props.pic}></i>
-        <div>{props.text}</div>
+        <p> <i className={props.pic}></i> {props.text}</p>
       </div>
 
       );
     } else {
       return (
         <div className="row cursor-pointer">
-          <i className={props.pic}></i>
-          <div>{props.text}</div>
+          <p> <i className={props.pic}></i> {props.text}</p>
         </div>
       );
     }
   }
 
   return (
-    <div className="container ml-3 side-item ">
+    <div className="container side-item d-flex justify-content-center align-items-center">
       {isItCloseDiv()}
       <div className="bottom-line"></div>
     </div>

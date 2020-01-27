@@ -23,7 +23,7 @@ const BlankCard = props => {
   return (
     <div className="card m-2">
       <div className="row card-body text-left">
-        <input type="text" value={name} onChange={e => setName(e.target.value)} className="col-8"/>
+        <input type="text" className="new-routine col-8" placeHolder= "New Routine" value={name} onChange={e => setName(e.target.value)} />
         <i className="fas fa-check cursor-pointer text-secondary col-2 fa-2x" onClick={
           () => {
             props.setBlank(false);
