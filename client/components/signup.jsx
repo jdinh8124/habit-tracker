@@ -54,7 +54,7 @@ class SignUp extends React.Component {
         return response.json();
       })
       .then(myJson => {
-        if (myJson === 'Username exists') {
+        if (myJson === 'Username exists' || myJson.error === 'an unexpected error occurred') {
           this.setState(previousState => ({ duplicateUsername: true }));
         } else {
           this.props.signIn();
@@ -66,7 +66,7 @@ class SignUp extends React.Component {
     if (this.state.duplicateUsername) {
       return (
         <div className="invalid-feedback showError">
-          Your Username You Selected Was Taken
+          Your Username You Selected Was Taken or has Empty Fields
         </div>
       );
     }

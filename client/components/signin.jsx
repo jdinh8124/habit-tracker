@@ -1,9 +1,5 @@
 import React from 'react';
 
-// import {
-//   Route
-// } from 'react-router-dom';
-
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -50,7 +46,7 @@ class SignIn extends React.Component {
         if (response.status === 204) {
           return (
           /* eslint-disable no-console */
-            console.log('Correct')
+            window.location = '/userHabits'
           );
         } else {
         /* eslint-disable no-console */
@@ -69,7 +65,7 @@ class SignIn extends React.Component {
         <form onSubmit={this.checkAccount}>
           {this.isUserNameValid()}
           <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
-          <input type="password" onChange={this.passwordChange} className="form-control" placeholder="Password" />
+          <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control" placeholder="Password" />
           <button className="btn btn-primary mb-4">Sign In</button>
         </form>
       </div>
