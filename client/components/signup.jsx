@@ -43,7 +43,7 @@ class SignUp extends React.Component {
       return;
     }
     const newObj = { ...this.state };
-    fetch('/api/signup', {
+    fetch('/api/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

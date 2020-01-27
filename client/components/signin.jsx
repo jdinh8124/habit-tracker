@@ -35,7 +35,7 @@ class SignIn extends React.Component {
   checkAccount() {
     const newObj = { ...this.state };
     event.preventDefault();
-    fetch('/api/login', {
+    fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,7 +45,6 @@ class SignIn extends React.Component {
       .then(response => {
         if (response.status === 204) {
           return (
-          /* eslint-disable no-console */
             window.location = '/userHabits'
           );
         } else {

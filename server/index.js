@@ -462,7 +462,7 @@ app.post('/api/routine/:id/habit', (req, res, next) => {
 
 });
 
-app.post('/api/signup', (req, res, next) => {
+app.post('/api/auth/signup', (req, res, next) => {
   bcrypt.hash(req.body.userPwd, 10, function (err, hash) {
     console.error(err);
     const sql = `
@@ -484,7 +484,7 @@ app.post('/api/signup', (req, res, next) => {
 
 });
 
-app.post('/api/login', (req, res, next) => {
+app.post('/api/auth/login', (req, res, next) => {
   const sql = `
     select "userPwd"
     from "user"
