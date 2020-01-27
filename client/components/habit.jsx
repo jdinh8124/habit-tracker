@@ -6,15 +6,26 @@ const Habit = props => {
   }
 
   function handleClick() {
-    props.changeView('scheduledHabit');
-    props.currentHabit(props.id);
+    if (!props.chooseHabit) {
+      props.changeView('scheduledHabit');
+      props.currentHabit(props.id);
+    } else {
+      props.changeView('chooseFrequency');
+      props.chooseHabitFunction(props.id);
+    }
+  }
+
+  function canDelete() {
+    if (!props.chooseHabit) {
+      return (<i className="fas fa-trash-alt cursor-pointer text-secondary col-2 fa-2x" onClick={handleDelete}></i>);
+    }
   }
 
   return (
     <div className="card m-2" onClick={handleClick}>
       <div className="row card-body text-left">
         <h2 className="text-secondary col-10">{props.name}</h2>
-        <i className="fas fa-trash-alt cursor-pointer text-secondary col-2 fa-2x" onClick={handleDelete}></i>
+        {canDelete()}
       </div>
     </div>
 
