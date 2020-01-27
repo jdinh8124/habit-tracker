@@ -15,7 +15,7 @@ const Sidebar = props => {
             <SidebarItem pic="far fa-user" text="Log Out" />
           </Link>
           <Link to="/userRoutine">
-            <SidebarItem pic="fas fa-bars" text="Routines" />
+            <SidebarItem onClick={props.closeSideBar} pic="fas fa-bars" text="Routines" />
           </Link>
           <SidebarItem onClick={props.closeSideBar} pic="fas fa-times" text="Close" />
         </>
@@ -24,10 +24,10 @@ const Sidebar = props => {
       return (
         <>
           <Link to="/">
-            <SidebarItem pic="far fa-user" text="Log Out" />
+            <SidebarItem onClick={props.closeSideBar} pic="far fa-user" text="Log Out" />
           </Link>
           <Link to="/userHabits">
-            <SidebarItem pic="fas fa-bars" text="Habits" />
+            <SidebarItem onClick={props.closeSideBar} pic="fas fa-bars" text="Habits" />
           </Link>
           <SidebarItem onClick={props.closeSideBar} pic="fas fa-times" text="Close" />
         </>
@@ -51,7 +51,7 @@ const Sidebar = props => {
 
   return (
     <div className="shadow-div container ">
-      <div className="open-side offset-5 bg-primary ">
+      <div className="open-side offset-5 purple">
         {sideBarItems()}
       </div>
     </div>

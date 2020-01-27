@@ -1,15 +1,6 @@
 import React from 'react';
-// import UserRoutineHabit from './components/userRoutineHabit';
 // import UserHabits from './components/userHabits';
-// import Congrats from './components/congrats';
-
-import {
-  BrowserRouter as Router
-  // Switch,
-  // Route
-  // Link
-} from 'react-router-dom';
-import Frequnecy from './components/frequency';
+import ScheduledHabit from './components/scheduledHabit';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,11 +10,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Router>
-          <Frequnecy/>
-        </Router>
-      </div>
+      <ScheduledHabit />
     );
   }
 }

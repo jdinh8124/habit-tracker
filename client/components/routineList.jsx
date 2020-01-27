@@ -1,7 +1,3 @@
-/*
-* Send GET request, list all the routine items
-*/
-
 import React from 'react';
 import Routine from './routine';
 
@@ -12,7 +8,7 @@ const RoutineList = props => {
   if (props.routine) {
     createList = props.routine.map(item => <Routine key={item.routineId}
       routineItem={item} editList={editList} setEditList={setEditList}
-      routineId={item.routineId} userId={props.userId} />);
+      routineId={item.routineId} userId={props.userId} setView={props.setView} />);
   } else {
     createList = [];
   }
