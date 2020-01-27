@@ -38,7 +38,7 @@ const UserRoutineMain = props => {
     <div className="bg-light h-100">
       <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
       {isSideBarOpen()}
-      <RoutineList routine={routine} userId={userId} setView={props.setView} />
+      <RoutineList view='userRoutineMain' routine={routine} userId={userId} setView={props.setView} />
       {createBlank()}
       <Footer screen='userRoutine' setBlank={setBlank} />
     </div>
