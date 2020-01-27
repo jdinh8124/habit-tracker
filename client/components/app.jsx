@@ -1,7 +1,6 @@
 import React from 'react';
 import UserHabits from './userHabits';
 import UserRoutine from './userRoutine';
-import Header from './header';
 import Frequency from './frequency';
 import Duration from './duration';
 import Congrats from './congrats';
@@ -21,7 +20,6 @@ export default class App extends React.Component {
     this.state = {
       sideBarOpen: false,
       newHabitToPush: null,
-      ssideBarOpen: false,
       newUserHabit: {
         userId: 2,
         routineId: 2,
@@ -84,15 +82,14 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header />
+      <div className="h-100">
         <Switch>
           <Route exact path="/" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
-          <Route exact path="/userRoutine" render={props => <UserRoutine {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
-          <Route exact path="/scheduledHabits" render={props => <ScheduledHabit {...props} />} />
+          <Route exact path="/userRoutine" render={props => <UserRoutine {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />}/>
+          <Route exact path="/scheduledHabits" render={props => <ScheduledHabit {...props}/>} />
           <Route exact path="/message" render={props => <Message {...props} />} />
           <Route exact path="/frequency" render={props => <Frequency {...props} addingInfo={this.addingInputInfoToState} />} />
-          <Route exact path="/duration" render={props => <Duration {...props} addingInfo={this.addingInputInfoToState} />} />
+          <Route exact path="/duration" render={props => <Duration {...props} addingInfo={this.addingInputInfoToState} />}/>
           <Route exact path="/congrats" render={props => <Congrats {...props} addingInfo={this.addingInputInfoToState} />} />
           <Route exact path="/motivation" render={props => <Motivation {...props} addingInfo={this.addingInputInfoToState} />} />
         </Switch>
