@@ -2,7 +2,6 @@ import React from 'react';
 
 const BlankCard = props => {
   const [name, setName] = React.useState('');
-  // const [routine, setRoutine] = React.useState(null);
 
   const postHabit = habitName => {
     const init = {
@@ -35,17 +34,8 @@ const BlankCard = props => {
     fetch('/api/routine', init)
       .then(res => res.json())
       .then(res => {
-        const newArr = props.routine;
-        // setRoutine(res);
-        const newNewRoutine = {
-          routineId: res[0].routineId,
-          routineName: name,
-          routineDescription: 'will be deleted soon',
-          createdBy: props.user
-        };
-        newArr.push(newNewRoutine);
-        props.setRoutine(newArr);
-        window.location.reload(true);
+        const newArr = [...props.routine];
+        props.setRoutine(newArr.map(item => !item.routineId ? res : item));
       });
   };
 
