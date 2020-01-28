@@ -111,7 +111,7 @@ const UserHabits = props => {
           <Header title={'User Habits'} headerView={'main'} openSideBar={props.openSideBar} />
           {isSideBarOpen()}
           <HabitList currentId={findCurrentHabit} changeView={changeView} deleteHabit={deleteUserHabit} userId={userId} userHabits={habits} />
-          <Footer screen="userHabits" changeView= {changeView}/>
+          <Footer screen="userHabits" changeView= {changeView} />
         </div>);
     }
 
