@@ -1,20 +1,24 @@
-/*
-* Accessed through sidebar only
-* Send routine to user leads to the routine request page
-*/
-
 import React from 'react';
-import Header from './header';
-import Sidebar from './sidebar';
-import RoutineList from './routineList';
+import UserRoutineMain from './userRoutineMain';
+import UserRoutineHabit from './userRoutineHabit';
 
-const UserRoutine = () => {
+const UserRoutine = props => {
+  const [view, setView] = React.useState('main');
+
+  const createPage = () => {
+    if (view === 'main') {
+      return <UserRoutineMain setView={setView} openSideBar={props.openSideBar}
+        isOpen={props.isOpen} />;
+    } else {
+      return <UserRoutineHabit routineId={view} openSideBar={props.openSideBar}
+        isOpen={props.isOpen}/>;
+    }
+  };
+
   return (
-    <div>
-      <Header />
-      <Sidebar />
-      <RoutineList />
-    </div>
+    <>
+      {createPage()}
+    </>
   );
 };
 
