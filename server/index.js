@@ -443,17 +443,27 @@ app.post('/api/habit', (req, res, next) => {
   if (!integerTest.exec(req.body.userId) || !integerTest.exec(req.body.routineId) || !integerTest.exec(req.body.habitId)) {
     next(new ClientError('habit, userID, or HabitID is not an integer', 404));
   }
-
   const sql = `
     insert into "userHabit"("userId", "routineId", "habitId", "timesCompleted", "lastCompleted", "frequency", "nextCompletion", "duration", "congratsMessage", "motivationalMessage")
     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     returning *;
   `;
-
-  const userValues = [req.body.userId, req.body.routineId, req.body.habitId, 0, '04:05:06.789', req.body.frequency, '2019-02-08', req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
+  const userValues = [2, req.body.routineId, req.body.habitId, 0, '04:05:06.789', req.body.frequency, '2019-02-08', req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
   // console.log('before query', sql, userValues);
   db.query(sql, userValues)
-    .then(result => res.status(201).json(result.rows[0]))
+    .then(result => {
+      const nextSql = `
+                select *
+                from "userHabit"
+                left join "habit" ON "userHabit"."habitId" = "habit"."habitId"
+                where "userId" = $1
+                `;
+      const userHabitId = [result.rows[0].userId];
+      db.query(nextSql, userHabitId)
+        .then(newResult => {
+          res.status(202).json(newResult.rows[0]);
+        });
+    })
     .catch(err => next(err));
 });
 
@@ -467,9 +477,10 @@ app.post('/api/auth/signup', (req, res, next) => {
     console.error(err);
     const sql = `
     insert into "user"("userName", "email", "userPwd", "createdAt")
-    values ($1, $2, $3, current_timestamp);
+    values ($1, $2, $3, current_timestamp)
     returning userName;
     `;
+
     const userValues = [req.body.userName, req.body.email, hash];
     db.query(sql, userValues)
       .then(result => res.status(201).json(result.rows[0]))

@@ -11,7 +11,7 @@ const Habit = props => {
       props.currentHabit(props.id);
     } else {
       props.changeView('chooseFrequency');
-      props.chooseHabitFunction(props.id);
+      props.chooseHabitFunction('habitId', props.id);
     }
   }
 

@@ -24,7 +24,7 @@ const RoutineList = props => {
 
   function createListChooseRoutine() {
     if (props.routine) {
-      const createList = props.routine.map(item => <ChooseRoutine key={item.routineId}
+      const createList = props.routine.map(item => <ChooseRoutine addingInfo={props.addingInfo} key={item.routineId}
         routineItem={item} name={item.routineName} id={item.routineId}
         currentRoutine = {props.currentRoutine} changeView={props.changeView} findCurrentRoutine={props.findCurrentRoutine}/>);
       return createList;

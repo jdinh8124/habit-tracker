@@ -5,6 +5,7 @@ const ChooseRoutine = props => {
   function handleClick() {
     props.changeView('chooseHabit');
     props.findCurrentRoutine(props.id);
+    props.addingInfo('routineId', props.id);
   }
 
   return (
