@@ -502,9 +502,9 @@ app.post('/api/auth/signup', (req, res, next) => {
   bcrypt.hash(req.body.userPwd, 10, function (err, hash) {
     console.error(err);
     const sql = `
-    insert into "user"("userName", "email", "userPwd", "createdAt")
-    values ($1, $2, $3, current_timestamp);
-    returning userName;
+    insert into "user"("userName", "email", "userPwd")
+    values ($1, $2, $3)
+    returning "userName";
     `;
     const userValues = [req.body.userName, req.body.email, hash];
     db.query(sql, userValues)
@@ -529,20 +529,21 @@ app.post('/api/auth/login', (req, res, next) => {
 
   const userValues = [req.body.userName];
   db.query(sql, userValues)
-    .then(result =>
-      bcrypt.compare(req.body.userPwd, result.rows[0].userPwd, function (err, result) {
+    .then(result => {
+      // console.log(req.body.userPwd, result.rows[0].userPwd);
+      bcrypt.compare(req.body.userPwd, result.rows[0].userPwd, function (err, comResult) {
         console.error(err);
-        if (result) {
+        // console.log(comResult);
+        if (comResult) {
           res.status(204).json();
         } else {
-        /* eslint-disable no-console */
-          console.log(result);
+          /* eslint-disable no-console */
+          // console.log(result);
           res.status(401).json();
         }
-      })
-    )
-    .catch(err =>
-      next(err));
+      });
+    })
+    .catch(err => next(err));
 
 });
 
