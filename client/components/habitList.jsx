@@ -14,6 +14,7 @@ const HabitList = props => {
       userId = {props.userId} id={value.habitId}
       getCurrentHabit = {props.getCurrentHabit} key={value.habitId}
       name= {value.habitName}
+      deleteHabit={props.deleteHabit}
       chooseHabitFunction= {props.chooseHabitFunction} />);
   }
   return (

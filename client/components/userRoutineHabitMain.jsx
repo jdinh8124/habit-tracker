@@ -9,9 +9,15 @@ const UserRoutineHabitMain = props => {
   const [routineHabit, setRoutineHabit] = React.useState([]);
   const [blank, setBlank] = React.useState(false);
 
+  function isSideBarOpen() {
+    if (props.isOpen) {
+      return <Sidebar sideRender={'inRoutines'} closeSideBar={props.openSideBar} />;
+    }
+  }
+
   React.useEffect(
     () => {
-      fetch(`/api/routine/${props.routineId}/user/${props.userId}`)
+      fetch(`/api/routine/${props.routineId}`)
         .then(res => res.json())
         .then(res => setRoutineHabit(res));
       fetch(`/api/routine/user/${props.userId}`)
@@ -30,17 +36,18 @@ const UserRoutineHabitMain = props => {
   );
 
   const createBlank = () => {
-    return blank && <BlankCard setBlank={setBlank}
+    return blank && <BlankCard setBlank={setBlank} blank='habit' routineId={props.routineId}
       user={props.userId} routine={routineHabit} setRoutine={setRoutineHabit} />;
   };
 
   return (
     <div className="bg-light h-100 vh-100">
-      <Header />
-      <Sidebar />
+      <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
+      {isSideBarOpen()}
       <HabitList userHabits={routineHabit} />
       {createBlank()}
-      <Footer routineId={props.routineId} setBlank={setBlank} setView={props.setView}/>
+      <Footer routineId={props.routineId} setBlank={setBlank} setView={props.setView}
+        screen='userRoutine' />
     </div>
   );
 };

@@ -26,8 +26,8 @@ const UserRoutineHabitForm = props => {
           };
           if (userName) {
             fetch('/api/share', init)
-              .then()
-              .then();
+              .then(res => res.json())
+              .then(res => false);
             props.setView('sent');
           }
         }
