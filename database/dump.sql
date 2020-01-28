@@ -652,6 +652,22 @@ COPY public.habit ("habitId", "habitName", "habitDescription", "createdBy", "cre
 2	Drink water	So you can stay alive	2	2020-01-22 17:25:08.386083-08
 3	Work Out	Make yourself tired	1	2020-01-22 17:25:08.386083-08
 4	Code Everyday	Stay sharp	2	2020-01-22 17:25:08.386083-08
+5	Jog	Unneeded column	2	2020-01-27 15:13:11.981094-08
+6	New Added Habit	Unneeded column	2	2020-01-27 15:36:26.571531-08
+7	2nd New Added Habit	Unneeded column	2	2020-01-27 15:40:48.785976-08
+8	3rd New Habit	Unneeded column	2	2020-01-27 15:42:00.531213-08
+9	4th New Habit	Unneeded column	2	2020-01-27 15:43:06.655497-08
+10	5th New Habit	Unneeded column	2	2020-01-27 15:44:27.184427-08
+11	6th New Habit	Unneeded column	2	2020-01-27 15:45:21.053248-08
+12	7th New Habit	Unneeded column	2	2020-01-27 15:46:29.854265-08
+13	8th New Habit	Unneeded column	2	2020-01-27 15:48:35.12172-08
+14	9th New Habit	Unneeded column	2	2020-01-27 16:07:09.490432-08
+15	Find Something	Unneeded column	2	2020-01-27 16:13:04.966705-08
+16	Plan	Unneeded column	2	2020-01-27 16:19:50.069512-08
+17	Something	Unneeded column	2	2020-01-27 16:21:06.157122-08
+18	Habit123	Unneeded column	2	2020-01-27 17:13:19.833706-08
+19	Habit 1	Unneeded column	2	2020-01-28 11:00:58.15653-08
+20	Habit 2	Unneeded column	2	2020-01-28 11:01:24.88346-08
 \.
 
 
@@ -664,6 +680,126 @@ COPY public.routine ("routineId", "routineName", "routineDescription", "createdB
 2	Stay Healthy	Dob wants to be healthy	2	2020-01-22 12:14:57.795595-08
 3	Be Productive	Bob needs to work more	1	2020-01-22 12:14:57.795595-08
 4	Have Fun	Dob is boring	2	2020-01-22 12:14:57.795595-08
+7	Cook	Cook your own meal!	2	2020-01-23 11:13:17.631725-08
+8	Test Your Code	will be deleted soon	2	2020-01-23 13:22:43.112137-08
+9	Update Routine	will be deleted soon	2	2020-01-23 13:23:30.470449-08
+10	Cook2	Cook your own meal!	2	2020-01-23 15:07:15.689247-08
+11	Cook3	Cook your own meal!	2	2020-01-23 15:08:31.679739-08
+12	Cook4	Cook your own meal!	2	2020-01-23 15:09:38.22148-08
+13	Cook5	Cook your own meal!	2	2020-01-23 15:10:34.957411-08
+14	Cook6	Cook your own meal!	2	2020-01-23 15:11:09.836432-08
+15	Cook7	Cook your own meal!	2	2020-01-23 15:12:02.10243-08
+16	Cook8	Cook your own meal!	2	2020-01-23 15:12:40.906799-08
+17	Cook9	Cook your own meal!	2	2020-01-23 15:13:35.077749-08
+18	Cook10	Cook your own meal!	2	2020-01-23 15:14:14.250991-08
+19	Cook11	Cook your own meal!	2	2020-01-23 15:15:39.672447-08
+20	Cook12	Cook your own meal!	2	2020-01-23 15:16:42.286293-08
+21	Cook a Lot	will be deleted soon	2	2020-01-23 15:17:13.506099-08
+22	Test	will be deleted soon	2	2020-01-23 15:18:27.677309-08
+23	Test2	will be deleted soon	2	2020-01-23 15:18:58.723035-08
+24	Cook13	Cook your own meal!	2	2020-01-23 15:19:48.115265-08
+25	Test3	will be deleted soon	2	2020-01-23 15:20:02.38679-08
+26	Test4	will be deleted soon	2	2020-01-23 15:21:10.367067-08
+27	Test5	will be deleted soon	2	2020-01-23 15:21:33.653685-08
+28	New Routine	will be deleted soon	2	2020-01-23 17:07:38.648188-08
+29	jkashdflakfldhsj	will be deleted soon	2	2020-01-23 17:08:35.502434-08
+30	Do Something	will be deleted soon	2	2020-01-27 16:12:51.264054-08
+31	3rd Routine	will be deleted soon	2	2020-01-27 16:20:44.862531-08
+32	What	will be deleted soon	2	2020-01-27 16:21:18.697331-08
+33	Whaat	will be deleted soon	2	2020-01-27 16:28:18.80463-08
+34	Whaaat	will be deleted soon	2	2020-01-27 16:28:52.696937-08
+35	Test Test	will be deleted soon	2	2020-01-27 16:29:32.59707-08
+36	New Routine 2	will be deleted soon	2	2020-01-27 16:56:01.386911-08
+37	Routine 3	will be deleted soon	2	2020-01-27 16:56:55.865789-08
+38	Routine 4	will be deleted soon	2	2020-01-27 16:57:53.739035-08
+39	Routine 50	will be deleted soon	2	2020-01-27 16:59:20.236579-08
+40	Routine 5	will be deleted soon	2	2020-01-27 17:01:32.577093-08
+41	Routine 6	will be deleted soon	2	2020-01-27 17:05:46.190598-08
+42	Routine 7	will be deleted soon	2	2020-01-27 17:09:29.935714-08
+43	Routine 8	will be deleted soon	2	2020-01-27 17:12:07.438045-08
+44	Routine 9	will be deleted soon	2	2020-01-27 17:16:46.605214-08
+45	Routine 10	will be deleted soon	2	2020-01-27 17:20:44.599751-08
+46	Routine 11	will be deleted soon	2	2020-01-27 17:21:57.335827-08
+47	Routine 12	will be deleted soon	2	2020-01-27 17:23:09.404007-08
+48	Routine 15	will be deleted soon	2	2020-01-27 17:25:15.506894-08
+49	Routine 18	will be deleted soon	2	2020-01-27 17:29:09.742009-08
+50	Routine 20	will be deleted soon	2	2020-01-27 17:29:22.777183-08
+51	Routine 21	will be deleted soon	2	2020-01-27 17:30:17.567357-08
+52	Routine 22	will be deleted soon	2	2020-01-27 17:30:44.448458-08
+53	Routine 23	will be deleted soon	2	2020-01-27 17:31:18.188805-08
+54	Routine 24	will be deleted soon	2	2020-01-27 17:31:48.746473-08
+55	Routine 25	will be deleted soon	2	2020-01-27 17:32:54.059559-08
+56	Routine 26	will be deleted soon	2	2020-01-27 17:35:05.586432-08
+57	Routine 27	will be deleted soon	2	2020-01-27 17:39:52.425517-08
+58	Routine 28	will be deleted soon	2	2020-01-27 17:40:28.742199-08
+59	Routine 29	will be deleted soon	2	2020-01-27 17:41:23.06054-08
+60	Routine 30	will be deleted soon	2	2020-01-27 17:42:08.570424-08
+61	Routine 31	will be deleted soon	2	2020-01-27 17:42:47.004388-08
+62	Routine32	will be deleted soon	2	2020-01-27 17:43:21.647801-08
+63	Routine 33	will be deleted soon	2	2020-01-27 17:43:39.069075-08
+64	Routine 34	will be deleted soon	2	2020-01-27 17:44:28.327363-08
+65	Routine 35	will be deleted soon	2	2020-01-27 17:44:49.795811-08
+66	Routine 36	will be deleted soon	2	2020-01-27 17:44:58.15652-08
+67	Routine 37	will be deleted soon	2	2020-01-27 17:45:09.445098-08
+68	Routine 38	will be deleted soon	2	2020-01-27 17:45:16.957845-08
+69	Routine 39	will be deleted soon	2	2020-01-27 17:46:25.389541-08
+70	Routine 40	will be deleted soon	2	2020-01-27 17:46:36.357838-08
+71	Routine 41	will be deleted soon	2	2020-01-27 17:47:11.143955-08
+72	Routine 42	will be deleted soon	2	2020-01-27 17:56:10.93429-08
+73	Routine 43	will be deleted soon	2	2020-01-27 17:57:07.254867-08
+74	Routine 44	will be deleted soon	2	2020-01-27 17:57:25.242774-08
+75	Routine 45	will be deleted soon	2	2020-01-27 17:57:39.140018-08
+76	Routine 46	will be deleted soon	2	2020-01-27 17:57:45.754473-08
+77	Routine 47	will be deleted soon	2	2020-01-27 17:58:39.986659-08
+78	Routine 48	will be deleted soon	2	2020-01-27 17:58:48.478316-08
+79	Routine 49	will be deleted soon	2	2020-01-27 17:59:22.688383-08
+80	Routine 51	will be deleted soon	2	2020-01-27 18:00:54.942422-08
+81	Routine 52	will be deleted soon	2	2020-01-27 18:01:02.271827-08
+82	Routine 53	will be deleted soon	2	2020-01-27 18:01:52.537769-08
+83	Routine 54	will be deleted soon	2	2020-01-27 18:02:03.874255-08
+84	Routine 55	will be deleted soon	2	2020-01-27 18:02:33.922693-08
+85	Routine 56	will be deleted soon	2	2020-01-27 18:02:46.729091-08
+86	Routine 58	will be deleted soon	2	2020-01-27 18:04:05.817971-08
+87	Routine 59	will be deleted soon	2	2020-01-27 18:04:14.609865-08
+88	Routine 60	will be deleted soon	2	2020-01-27 18:06:00.054538-08
+89	Routine 61	will be deleted soon	2	2020-01-27 18:07:23.180393-08
+90	Routine 62	will be deleted soon	2	2020-01-27 18:07:43.712543-08
+91	Routine 63	will be deleted soon	2	2020-01-27 18:07:55.49091-08
+92	Routine 64	will be deleted soon	2	2020-01-27 18:08:01.971183-08
+93	Routine 65	will be deleted soon	2	2020-01-27 18:09:16.680928-08
+94	Routine 66	will be deleted soon	2	2020-01-27 18:09:24.272534-08
+95	Routine 68	will be deleted soon	2	2020-01-27 18:15:45.605314-08
+96	Routine 69	will be deleted soon	2	2020-01-27 18:17:40.559232-08
+97	Routine 70	will be deleted soon	2	2020-01-27 18:17:48.262727-08
+98	Routine 71	will be deleted soon	2	2020-01-27 18:17:54.048985-08
+99	Routine 72	will be deleted soon	2	2020-01-27 18:18:04.474059-08
+100	Routine 73	will be deleted soon	2	2020-01-28 10:33:04.299027-08
+101	Routine 74	will be deleted soon	2	2020-01-28 10:37:28.166275-08
+102	Routine 75	will be deleted soon	2	2020-01-28 10:37:44.522025-08
+103	Routine 76	will be deleted soon	2	2020-01-28 10:37:49.919718-08
+104	Routine 77	will be deleted soon	2	2020-01-28 10:37:55.784652-08
+105	Routine 78	will be deleted soon	2	2020-01-28 10:39:30.954206-08
+106	Routine 79	will be deleted soon	2	2020-01-28 10:39:37.268283-08
+107	Routine 80	will be deleted soon	2	2020-01-28 10:39:43.439203-08
+108	Routine 81	will be deleted soon	2	2020-01-28 10:41:07.921823-08
+109	Routine 82	will be deleted soon	2	2020-01-28 10:43:58.583022-08
+110	Routine 83	will be deleted soon	2	2020-01-28 10:44:54.699904-08
+111	Routine 84	will be deleted soon	2	2020-01-28 10:45:29.551264-08
+112	Routine 85	will be deleted soon	2	2020-01-28 10:47:06.342628-08
+113	Routine 86	will be deleted soon	2	2020-01-28 10:47:51.598296-08
+114	Routine 87	will be deleted soon	2	2020-01-28 10:48:51.655551-08
+115	Routine 88	will be deleted soon	2	2020-01-28 10:49:07.762641-08
+116	Routine 89	will be deleted soon	2	2020-01-28 10:49:25.226742-08
+117	Routine 90	will be deleted soon	2	2020-01-28 10:51:02.395138-08
+118	Routine 91	will be deleted soon	2	2020-01-28 10:51:35.245007-08
+119	Routine 92	will be deleted soon	2	2020-01-28 10:52:33.339828-08
+120	Routine 93	will be deleted soon	2	2020-01-28 10:53:46.249961-08
+121	Routine 94	will be deleted soon	2	2020-01-28 10:53:54.952687-08
+122	Routine 95	will be deleted soon	2	2020-01-28 10:54:44.220403-08
+123	Routine 96	will be deleted soon	2	2020-01-28 10:54:54.650602-08
+124	Routine 97	will be deleted soon	2	2020-01-28 10:56:39.909155-08
+125	Routine 98	will be deleted soon	2	2020-01-28 10:57:39.265476-08
+126	Routine 99	will be deleted soon	2	2020-01-28 11:01:46.11437-08
 \.
 
 
@@ -672,6 +808,16 @@ COPY public.routine ("routineId", "routineName", "routineDescription", "createdB
 --
 
 COPY public."routineHabit" ("routineId", "habitId", "createdAt") FROM stdin;
+3	5	2020-01-27 15:14:51.773544-08
+10	10	2020-01-27 15:47:48.650564-08
+10	13	2020-01-27 15:48:35.132587-08
+10	14	2020-01-27 16:07:09.503005-08
+30	15	2020-01-27 16:13:04.972459-08
+30	16	2020-01-27 16:19:50.093037-08
+30	17	2020-01-27 16:21:06.182069-08
+41	18	2020-01-27 17:13:19.869056-08
+125	19	2020-01-28 11:00:58.162649-08
+125	20	2020-01-28 11:01:24.896375-08
 \.
 
 
@@ -682,6 +828,7 @@ COPY public."routineHabit" ("routineId", "habitId", "createdAt") FROM stdin;
 COPY public."user" ("userId", "userName", email, "userPwd", "createdAt") FROM stdin;
 1	bob	bob@imail.com	bob123	2020-01-22 11:49:27.832874-08
 2	dob	dob@imail.com	dob456	2020-01-22 11:49:27.832874-08
+3	rob	rob@rob.com	$2b$10$WxnZsSlraVVnBnSwq7wi4.kbWGvD9Xd2.uF3XObeIMDjCKbyEAnKW	2020-01-27 19:38:04.989298-08
 \.
 
 
@@ -692,7 +839,6 @@ COPY public."user" ("userId", "userName", email, "userPwd", "createdAt") FROM st
 COPY public."userHabit" ("userId", "routineId", "habitId", "timesCompleted", "lastCompleted", frequency, "nextCompletion", duration, "congratsMessage", "motivationalMessage", "createdAt") FROM stdin;
 2	1	1	3	17:32:23.37984	1	2020-01-22	30 min	You went outside!	Get out...	2020-01-22 17:32:23.37984-08
 2	2	2	5	17:32:23.37984	2	2020-01-22	1 hour	Stay hydrated!	Get some water...	2020-01-22 17:32:23.37984-08
-2	1	4	12	17:32:23.37984	1	2020-01-22	2 hours	Stay sharp!	Just commit...	2020-01-22 17:32:23.37984-08
 1	2	3	7	17:32:23.37984	2	2020-01-22	1 hour	Get gains!	Hit the gym...	2020-01-22 17:32:23.37984-08
 \.
 
@@ -702,12 +848,13 @@ COPY public."userHabit" ("userId", "routineId", "habitId", "timesCompleted", "la
 --
 
 COPY public."userRoutine" ("receiverId", "senderId", "routineId", "routineName", "accepted?", "requestMessage", "createdAt") FROM stdin;
-2	1	1	Going out	t	Dob please accept this routine	2020-01-22 12:33:50.164023-08
-2	2	4	Have Fun	t	Fun routine for me	2020-01-22 12:33:50.164023-08
-2	1	3	Work!	f	Dob be more productive	2020-01-22 12:33:50.164023-08
 2	2	2	Be Healthy	\N	Stopb being a fatass	2020-01-22 12:33:50.164023-08
-1	2	4	Have Some Fun	f	You should try this	2020-01-22 12:33:50.164023-08
 1	2	2	Be More Healthy	t	Stay healthy	2020-01-22 12:33:50.164023-08
+2	2	125	Routine 98	t	Self-created routine	2020-01-28 10:57:39.281962-08
+2	2	126	Routine 99	t	Self-created routine	2020-01-28 11:01:46.122812-08
+2	1	3	Marathon	f	Dob be more productive	2020-01-22 12:33:50.164023-08
+2	1	10	A Cooking Routine	t	Will be deleted soon	2020-01-24 12:26:57.159904-08
+2	2	30	Do Something	t	Self-created routine	2020-01-27 16:12:51.275106-08
 \.
 
 
@@ -743,7 +890,7 @@ SELECT pg_catalog.setval('public."habit_createdBy_seq"', 1, false);
 -- Name: habit_habitId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."habit_habitId_seq"', 4, true);
+SELECT pg_catalog.setval('public."habit_habitId_seq"', 20, true);
 
 
 --
@@ -771,7 +918,7 @@ SELECT pg_catalog.setval('public."routine_createdBy_seq"', 1, false);
 -- Name: routine_routineId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."routine_routineId_seq"', 4, true);
+SELECT pg_catalog.setval('public."routine_routineId_seq"', 126, true);
 
 
 --
@@ -820,7 +967,7 @@ SELECT pg_catalog.setval('public."userRoutine_senderId_seq"', 1, false);
 -- Name: user_userId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."user_userId_seq"', 2, true);
+SELECT pg_catalog.setval('public."user_userId_seq"', 3, true);
 
 
 --
@@ -969,3 +1116,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+
