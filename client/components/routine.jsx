@@ -2,7 +2,8 @@ import React from 'react';
 
 const Routine = props => {
   const [edit, setEdit] = React.useState(false);
-  const [newRoutine, setNewRoutine] = React.useState('');
+  const [newRoutine, setNewRoutine] = React.useState(props.routineItem.routineName);
+  const [routineMemory, setRoutineMemory] = React.useState('');
 
   const showCardContent = () => {
     return edit && props.editList === props.routineItem.routineName
@@ -30,12 +31,12 @@ const Routine = props => {
                 });
               setEdit(false);
               props.setEditList('');
-              setNewRoutine('');
+              setNewRoutine(newRoutine);
             }
           }></i>
           <i className="fas fa-times text-secondary col-2 fa-2x col-2" onClick={
             () => {
-              setNewRoutine('');
+              setNewRoutine(routineMemory);
               setEdit(false);
               props.setEditList('');
             }
@@ -44,11 +45,11 @@ const Routine = props => {
       )
       : (
         <>
-          <h2 className="text-secondary col-8" onClick={() => props.setView(props.routineId)}>{props.routineItem.routineName
-          }</h2>
+          <h2 className="text-secondary col-8" onClick={() => props.setView(props.routineId)}>{newRoutine}</h2>
           <i className="fas fa-edit text-secondary col-2 fa-2x" onClick={
             e => {
               setEdit(true);
+              setRoutineMemory(newRoutine);
               if (props.editList === '') props.setEditList(props.routineItem.routineName);
             }
           }></i>
@@ -62,7 +63,19 @@ const Routine = props => {
               };
               fetch(`/api/routine/${props.routineId}`, init)
                 .then(res => true)
-                .then(res => window.location.reload(true));
+                .then(res => {
+                  props.setRoutine(
+                    () => {
+                      const routineCopy = [...props.routine];
+                      for (let i = 0; i < props.routine.length; i++) {
+                        if (props.routine[i].routineId === props.routineId) {
+                          routineCopy.splice(i, 1);
+                          return routineCopy;
+                        }
+                      }
+                    }
+                  );
+                });
             }
           }></i>
         </>

@@ -171,7 +171,7 @@ app.post('/api/routine', (req, res, next) => {
                   routineId = parseInt(result.rows[0].routineId);
                   selfValue[2] = routineId;
                   db.query(selfRoutineSql, selfValue)
-                    .then(selfResult => res.status(200).json(selfResult.rows))
+                    .then(selfResult => res.status(200).json(selfResult.rows[0]))
                     .catch(err => next(err));
                 })
                 .catch(err => next(err));

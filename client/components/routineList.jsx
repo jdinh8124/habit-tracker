@@ -15,7 +15,8 @@ const RoutineList = props => {
     if (props.routine) {
       const createList = props.routine.map(item => <Routine key={item.routineId}
         routineItem={item} editList={editList} setEditList={setEditList}
-        routineId={item.routineId} userId={props.userId} setView={props.setView} />);
+        routineId={item.routineId} userId={props.userId} setView={props.setView}
+        setRoutine={props.setRoutine} routine={props.routine} />);
       return createList;
     } else {
       return [];
