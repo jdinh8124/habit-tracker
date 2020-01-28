@@ -33,7 +33,8 @@ app.get('/api/habit/:userId', (req, res, next) => {
   db.query(sql, params)
     .then(result => {
       if (result.rows.length === 0) {
-        throw new ClientError(`user with id ${userId} could not be found`, 404);
+        res.status(200);
+        res.json([]);
       } else {
         res.status(200);
         res.json(result.rows);
@@ -446,9 +447,11 @@ app.post('/api/habit', (req, res, next) => {
                 where "userId" = $1
                 `;
       const userHabitId = [result.rows[0].userId];
+      const habitId = result.rows[0].habitId;
       db.query(nextSql, userHabitId)
         .then(newResult => {
-          res.status(202).json(newResult.rows[0]);
+          const resultIdArr = newResult.rows.filter(item => item.habitId === habitId);
+          res.status(202).json(resultIdArr[0]);
         });
     })
     .catch(err => next(err));
@@ -467,7 +470,7 @@ app.post('/api/routine/:id/habit', (req, res, next) => {
   const searchHabitSql = `
     select "habitId"
       from "habit"
-     where "habitName" = $1;
+      where "habitName" = $1;
   `;
   const postHabitSql = `
     insert into "habit" ("habitName", "habitDescription", "createdBy")
