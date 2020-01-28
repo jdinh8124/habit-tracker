@@ -446,9 +446,11 @@ app.post('/api/habit', (req, res, next) => {
                 where "userId" = $1
                 `;
       const userHabitId = [result.rows[0].userId];
+      const habitId = result.rows[0].habitId;
       db.query(nextSql, userHabitId)
         .then(newResult => {
-          res.status(202).json(newResult.rows[0]);
+          const resultIdArr = newResult.rows.filter(item => item.habitId === habitId);
+          res.status(202).json(resultIdArr[0]);
         });
     })
     .catch(err => next(err));

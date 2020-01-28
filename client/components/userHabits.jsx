@@ -102,16 +102,12 @@ const UserHabits = props => {
   }
 
   function getRoutineHabits() {
-    fetch(`/api/routine/${currentRoutine}/user/${userId}`)
+    fetch(`/api/routine/${currentRoutine}`)
       .then(res => res.json())
       .then(res => {
         return setRoutineHabits(res);
       });
   }
-
-  // function chooseHabit(id) {
-
-  // }
 
   useEffect(() => {
     getUserHabits(userId);
