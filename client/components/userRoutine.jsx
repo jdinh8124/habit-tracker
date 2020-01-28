@@ -9,7 +9,10 @@ const UserRoutine = props => {
     if (view === 'main') {
       return <UserRoutineMain setView={setView} openSideBar={props.openSideBar}
         isOpen={props.isOpen} />;
-    } else return <UserRoutineHabit routineId={view} />;
+    } else {
+      return <UserRoutineHabit routineId={view} openSideBar={props.openSideBar}
+        isOpen={props.isOpen}/>;
+    }
   };
 
   return (

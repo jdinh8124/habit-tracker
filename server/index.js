@@ -95,29 +95,28 @@ app.get('/api/routine/user/:user', (req, res, next) => {
 });
 
 // View habits from routines
-app.get('/api/routine/:id/user/:user', (req, res, next) => {
+app.get('/api/routine/:id', (req, res, next) => {
   const integerTest = /^[1-9]\d*$/;
-  if (!integerTest.exec(req.params.user) || !integerTest.exec(req.params.id)) {
-    next(new ClientError('userId or routineId is not an integer', 400));
+  if (!integerTest.exec(req.params.id)) {
+    next(new ClientError(`routineId ${req.params.id} is not an integer`, 400));
   }
-  const userSql = `
-    select "userName"
-    from "user"
-    where "userId" = $1;
+  const routineSql = `
+    select "routineId"
+    from "routine"
+    where "routineId" = $1;
   `;
-  const userRoutineSql = `
+  const routineHabitSql = `
     select *
-    from "userHabit"
-    left join "habit" ON "userHabit"."habitId" = "habit"."habitId"
-    where "userId" = $1 and "routineId" = $2;
+    from "routineHabit"
+    left join "habit" ON "routineHabit"."habitId" = "habit"."habitId"
+    where "routineId" = $1;
   `;
-  const userValue = [parseInt(req.params.user)];
-  const routineValue = [parseInt(req.params.user), parseInt(req.params.id)];
-  db.query(userSql, userValue)
+  const value = [parseInt(req.params.id)];
+  db.query(routineSql, value)
     .then(result => {
-      if (!result.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
+      if (!result.rows.length) next(new ClientError(`routineId ${req.params.id} does not exist`, 404));
       else {
-        db.query(userRoutineSql, routineValue)
+        db.query(routineHabitSql, value)
           .then(result => res.status(200).json(result.rows))
           .catch(err => next(err));
       }
@@ -150,11 +149,6 @@ app.post('/api/routine', (req, res, next) => {
     values ($2, $3, $1)
     returning *;
   `;
-  const selectRoutineSql = `
-    select "routineId"
-      from "routine"
-     where "routineName" = $1 and "createdBy" = $2;
-  `;
   const selfRoutineSql = `
     insert into "userRoutine" ("receiverId", "senderId", "routineId", "routineName", "accepted?", "requestMessage")
     values ($1, $2, $3, $4, $5, $6)
@@ -173,25 +167,18 @@ app.post('/api/routine', (req, res, next) => {
             if (routineResult.rows.length) next(new ClientError(`routine name ${req.body.routineName} already existed`, 400));
             else {
               db.query(postRoutineSql, routineValue)
-                .then(result => result.rows)
+                .then(result => {
+                  routineId = parseInt(result.rows[0].routineId);
+                  selfValue[2] = routineId;
+                  db.query(selfRoutineSql, selfValue)
+                    .then(selfResult => res.status(200).json(selfResult.rows))
+                    .catch(err => next(err));
+                })
                 .catch(err => next(err));
             }
           })
           .catch(err => next(err));
       }
-    })
-    .then(result => {
-      db.query(selectRoutineSql, routineNameValue)
-        .then(routineIdResult => {
-          routineId = parseInt(routineIdResult.rows[0].routineId);
-        })
-        .then(result => {
-          selfValue[2] = routineId;
-          db.query(selfRoutineSql, selfValue)
-            .then(result => res.status(200).json(result.rows))
-            .catch(err => next(err));
-        })
-        .catch(err => next(err));
     })
     .catch(err => next(err));
 });
@@ -459,7 +446,56 @@ app.post('/api/habit', (req, res, next) => {
 
 // add habit to routine
 app.post('/api/routine/:id/habit', (req, res, next) => {
-
+  if (!req.params.id) next(new ClientError('Please enter a routine id', 400));
+  else if (!req.body.habitName) next(new ClientError('Please enter a habit name', 400));
+  else if (!req.body.userId) next(new ClientError('Please enter a user id', 400));
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.id) || !integerTest.exec(req.body.userId)) {
+    next(new ClientError('routineId or userId is not an integer', 404));
+  }
+  let habitId = null;
+  const searchHabitSql = `
+    select "habitId"
+      from "habit"
+     where "habitName" = $1;
+  `;
+  const postHabitSql = `
+    insert into "habit" ("habitName", "habitDescription", "createdBy")
+    values ($1, 'Unneeded column', $2)
+    returning *;
+  `;
+  const postRoutineHabitSql = `
+    insert into "routineHabit" ("routineId", "habitId")
+    values ($1, $2)
+    returning *;
+  `;
+  const searchHabitValue = [req.body.habitName];
+  const postHabitValue = [req.body.habitName, parseInt(req.body.userId)];
+  db.query(searchHabitSql, searchHabitValue)
+    .then(result => {
+      if (!result.rows.length) {
+        db.query(postHabitSql, postHabitValue)
+          .then(habitResult => {
+            db.query(searchHabitSql, searchHabitValue)
+              .then(idResult => {
+                habitId = parseInt(idResult.rows[0].habitId);
+                const postRoutineHabitValue = [parseInt(req.params.id), parseInt(habitId)];
+                db.query(postRoutineHabitSql, postRoutineHabitValue)
+                  .then(routineResult => res.status(200).json(routineResult.rows[0]))
+                  .catch(err => next(err));
+              })
+              .catch(err => next(err));
+          })
+          .catch(err => next(err));
+      } else {
+        habitId = parseInt(result.rows[0].habitId);
+        const postRoutineHabitValue = [parseInt(req.params.id), parseInt(habitId)];
+        db.query(postRoutineHabitSql, postRoutineHabitValue)
+          .then(routineResult => res.status(200).json(routineResult.rows[0]))
+          .catch(err => next(err));
+      }
+    })
+    .catch(err => next(err));
 });
 
 app.post('/api/auth/signup', (req, res, next) => {

@@ -14,7 +14,8 @@ const UserRoutineHabit = props => {
     switch (view) {
       case 'main':
         page = <UserRoutineHabitMain setView={setView} setRoutine={setRoutine}
-          userId={userId} routineId={props.routineId}/>;
+          userId={userId} routineId={props.routineId} openSideBar={props.openSideBar}
+          isOpen={props.isOpen}/>;
         break;
       case 'request':
         page = <UserRoutineHabitRequest routineName={routine.routineName} setView={setView}/>;
