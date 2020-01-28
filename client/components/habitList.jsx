@@ -9,7 +9,7 @@ const HabitList = props => {
   if (props.userHabits.length === 0) {
     userHabits = <h2>add a habit</h2>;
   } else {
-    userHabits = props.userHabits.map(value => <Habit chooseHabit={props.chooseHabitProp}
+    userHabits = props.userHabits.map(value => <Habit chooseHabit={props.chooseHabit}
       currentHabit={props.currentId} changeView={props.changeView}
       userId = {props.userId} id={value.habitId}
       getCurrentHabit = {props.getCurrentHabit} key={value.habitId}
