@@ -42,7 +42,7 @@ const UserRoutineHabitMain = props => {
 
   return (
     <div className="bg-light h-100 vh-100">
-      <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
+      <Header title={'User Routine'} headerView={'subMain'} openSideBar={props.openSideBar} setView={props.setView} />
       {isSideBarOpen()}
       <HabitList userHabits={routineHabit} />
       {createBlank()}

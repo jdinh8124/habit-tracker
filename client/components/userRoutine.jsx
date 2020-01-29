@@ -10,7 +10,7 @@ const UserRoutine = props => {
       return <UserRoutineMain setView={setView} openSideBar={props.openSideBar}
         isOpen={props.isOpen} history={props.history} />;
     } else {
-      return <UserRoutineHabit routineId={view} openSideBar={props.openSideBar}
+      return <UserRoutineHabit setView={setView} routineId={view} openSideBar={props.openSideBar}
         history={props.history} isOpen={props.isOpen}/>;
     }
   };

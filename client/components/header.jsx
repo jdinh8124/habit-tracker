@@ -21,9 +21,9 @@ export default function Header(props) {
       );
     } else if (props.headerView === 'subMain') {
       return (
-        <div>
-          <div onClick={props.changeView} className="col-10 p-3 titleSize"><i className="fas fa-chevron-left a"></i></div>
-          <div className="col-10 p-3 titleSize" >{props.title}</div>
+        <div className="p-3">
+          <div onClick={() => props.setView('main')} className="col-2 titleSize d-inline"><i className="fas fa-chevron-left a"></i></div>
+          <div className="col-10 p-3 titleSize d-inline" >{props.title}</div>
 
         </div>
       );
