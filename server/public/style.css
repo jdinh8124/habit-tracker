@@ -67,7 +67,8 @@ body{
   cursor: pointer;
 }
 
-.fa-plus-circle{
+.plus-sign,
+.plane-sign {
   font-size: 40px;
 }
 
@@ -76,9 +77,17 @@ body{
 }
 
 .plus-sign{
-  position: absolute;
+  position: fixed;
   right: 5%;
   bottom: 5%;
+  z-index: 10;
+}
+
+.plane-sign {
+  position: fixed;
+  left: 5%;
+  bottom: 5%;
+  z-index: 10;
 }
 
 input {

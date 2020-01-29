@@ -307,9 +307,12 @@ app.post('/api/share', (req, res, next) => {
               db.query(getReceiverIdSql, getReceiverIdValue)
                 .then(idResult => {
                   sendRoutineValue[0] = parseInt(idResult.rows[0].userId);
-                  db.query(sendRoutineSql, sendRoutineValue)
-                    .then(sendResult => res.status(204).json())
-                    .catch(err => next(err));
+                  if (sendRoutineValue[0] === sendRoutineValue[1]) next(new ClientError('receiver and sender is the same person', 400));
+                  else {
+                    db.query(sendRoutineSql, sendRoutineValue)
+                      .then(sendResult => res.status(204).json())
+                      .catch(err => next(err));
+                  }
                 })
                 .catch(err => next(err));
             }
@@ -317,6 +320,21 @@ app.post('/api/share', (req, res, next) => {
           .catch(err => next(err));
       }
     })
+    .catch(err => next(err));
+});
+
+app.get('/api/request/:user', (req, res, next) => {
+  if (!req.params.user) next(new ClientError('Please enter a user id', 400));
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.user)) next(new ClientError(`user id ${req.params.user} is not an integer`, 400));
+  const sql = `
+    select *
+      from "userRoutine"
+     where "receiverId" = $1 and "accepted?" is null;
+  `;
+  const value = [parseInt(req.params.user)];
+  db.query(sql, value)
+    .then(result => res.json(result.rows))
     .catch(err => next(err));
 });
 
@@ -381,13 +399,14 @@ app.post('/api/user/habit', (req, res, next) => {
   if (!habitId || !userId) {
     throw ClientError('HabitId and userId are required');
   }
-  const updateSQL = `update "userHabit"
-                    set "lastCompleted" = CURRENT_TIME,
-                        "timesCompleted" = "timesCompleted" + 1,
-                        "nextCompletion" = CURRENT_DATE + interval '1 day'
-                    where "userId" = $1 and "habitId" = $2
-                    returning *
-                    `;
+  const updateSQL = `
+    update "userHabit"
+       set "lastCompleted" = CURRENT_TIME,
+           "timesCompleted" = "timesCompleted" + 1,
+           "nextCompletion" = CURRENT_DATE + interval '1 day'
+     where "userId" = $1 and "habitId" = $2
+    returning *
+  `;
   const params = [userId, habitId];
   db.query(updateSQL, params)
     .then(result => {
@@ -411,9 +430,9 @@ app.delete('/api/habit/', (req, res, next) => {
   }
 
   const deleteSQL = `
-                    delete from "userHabit"
-                    where "habitId" = $1
-                    `;
+    delete from "userHabit"
+     where "habitId" = $1;
+  `;
   const params = [habitId];
   db.query(deleteSQL, params)
     .then(result => {
@@ -437,7 +456,6 @@ app.post('/api/habit', (req, res, next) => {
     returning *;
   `;
   const userValues = [2, req.body.routineId, req.body.habitId, 0, '04:05:06.789', req.body.frequency, '2019-02-08', req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
-  // console.log('before query', sql, userValues);
   db.query(sql, userValues)
     .then(result => {
       const nextSql = `
@@ -535,26 +553,26 @@ app.post('/api/auth/signup', (req, res, next) => {
 });
 
 app.post('/api/auth/login', (req, res, next) => {
-  const sql = `
+  const userSql = `
     select "userPwd"
-    from "user"
-    where "userName" = $1;
+      from "user"
+     where "userName" = $1;
     `;
-
+  const getUserIdSql = `
+    select "userId"
+      from "user"
+     where "userName" = $1;
+  `;
   const userValues = [req.body.userName];
-  db.query(sql, userValues)
+  db.query(userSql, userValues)
     .then(result => {
-      // console.log(req.body.userPwd, result.rows[0].userPwd);
-      bcrypt.compare(req.body.userPwd, result.rows[0].userPwd, function (err, comResult) {
+      bcrypt.compare(req.body.userPwd, result.rows[0].userPwd, (err, comResult) => {
         console.error(err);
-        // console.log(comResult);
         if (comResult) {
-          res.status(204).json();
-        } else {
-          /* eslint-disable no-console */
-          // console.log(result);
-          res.status(401).json();
-        }
+          db.query(getUserIdSql, userValues)
+            .then(idResult => res.status(200).json(idResult.rows[0].userId))
+            .catch(err => next(err));
+        } else res.status(401).json();
       });
     })
     .catch(err => next(err));

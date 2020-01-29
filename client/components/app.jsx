@@ -2,6 +2,8 @@ import React from 'react';
 import UserHabits from './userHabits';
 import UserRoutine from './userRoutine';
 import SignUpandSignIn from './signupandsignin';
+import RoutineRequest from './routineRequest';
+import { UserProvider } from './userContext';
 
 import {
   Switch,
@@ -16,8 +18,8 @@ export default class App extends React.Component {
       loggedIn: true,
       newHabitToPush: null,
       sideBarOpen: false,
+      userId: null,
       newUserHabit: {
-        userId: 2,
         routineId: null,
         habitId: null
       }
@@ -27,6 +29,13 @@ export default class App extends React.Component {
     this.addingInputInfoToState = this.addingInputInfoToState.bind(this);
     this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
     this.backButtonClear = this.backButtonClear.bind(this);
+    this.setUserId = this.setUserId.bind(this);
+  }
+
+  setUserId(userId) {
+    this.setState(previousState => ({
+      userId: userId
+    }));
   }
 
   openSideBar() {
@@ -65,7 +74,6 @@ export default class App extends React.Component {
         this.setState(previousState => ({
           newHabitToPush: myJson,
           newUserHabit: {
-            userId: 2,
             routineId: null,
             habitId: null
           }
@@ -94,9 +102,12 @@ export default class App extends React.Component {
       <Router>
         <div className="h-100">
           <Switch>
-            <Route exact path="/" render={props => <SignUpandSignIn {...props} />} />
-            <Route exact path="/userHabits" render={props => <UserHabits {...props} backClear={this.backButtonClear} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
-            <Route exact path="/userRoutine" render={props => <UserRoutine {...props} backClear={this.backButtonClear} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />}/>
+            <UserProvider value={{ userId: this.state.userId }}>
+              <Route exact path="/" render={props => <SignUpandSignIn {...props} setUserId={this.setUserId} />} />
+              <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
+              <Route exact path="/userHabits" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
+              <Route exact path="/userRoutine" render={props => <UserRoutine {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
+            </UserProvider>
           </Switch>
         </div>
       </Router>

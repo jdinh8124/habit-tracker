@@ -10,9 +10,9 @@ import Frequency from './frequency';
 import Duration from './duration';
 import Congrats from './congrats';
 import Motivation from './motivation';
+import UserContext from './userContext';
 
 const UserHabits = props => {
-  const userId = 2;
   function isSideBarOpen() {
     if (props.isOpen) {
       return <Sidebar sideRender={'inHabits'} closeSideBar={props.openSideBar} />;
@@ -26,6 +26,7 @@ const UserHabits = props => {
   const [currentRoutine, setCurrentRoutine] = useState(0);
   const [routine, setRoutine] = React.useState(null);
   const [routineHabits, setRoutineHabits] = useState([]);
+  const userId = React.useContext(UserContext).userId;
 
   function getUserHabits(userId) {
     fetch(`/api/habit/${userId}`)
@@ -187,7 +188,11 @@ const UserHabits = props => {
     }
 
   }
-  return (<> {checkView()} </>);
+  return (
+    <>
+      {checkView()}
+    </>
+  );
 };
 
 export default UserHabits;
