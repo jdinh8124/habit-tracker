@@ -7,6 +7,7 @@ import { UserProvider } from './userContext';
 
 import {
   Switch,
+  Redirect,
   Route,
   BrowserRouter as Router
 } from 'react-router-dom';
@@ -15,7 +16,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
       newHabitToPush: null,
       sideBarOpen: false,
       userId: null,
@@ -28,18 +29,29 @@ export default class App extends React.Component {
     this.openSideBar = this.openSideBar.bind(this);
     this.addingInputInfoToState = this.addingInputInfoToState.bind(this);
     this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
-    this.backButtonClear = this.backButtonClear.bind(this);
     this.setUserId = this.setUserId.bind(this);
   }
 
+  isUserSignedIn() {
+    if (this.state.loggedIn) {
+      return <Redirect to="/userHabits"/>;
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+
   setUserId(userId) {
-    this.setState(previousState => ({ userId: userId }));
     this.setState(previousState => ({
+      userId: userId,
+      loggedIn: true,
       newUserHabit: {
         userId: userId,
         routineId: null,
         habitId: null
       }
+    }));
+    this.setState(previousState => ({
+
     }));
   }
 
@@ -79,6 +91,7 @@ export default class App extends React.Component {
         this.setState(previousState => ({
           newHabitToPush: myJson,
           newUserHabit: {
+            userId: this.state.userId,
             routineId: null,
             habitId: null
           }
@@ -90,24 +103,13 @@ export default class App extends React.Component {
       });
   }
 
-  backButtonClear() {
-    this.setState(previousState => ({
-      newHabitToPush: {},
-      newUserHabit: {
-        userId: 2,
-        routineId: null,
-        habitId: null
-      }
-    })
-    );
-  }
-
   render() {
     return (
       <Router>
         <div className="h-100">
           <Switch>
             <UserProvider value={{ userId: this.state.userId }}>
+              {this.isUserSignedIn()}
               <Route exact path="/" render={props => <SignUpandSignIn {...props} setUserId={this.setUserId} />} />
               <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
               <Route exact path="/userHabits" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
