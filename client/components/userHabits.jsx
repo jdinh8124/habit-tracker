@@ -164,7 +164,7 @@ const UserHabits = props => {
     } else if (view === 'chooseCongrats') {
       return (
         <div className="bg-light h-100">
-          <Header title={'Choose Congrats Message'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseDuration')} />
+          <Header title={'Congrats Message'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseDuration')} />
           {isSideBarOpen()}
           <Congrats addingInfo={props.addingInfo} changeView={changeView}/>
         </div>
@@ -172,7 +172,7 @@ const UserHabits = props => {
     } else if (view === 'chooseMotivation') {
       return (
         <div className="bg-light h-100">
-          <Header title={'Choose Congrats Message'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseCongrats')} />
+          <Header title={'Motivational Message'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseCongrats')} />
           {isSideBarOpen()}
           <Motivation addingInfo={props.addingInfo} changeView={changeView}/>
         </div>
