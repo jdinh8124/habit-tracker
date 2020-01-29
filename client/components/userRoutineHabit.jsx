@@ -12,7 +12,7 @@ const UserRoutineHabit = props => {
     let page = null;
     switch (view) {
       case 'main':
-        page = <UserRoutineHabitMain setView={setView} setRoutine={setRoutine}
+        page = <UserRoutineHabitMain goBackView={props.setView} setView={setView} setRoutine={setRoutine}
           userId={props.userId} routineId={props.routineId} openSideBar={props.openSideBar}
           isOpen={props.isOpen}/>;
         break;

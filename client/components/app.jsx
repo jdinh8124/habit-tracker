@@ -28,6 +28,7 @@ export default class App extends React.Component {
     this.openSideBar = this.openSideBar.bind(this);
     this.addingInputInfoToState = this.addingInputInfoToState.bind(this);
     this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
+    this.backButtonClear = this.backButtonClear.bind(this);
     this.setUserId = this.setUserId.bind(this);
   }
 
@@ -82,6 +83,18 @@ export default class App extends React.Component {
       .catch(error => {
         console.error(error);
       });
+  }
+
+  backButtonClear() {
+    this.setState(previousState => ({
+      newHabitToPush: {},
+      newUserHabit: {
+        userId: 2,
+        routineId: null,
+        habitId: null
+      }
+    })
+    );
   }
 
   render() {

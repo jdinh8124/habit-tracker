@@ -4,6 +4,7 @@ export default function Header(props) {
   const currentURL = new URL(window.location.href);
   const currentPage = currentURL.pathname;
   let className;
+
   function headerTypeToRender() {
     if (props.headerView === 'main') {
       return (
@@ -14,9 +15,10 @@ export default function Header(props) {
       );
     } else if (props.headerView === 'subMain') {
       return (
-        <div>
-          <div className="col-10 p-3 titleSize"><i className="fas fa-chevron-left a"></i></div>
-          <div>{props.title}</div>
+        <div className="p-3">
+          <div onClick={() => props.setView('main')} className="col-2 titleSize d-inline"><i className="fas fa-chevron-left a"></i></div>
+          <div className="col-10 p-3 titleSize d-inline" >{props.title}</div>
+
         </div>
       );
     } else if (props.headerView === 'newList') {
