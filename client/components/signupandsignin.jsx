@@ -25,7 +25,7 @@ const SignUpandSignIn = props => {
       return <Signup signIn={changeViewToSignIn}/>;
     } else {
       return (
-        <Signin />
+        <Signin history={props.history} />
       );
     }
   }
