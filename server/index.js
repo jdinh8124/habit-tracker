@@ -550,26 +550,26 @@ app.post('/api/auth/signup', (req, res, next) => {
 });
 
 app.post('/api/auth/login', (req, res, next) => {
-  const sql = `
+  const userSql = `
     select "userPwd"
-    from "user"
-    where "userName" = $1;
+      from "user"
+     where "userName" = $1;
     `;
-
+  const getUserIdSql = `
+    select "userId"
+      from "user"
+     where "userName" = $1;
+  `;
   const userValues = [req.body.userName];
-  db.query(sql, userValues)
+  db.query(userSql, userValues)
     .then(result => {
-      // console.log(req.body.userPwd, result.rows[0].userPwd);
-      bcrypt.compare(req.body.userPwd, result.rows[0].userPwd, function (err, comResult) {
+      bcrypt.compare(req.body.userPwd, result.rows[0].userPwd, (err, comResult) => {
         console.error(err);
-        // console.log(comResult);
         if (comResult) {
-          res.status(204).json();
-        } else {
-          /* eslint-disable no-console */
-          // console.log(result);
-          res.status(401).json();
-        }
+          db.query(getUserIdSql, userValues)
+            .then(idResult => res.status(200).json(idResult.rows[0].userId))
+            .catch(err => next(err));
+        } else res.status(401).json();
       });
     })
     .catch(err => next(err));

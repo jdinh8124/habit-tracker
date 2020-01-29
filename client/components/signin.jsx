@@ -43,17 +43,12 @@ class SignIn extends React.Component {
       body: JSON.stringify(newObj)
     })
       .then(response => {
-        if (response.status === 204) {
-          return (
-            window.location = '/userHabits'
-          );
-        } else {
-        /* eslint-disable no-console */
-          console.log(response);
-          /* eslint-disable no-console */
-          console.log('try again');
-          this.setState(previousState => ({ wrongUsername: true }));
-        }
+        if (response.status === 200) return response.json();
+        else this.setState(previousState => ({ wrongUsername: true }));
+      })
+      .then(res => {
+        this.props.setUserId(res);
+        this.props.history.push('/userHabits');
       });
   }
 
@@ -71,4 +66,5 @@ class SignIn extends React.Component {
     );
   }
 }
+
 export default SignIn;
