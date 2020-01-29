@@ -5,15 +5,15 @@ const SignUpandSignIn = props => {
 
   const [view, setAccountView] = useState('welcome');
 
-  function changeViewToSignUp() {
+  const changeViewToSignUp = () => {
     setAccountView('sign up');
-  }
+  };
 
-  function changeViewToSignIn() {
+  const changeViewToSignIn = () => {
     setAccountView('Sign In ');
-  }
+  };
 
-  function welcomeRender() {
+  const welcomeRender = () => {
     if (view === 'welcome') {
       return (<>
         <h1>Hello, Friend</h1>
@@ -25,10 +25,10 @@ const SignUpandSignIn = props => {
       return <Signup signIn={changeViewToSignIn}/>;
     } else {
       return (
-        <Signin />
+        <Signin setUserId={props.setUserId} {...props} />
       );
     }
-  }
+  };
 
   return (
     <>

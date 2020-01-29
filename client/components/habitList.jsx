@@ -1,6 +1,3 @@
-/*
-* Send GET request, list all the habit items
-*/
 import React from 'react';
 import Habit from './habit';
 

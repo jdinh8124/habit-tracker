@@ -1,13 +1,11 @@
-/*
-* Only exist with the hamburger bar header
-*/
-
 import React from 'react';
 import SidebarItem from './sidebaritem';
 import { Link } from 'react-router-dom';
+import UserContext from './userContext';
+
 const Sidebar = props => {
   const [envelope, setEnvelope] = React.useState('far fa-envelope-open');
-  const userId = 1;
+  const userId = React.useContext(UserContext).userId;
   const checkRequest = () => {
     fetch(`/api/request/${userId}`)
       .then(res => res.json())
@@ -79,5 +77,3 @@ const Sidebar = props => {
 };
 
 export default Sidebar;
-
-// <SidebarItem pic="fas fa-exclamation-circle" text="Pending Routine" />
