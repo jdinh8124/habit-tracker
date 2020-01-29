@@ -2,6 +2,7 @@ import React from 'react';
 import UserHabits from './userHabits';
 import UserRoutine from './userRoutine';
 import SignUpandSignIn from './signupandsignin';
+import RoutineRequest from './routineRequest';
 
 import {
   Switch,
@@ -82,6 +83,7 @@ export default class App extends React.Component {
         <div className="h-100">
           <Switch>
             <Route exact path="/" render={props => <SignUpandSignIn {...props} />} />
+            <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar}/>} />
             <Route exact path="/userHabits" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
             <Route exact path="/userRoutine" render={props => <UserRoutine {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />}/>
           </Switch>

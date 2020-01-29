@@ -306,9 +306,12 @@ app.post('/api/share', (req, res, next) => {
               db.query(getReceiverIdSql, getReceiverIdValue)
                 .then(idResult => {
                   sendRoutineValue[0] = parseInt(idResult.rows[0].userId);
-                  db.query(sendRoutineSql, sendRoutineValue)
-                    .then(sendResult => res.status(204).json())
-                    .catch(err => next(err));
+                  if (sendRoutineValue[0] === sendRoutineValue[1]) next(new ClientError('receiver and sender is the same person', 400));
+                  else {
+                    db.query(sendRoutineSql, sendRoutineValue)
+                      .then(sendResult => res.status(204).json())
+                      .catch(err => next(err));
+                  }
                 })
                 .catch(err => next(err));
             }
@@ -316,6 +319,21 @@ app.post('/api/share', (req, res, next) => {
           .catch(err => next(err));
       }
     })
+    .catch(err => next(err));
+});
+
+app.get('/api/request/:user', (req, res, next) => {
+  if (!req.params.user) next(new ClientError('Please enter a user id', 400));
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.user)) next(new ClientError(`user id ${req.params.user} is not an integer`, 400));
+  const sql = `
+    select *
+      from "userRoutine"
+     where "receiverId" = $1 and "accepted?" is null;
+  `;
+  const value = [parseInt(req.params.user)];
+  db.query(sql, value)
+    .then(result => res.json(result.rows))
     .catch(err => next(err));
 });
 

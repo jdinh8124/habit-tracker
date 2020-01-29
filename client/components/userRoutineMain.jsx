@@ -13,7 +13,6 @@ import BlankCard from './blankCard';
 const UserRoutineMain = props => {
   const [routine, setRoutine] = React.useState(null);
   const [blank, setBlank] = React.useState(false);
-  const userId = 2;
 
   function isSideBarOpen() {
     if (props.isOpen) {
@@ -23,7 +22,7 @@ const UserRoutineMain = props => {
 
   React.useEffect(
     () => {
-      fetch(`/api/routine/user/${userId}`)
+      fetch(`/api/routine/user/${props.userId}`)
         .then(res => res.json())
         .then(res => setRoutine(res));
     }, []
@@ -31,14 +30,14 @@ const UserRoutineMain = props => {
 
   const createBlank = () => {
     return blank && <BlankCard setBlank={setBlank}
-      user={userId} routine={routine} setRoutine={setRoutine} blank='routine' />;
+      user={props.userId} routine={routine} setRoutine={setRoutine} blank='routine' />;
   };
 
   return (
     <div className="bg-light h-100">
       <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
       {isSideBarOpen()}
-      <RoutineList view='userRoutineMain' routine={routine} userId={userId} setView={props.setView}
+      <RoutineList view='userRoutineMain' routine={routine} userId={props.userId} setView={props.setView}
         setRoutine={setRoutine} />
       {createBlank()}
       <Footer screen='userRoutine' setBlank={setBlank} />

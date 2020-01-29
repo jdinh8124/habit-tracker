@@ -7,14 +7,13 @@ import UserRoutineHabitSent from './userRoutineHabitSent';
 const UserRoutineHabit = props => {
   const [view, setView] = React.useState('main');
   const [routine, setRoutine] = React.useState({});
-  const userId = 2;
 
   const createPage = () => {
     let page = null;
     switch (view) {
       case 'main':
         page = <UserRoutineHabitMain setView={setView} setRoutine={setRoutine}
-          userId={userId} routineId={props.routineId} openSideBar={props.openSideBar}
+          userId={props.userId} routineId={props.routineId} openSideBar={props.openSideBar}
           isOpen={props.isOpen}/>;
         break;
       case 'request':
@@ -22,7 +21,7 @@ const UserRoutineHabit = props => {
         break;
       case 'form':
         page = <UserRoutineHabitForm routineName={routine.routineName}
-          setView={setView} routineId={routine.routineId} userId={userId}/>;
+          setView={setView} routineId={routine.routineId} userId={props.userId}/>;
         break;
       case 'sent':
         page = <UserRoutineHabitSent setView={setView}/>;

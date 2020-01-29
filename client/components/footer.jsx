@@ -17,7 +17,7 @@ const Footer = props => {
 
   const createPlane = () => {
     if (props.routineId) {
-      return <i className="fas fa-paper-plane" onClick={
+      return <i className="fas fa-paper-plane text-secondary" onClick={
         () => props.setView('request')
       }></i>;
     }
@@ -27,7 +27,7 @@ const Footer = props => {
   return (
     <div className="container footer h-50">
       <div className="row">
-        <div className="col-2">
+        <div className="col-2 plane-sign">
           {createPlane()}
         </div>
         <div className="col-8"></div>
