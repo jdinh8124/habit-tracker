@@ -74,15 +74,40 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div className="d-flex flex-column  align-items-center ">
-        <h1>Create Account</h1>
-        <form onSubmit={this.createAccount}>
-          <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
+      <div className="d-flex flex-column  align-items-center h-100 justify-content-center ">
+        <h1 className="purple-font">Create Account</h1>
+        <form className="d-flex align-items-center flex-column" onSubmit={this.createAccount}>
+
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-user"></i></span>
+            </div>
+            <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
+          </div>
+
           {this.isUserNameValid()}
-          <input onChange={this.emailChange} className="form-control mt-4 mb-4" placeholder="Email" />
-          <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control mb-4" placeholder="Password" />
-          <input type="password" name="password" autoComplete="on" onChange={this.confirmPasswordChange} className="form-control mb-4" placeholder="Confirm Password" />
-          <button className="btn btn-primary">Submit</button>
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-envelope"></i></span>
+            </div>
+            <input onChange={this.emailChange} className="form-control" placeholder="Email" />
+          </div>
+
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-lock"></i></span>
+            </div>
+            <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control" placeholder="Password" />
+          </div>
+
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-lock"></i></span>
+            </div>
+            <input type="password" name="password" autoComplete="on" onChange={this.confirmPasswordChange} className="form-control" placeholder="Confirm Password" />
+          </div>
+
+          <button className="btn text-light blue-purple-gradient">Submit</button>
         </form>
       </div>
     );
