@@ -26,6 +26,7 @@ export default class App extends React.Component {
     this.openSideBar = this.openSideBar.bind(this);
     this.addingInputInfoToState = this.addingInputInfoToState.bind(this);
     this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
+    this.backButtonClear = this.backButtonClear.bind(this);
   }
 
   openSideBar() {
@@ -76,14 +77,26 @@ export default class App extends React.Component {
       });
   }
 
+  backButtonClear() {
+    this.setState(previousState => ({
+      newHabitToPush: {},
+      newUserHabit: {
+        userId: 2,
+        routineId: null,
+        habitId: null
+      }
+    })
+    );
+  }
+
   render() {
     return (
       <Router>
         <div className="h-100">
           <Switch>
             <Route exact path="/" render={props => <SignUpandSignIn {...props} />} />
-            <Route exact path="/userHabits" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
-            <Route exact path="/userRoutine" render={props => <UserRoutine {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />}/>
+            <Route exact path="/userHabits" render={props => <UserHabits {...props} backClear={this.backButtonClear} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
+            <Route exact path="/userRoutine" render={props => <UserRoutine {...props} backClear={this.backButtonClear} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />}/>
           </Switch>
         </div>
       </Router>

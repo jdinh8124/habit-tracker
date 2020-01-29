@@ -10,6 +10,12 @@ export default function Header(props) {
   const currentURL = new URL(window.location.href);
   const currentPage = currentURL.pathname;
   let className;
+
+  function goBack() {
+    props.history.goBack();
+    props.backClear();
+  }
+
   function headerTypeToRender() {
     if (props.headerView === 'main') {
       return (
@@ -21,8 +27,9 @@ export default function Header(props) {
     } else if (props.headerView === 'subMain') {
       return (
         <div>
-          <div className="col-10 p-3 titleSize"><i className="fas fa-chevron-left a"></i></div>
-          <div>{props.title}</div>
+          <div onClick={goBack} className="col-10 p-3 titleSize"><i className="fas fa-chevron-left a"></i></div>
+          <div className="col-10 p-3 titleSize" >{props.title}</div>
+
         </div>
       );
     } else if (props.headerView === 'newList') {

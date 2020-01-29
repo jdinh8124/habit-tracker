@@ -36,7 +36,7 @@ const UserRoutineMain = props => {
 
   return (
     <div className="bg-light h-100">
-      <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} />
+      <Header title={'User Routines'} headerView={'main'} openSideBar={props.openSideBar} history={props.history}/>
       {isSideBarOpen()}
       <RoutineList view='userRoutineMain' routine={routine} userId={userId} setView={props.setView}
         setRoutine={setRoutine} />
