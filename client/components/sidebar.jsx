@@ -22,7 +22,7 @@ const Sidebar = props => {
       return (
         <>
           <Link to="/">
-            <SidebarItem pic="far fa-user" text="Log Out" />
+            <SidebarItem onClick={props.closeSideBar} pic="far fa-user" text="Log Out" />
           </Link>
           <Link to="/routineRequest">
             <SidebarItem onClick={props.closeSideBar} pic={envelope} text="Requests" />
@@ -52,7 +52,7 @@ const Sidebar = props => {
       const nextRequest = (
         <>
           <Link to="/">
-            <SidebarItem pic="far fa-user" text="Log Out" />
+            <SidebarItem onClick={props.closeSideBar} pic="far fa-user" text="Log Out" />
           </Link>
           <Link to="/routineRequest">
             <SidebarItem onClick={props.closeSideBar} pic={envelope} text="Requests" />
@@ -68,7 +68,7 @@ const Sidebar = props => {
   };
 
   return (
-    <div className="shadow-div container ">
+    <div className="shadow-div container " onClick={props.closeSideBar}>
       <div className="open-side offset-5 purple">
         {sideBarItems()}
       </div>
