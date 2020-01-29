@@ -1,9 +1,3 @@
-/*
-* Two type of headers
-* 1. back button < on the left
-* 2. hamburger bar button on the right
-*/
-
 import React from 'react';
 
 export default function Header(props) {

@@ -18,7 +18,7 @@ const UserRoutine = props => {
 
   return (
     <UserConsumer>
-      {props => createPage(props.id)}
+      {props => createPage(props.userId)}
     </UserConsumer>
   );
 };

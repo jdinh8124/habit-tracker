@@ -89,7 +89,7 @@ export default class App extends React.Component {
       <Router>
         <div className="h-100">
           <Switch>
-            <UserProvider value={{ id: this.state.userId }}>
+            <UserProvider value={{ userId: this.state.userId }}>
               <Route exact path="/" render={props => <SignUpandSignIn {...props} setUserId={this.setUserId} />} />
               <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
               <Route exact path="/userHabits" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />

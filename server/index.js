@@ -32,12 +32,12 @@ app.get('/api/habit/:userId', (req, res, next) => {
   const params = [userId];
   db.query(sql, params)
     .then(result => {
-      if (result.rows.length === 0) {
-        throw new ClientError(`user with id ${userId} could not be found`, 404);
-      } else {
-        res.status(200);
-        res.json(result.rows);
-      }
+      // if (result.rows.length === 0) {
+      //   throw new ClientError(`user with id ${userId} could not be found`, 404);
+      // } else {
+      res.status(200);
+      res.json(result.rows);
+      // }
     })
     .catch(err => next(err));
 
@@ -398,13 +398,14 @@ app.post('/api/user/habit', (req, res, next) => {
   if (!habitId || !userId) {
     throw ClientError('HabitId and userId are required');
   }
-  const updateSQL = `update "userHabit"
-                    set "lastCompleted" = CURRENT_TIME,
-                        "timesCompleted" = "timesCompleted" + 1,
-                        "nextCompletion" = CURRENT_DATE + interval '1 day'
-                    where "userId" = $1 and "habitId" = $2
-                    returning *
-                    `;
+  const updateSQL = `
+    update "userHabit"
+       set "lastCompleted" = CURRENT_TIME,
+           "timesCompleted" = "timesCompleted" + 1,
+           "nextCompletion" = CURRENT_DATE + interval '1 day'
+     where "userId" = $1 and "habitId" = $2
+    returning *
+  `;
   const params = [userId, habitId];
   db.query(updateSQL, params)
     .then(result => {
@@ -428,9 +429,9 @@ app.delete('/api/habit/', (req, res, next) => {
   }
 
   const deleteSQL = `
-                    delete from "userHabit"
-                    where "habitId" = $1
-                    `;
+    delete from "userHabit"
+     where "habitId" = $1;
+  `;
   const params = [habitId];
   db.query(deleteSQL, params)
     .then(result => {
@@ -454,7 +455,6 @@ app.post('/api/habit', (req, res, next) => {
     returning *;
   `;
   const userValues = [2, req.body.routineId, req.body.habitId, 0, '04:05:06.789', req.body.frequency, '2019-02-08', req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
-  // console.log('before query', sql, userValues);
   db.query(sql, userValues)
     .then(result => {
       const nextSql = `
