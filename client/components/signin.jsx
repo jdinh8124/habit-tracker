@@ -54,13 +54,23 @@ class SignIn extends React.Component {
 
   render() {
     return (
-      <div className="d-flex flex-column mt-5 align-items-center">
-        <h1>Sign In</h1>
-        <form onSubmit={this.checkAccount}>
+      <div className="d-flex flex-column  align-items-center h-100 justify-content-center">
+        <h1 className="purple-font">Sign In</h1>
+        <form className="d-flex align-items-center flex-column" onSubmit={this.checkAccount}>
           {this.isUserNameValid()}
-          <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
-          <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control" placeholder="Password" />
-          <button className="btn btn-primary mb-4">Sign In</button>
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-user"></i></span>
+            </div>
+            <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
+          </div>
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-lock"></i></span>
+            </div>
+            <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control" placeholder="Password" />
+          </div>
+          <button className="btn text-light blue-purple-gradient">Sign In</button>
         </form>
       </div>
     );
