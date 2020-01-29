@@ -455,7 +455,7 @@ app.post('/api/habit', (req, res, next) => {
     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     returning *;
   `;
-  const userValues = [2, req.body.routineId, req.body.habitId, 0, '04:05:06.789', req.body.frequency, '2019-02-08', req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
+  const userValues = [req.body.userId, req.body.routineId, req.body.habitId, 0, '04:05:06.789', req.body.frequency, '2019-02-08', req.body.duration, req.body.congratsMessage, req.body.motivationalMessage];
   db.query(sql, userValues)
     .then(result => {
       const nextSql = `

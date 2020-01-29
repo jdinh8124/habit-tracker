@@ -33,8 +33,13 @@ export default class App extends React.Component {
   }
 
   setUserId(userId) {
+    this.setState(previousState => ({ userId: userId }));
     this.setState(previousState => ({
-      userId: userId
+      newUserHabit: {
+        userId: userId,
+        routineId: null,
+        habitId: null
+      }
     }));
   }
 
