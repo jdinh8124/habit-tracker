@@ -6,13 +6,28 @@ import React from 'react';
 import SidebarItem from './sidebaritem';
 import { Link } from 'react-router-dom';
 const Sidebar = props => {
+  const [envelope, setEnvelope] = React.useState('far fa-envelope-open');
+  const userId = 1;
+  const checkRequest = () => {
+    fetch(`/api/request/${userId}`)
+      .then(res => res.json())
+      .then(res => {
+        return res.length
+          ? setEnvelope('far fa-envelope')
+          : setEnvelope('far fa-envelope-open');
+      });
+  };
 
   const sideBarItems = () => {
+    checkRequest();
     if (props.sideRender === 'inHabits') {
       return (
         <>
           <Link to="/">
             <SidebarItem pic="far fa-user" text="Log Out" />
+          </Link>
+          <Link to="/routineRequest">
+            <SidebarItem onClick={props.closeSideBar} pic={envelope} text="Requests" />
           </Link>
           <Link to="/userRoutine">
             <SidebarItem onClick={props.closeSideBar} pic="fas fa-bars" text="Routines" />
@@ -26,6 +41,9 @@ const Sidebar = props => {
           <Link to="/">
             <SidebarItem onClick={props.closeSideBar} pic="far fa-user" text="Log Out" />
           </Link>
+          <Link to="/routineRequest">
+            <SidebarItem onClick={props.closeSideBar} pic={envelope} text="Requests" />
+          </Link>
           <Link to="/userHabits">
             <SidebarItem onClick={props.closeSideBar} pic="fas fa-bars" text="Habits" />
           </Link>
@@ -38,10 +56,12 @@ const Sidebar = props => {
           <Link to="/">
             <SidebarItem pic="far fa-user" text="Log Out" />
           </Link>
+          <Link to="/routineRequest">
+            <SidebarItem onClick={props.closeSideBar} pic={envelope} text="Requests" />
+          </Link>
           <Link to="/userRoutine">
             <SidebarItem pic="fas fa-bars" text="Routines" />
           </Link>
-          <SidebarItem pic="fas fa-exclamation-circle" text="Pending Routine" />
           <SidebarItem onClick={props.closeSideBar} pic="fas fa-times" text="Close" />
         </>
       );
@@ -59,3 +79,5 @@ const Sidebar = props => {
 };
 
 export default Sidebar;
+
+// <SidebarItem pic="fas fa-exclamation-circle" text="Pending Routine" />
