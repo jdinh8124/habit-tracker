@@ -110,17 +110,16 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-        <div className="h-inheirt">
-          <Switch>
-            <UserProvider value={{ userId: this.state.userId }}>
-              {this.isUserSignedIn()}
-              <Route exact path="/" render={props => <SignUpandSignIn {...props} setUserId={this.setUserId} />} />
-              <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
-              <Route exact path="/userHabits" render={props => <UserHabits {...props} signOut={this.signOut} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
-              <Route exact path="/userRoutine" render={props => <UserRoutine {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
-            </UserProvider>
-          </Switch>
-        </div>
+
+        <Switch>
+          <UserProvider value={{ userId: this.state.userId }}>
+            {this.isUserSignedIn()}
+            <Route exact path="/" render={props => <SignUpandSignIn {...props} setUserId={this.setUserId} />} />
+            <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
+            <Route exact path="/userHabits" render={props => <UserHabits {...props} signOut={this.signOut} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
+            <Route exact path="/userRoutine" render={props => <UserRoutine {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
+          </UserProvider>
+        </Switch>
       </Router>
     );
   }
