@@ -1,18 +1,36 @@
-/*
-* Only exist with the hamburger bar header
-*/
-
 import React from 'react';
 import SidebarItem from './sidebaritem';
 import { Link } from 'react-router-dom';
+import UserContext from './userContext';
+
 const Sidebar = props => {
+  const [envelope, setEnvelope] = React.useState('far fa-envelope-open');
+  const userId = React.useContext(UserContext).userId;
+  const checkRequest = () => {
+    fetch(`/api/request/${userId}`)
+      .then(res => res.json())
+      .then(res => {
+        return res.length
+          ? setEnvelope('far fa-envelope')
+          : setEnvelope('far fa-envelope-open');
+      });
+  };
+
+  function signOut() {
+    props.closeSideBar();
+    props.signOut();
+  }
 
   const sideBarItems = () => {
+    checkRequest();
     if (props.sideRender === 'inHabits') {
       return (
         <>
           <Link to="/">
-            <SidebarItem pic="far fa-user" text="Log Out" />
+            <SidebarItem onClick={signOut} pic="far fa-user" text="Log Out" />
+          </Link>
+          <Link to="/routineRequest">
+            <SidebarItem onClick={props.closeSideBar} pic={envelope} text="Requests" />
           </Link>
           <Link to="/userRoutine">
             <SidebarItem onClick={props.closeSideBar} pic="fas fa-bars" text="Routines" />
@@ -24,7 +42,10 @@ const Sidebar = props => {
       return (
         <>
           <Link to="/">
-            <SidebarItem onClick={props.closeSideBar} pic="far fa-user" text="Log Out" />
+            <SidebarItem onClick={signOut} pic="far fa-user" text="Log Out" />
+          </Link>
+          <Link to="/routineRequest">
+            <SidebarItem onClick={props.closeSideBar} pic={envelope} text="Requests" />
           </Link>
           <Link to="/userHabits">
             <SidebarItem onClick={props.closeSideBar} pic="fas fa-bars" text="Habits" />
@@ -36,12 +57,14 @@ const Sidebar = props => {
       const nextRequest = (
         <>
           <Link to="/">
-            <SidebarItem pic="far fa-user" text="Log Out" />
+            <SidebarItem onClick={signOut} pic="far fa-user" text="Log Out" />
+          </Link>
+          <Link to="/routineRequest">
+            <SidebarItem onClick={props.closeSideBar} pic={envelope} text="Requests" />
           </Link>
           <Link to="/userRoutine">
             <SidebarItem pic="fas fa-bars" text="Routines" />
           </Link>
-          <SidebarItem pic="fas fa-exclamation-circle" text="Pending Routine" />
           <SidebarItem onClick={props.closeSideBar} pic="fas fa-times" text="Close" />
         </>
       );
@@ -50,7 +73,7 @@ const Sidebar = props => {
   };
 
   return (
-    <div className="shadow-div container ">
+    <div className="shadow-div container " onClick={props.closeSideBar}>
       <div className="open-side offset-5 purple">
         {sideBarItems()}
       </div>

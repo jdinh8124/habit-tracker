@@ -25,12 +25,12 @@ export default class Motivation extends React.Component {
 
     return (
       <>
-        <div className="d-flex flex-column mt-5 align-items-center">
-          <div className="input-text">What will you tell yourself if you need some extra motivation?</div>
-          <div className="col-12 form-group">
-            <textarea onChange={this.typingUpdate} className="form-control" rows="10"></textarea>
+        <div className="d-flex flex-column justify-content-center h-75 align-items-center">
+          <h2 className="text-center mb-3 text-secondary">What will you tell yourself if you need some extra motivation?</h2>
+          <div className="form-group p-3 w-100">
+            <textarea onChange={this.typingUpdate} className="form-control w-100 text-lg" rows="5"></textarea>
           </div>
-          <button onClick={this.updateInfo} type="button" className="btn btn-primary mb-4 ">Submit</button>
+          <button onClick={this.updateInfo} type="button" className="btn blue-purple-gradient text-light mb-4 ">Submit</button>
         </div>
       </>
     );

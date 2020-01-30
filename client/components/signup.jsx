@@ -8,7 +8,10 @@ class SignUp extends React.Component {
       email: '',
       userPwd: '',
       confirmPassword: '',
-      duplicateUsername: false
+      duplicateUsername: false,
+      passwordsDoNotMatch: false,
+      emailError: false,
+      emptyFields: false
 
     };
     this.userNameChange = this.userNameChange.bind(this);
@@ -39,9 +42,27 @@ class SignUp extends React.Component {
 
   createAccount() {
     event.preventDefault();
-    if (this.state.userPwd !== this.state.confirmPassword) {
+    if (this.state.userPwd === '' || this.state.confirmPassword === '' || this.state.userName === '' || this.state.email === '') {
+      this.setState(previousState => ({ emptyFields: true }));
       return;
+    } else {
+      this.setState(previousState => ({ emptyFields: false }));
+
     }
+    if (this.state.userPwd !== this.state.confirmPassword) {
+      this.setState(previousState => ({ passwordsDoNotMatch: true }));
+      return;
+    } else {
+      this.setState(previousState => ({ passwordsDoNotMatch: false }));
+    }
+    var re = /\S+@\S+\.\S+/;
+    if (!re.test(this.state.email)) {
+      this.setState(previousState => ({ emailError: true }));
+      return;
+    } else {
+      this.setState(previousState => ({ emailError: false }));
+    }
+
     const newObj = { ...this.state };
     fetch('/api/auth/signup', {
       method: 'POST',
@@ -62,11 +83,41 @@ class SignUp extends React.Component {
       });
   }
 
+  isUserFieldsEmpty() {
+    if (this.state.emptyFields) {
+      return (
+        <div className="invalid-feedback showError mb-3 warningDiv">
+        You Have Empty Fields
+        </div>
+      );
+    }
+  }
+
   isUserNameValid() {
     if (this.state.duplicateUsername) {
       return (
-        <div className="invalid-feedback showError">
-          Your Username You Selected Was Taken or has Empty Fields
+        <div className="invalid-feedback showError mb-3 warningDiv">
+          Your Username You Selected Was Taken
+        </div>
+      );
+    }
+  }
+
+  passWordsDoNotMatch() {
+    if (this.state.passwordsDoNotMatch) {
+      return (
+        <div className="invalid-feedback showError mb-3 warningDiv">
+          Your Passwords Do Not Match
+        </div>
+      );
+    }
+  }
+
+  isThereAnEmailError() {
+    if (this.state.emailError) {
+      return (
+        <div className="invalid-feedback showError mb-3 warningDiv">
+          Your Email Was Not Valid
         </div>
       );
     }
@@ -74,15 +125,41 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div className="d-flex flex-column  align-items-center ">
-        <h1>Create Account</h1>
-        <form onSubmit={this.createAccount}>
-          <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
+      <div className="d-flex flex-column  align-items-center h-100vh justify-content-center ">
+        <h1 className="purple-font">Create Account</h1>
+        <form className="d-flex align-items-center flex-column" onSubmit={this.createAccount}>
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-user"></i></span>
+            </div>
+            <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
+          </div>
+
           {this.isUserNameValid()}
-          <input onChange={this.emailChange} className="form-control mt-4 mb-4" placeholder="Email" />
-          <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control mb-4" placeholder="Password" />
-          <input type="password" name="password" autoComplete="on" onChange={this.confirmPasswordChange} className="form-control mb-4" placeholder="Confirm Password" />
-          <button className="btn btn-primary">Submit</button>
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-envelope"></i></span>
+            </div>
+            <input onChange={this.emailChange} className="form-control" placeholder="Email" />
+          </div>
+          {this.isThereAnEmailError()}
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-lock"></i></span>
+            </div>
+            <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control" placeholder="Password" />
+          </div>
+
+          <div className="input-group flex-nowrap mb-3 signup-input">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="addon-wrapping"><i className="fas fa-lock"></i></span>
+            </div>
+            <input type="password" name="password" autoComplete="on" onChange={this.confirmPasswordChange} className="form-control" placeholder="Confirm Password" />
+          </div>
+          {this.passWordsDoNotMatch()}
+          {this.isUserFieldsEmpty()}
+
+          <button className="btn text-light blue-purple-gradient">Submit</button>
         </form>
       </div>
     );

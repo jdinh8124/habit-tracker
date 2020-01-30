@@ -10,12 +10,12 @@ import Frequency from './frequency';
 import Duration from './duration';
 import Congrats from './congrats';
 import Motivation from './motivation';
+import UserContext from './userContext';
 
 const UserHabits = props => {
-  const userId = 2;
   function isSideBarOpen() {
     if (props.isOpen) {
-      return <Sidebar sideRender={'inHabits'} closeSideBar={props.openSideBar} />;
+      return <Sidebar signOut={props.signOut} sideRender={'inHabits'} closeSideBar={props.openSideBar} />;
     }
   }
 
@@ -26,6 +26,7 @@ const UserHabits = props => {
   const [currentRoutine, setCurrentRoutine] = useState(0);
   const [routine, setRoutine] = React.useState(null);
   const [routineHabits, setRoutineHabits] = useState([]);
+  const userId = React.useContext(UserContext).userId;
 
   function getUserHabits(userId) {
     fetch(`/api/habit/${userId}`)
@@ -128,57 +129,52 @@ const UserHabits = props => {
     } else if (view === 'chooseRoutine') {
       return (
         <div className="bg-light h-100">
-          <Header title={'Choose Routine'} headerView={'main'} openSideBar = {props.openSideBar} />
+          <Header title={'Choose Routine'} changeView={() => changeView('else')} backView={'scheduledHabit'} headerView={'subMain'} openSideBar = {props.openSideBar} clearAll={'true'} />
           {isSideBarOpen()}
           <RoutineList changeView={changeView} view='notUserRoutineMain'
             routine={routine} userId={props.userId} setView={setView}
-            findCurrentRoutine={findCurrentRoutine} addingInfo={props.addingInfo} />;
+            findCurrentRoutine={findCurrentRoutine} addingInfo={props.addingInfo} />
         </div>
       );
     } else if (view === 'chooseHabit') {
       getRoutineHabits();
       return (
-        <div className="bg-light h-100">
-          <Header title={'Choose Habit'} headerView={'main'} openSideBar={props.openSideBar} />
-          { isSideBarOpen() }
+        <div className="bg-light h-100vh">
+          <Header title={'Choose Habit'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseRoutine')} />
           <HabitList chooseHabitFunction={props.addingInfo} chooseHabit={true} changeView={changeView} userId={userId} userHabits={routineHabits} />
         </div>
       );
     } else if (view === 'chooseFrequency') {
       return (
-        <div className="bg-light h-100">
-          <Header title={'Choose Frequency'} headerView={'subMain'} openSideBar={props.openSideBar} />
-          {isSideBarOpen()}
+        <div className="bg-light h-100vh">
+          <Header title={'Choose Frequency'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseHabit')}/>
           <Frequency addingInfo={props.addingInfo} changeView={changeView} />
         </div>
       );
     } else if (view === 'chooseDuration') {
       return (
-        <div className="bg-light h-100">
-          <Header title={'Choose Duration'} headerView={'subMain'} openSideBar={props.openSideBar} />
-          {isSideBarOpen()}
+        <div className="bg-light h-100vh">
+          <Header title={'Choose Duration'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseFrequency')} />
           <Duration addingInfo={props.addingInfo} changeView={changeView} />
         </div>
       );
     } else if (view === 'chooseCongrats') {
       return (
-        <div className="bg-light h-100">
-          <Header title={'Choose Congrats Message'} headerView={'subMain'} openSideBar={props.openSideBar} />
-          {isSideBarOpen()}
+        <div className="bg-light h-100vh">
+          <Header title={'Choose Message'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseDuration')} />
           <Congrats addingInfo={props.addingInfo} changeView={changeView}/>
         </div>
       );
     } else if (view === 'chooseMotivation') {
       return (
-        <div className="bg-light h-100">
-          <Header title={'Choose Congrats Message'} headerView={'subMain'} openSideBar={props.openSideBar} />
-          {isSideBarOpen()}
+        <div className="bg-light h-100vh">
+          <Header title={'Choose Message'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseCongrats')} />
           <Motivation addingInfo={props.addingInfo} changeView={changeView}/>
         </div>
       );
     } else {
       return (
-        <div className="bg-light h-100">
+        <div className="bg-light h-100 pb-100">
           <Header title={'User Habits'} headerView={'main'} choosehabit ={false} openSideBar={props.openSideBar} />
           {isSideBarOpen()}
           <HabitList currentId={findCurrentHabit} changeView={changeView} deleteHabit={deleteUserHabit} userId={userId} userHabits={habits} />
@@ -187,7 +183,11 @@ const UserHabits = props => {
     }
 
   }
-  return (<> {checkView()} </>);
+  return (
+    <>
+      {checkView()}
+    </>
+  );
 };
 
 export default UserHabits;
