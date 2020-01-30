@@ -25,13 +25,13 @@ export default class Duration extends React.Component {
 
     return (
       <>
-        <div className="d-flex flex-column mt-5 align-items-center">
-          <div className="input-text">How long would you like to do this for?</div>
-          <form onSubmit={this.updateInfo}>
-            <div className="col-12 form-group">
-              <input onChange={this.typingUpdate} className="form-control" placeholder="i.e. 10 minutes"/>
-            </div>
-            <button onClick={this.updateInfo} type="button" className="btn btn-primary mb-4 ">Submit</button>
+        <div className="d-flex flex-column justify-content-center h-75 align-items-center">
+          <div className="p-3">
+            <h2 className="text-center text-secondary">How long would you like to do this for?</h2>
+          </div>
+          <form className="d-flex flex-column justify-content-center align-items-center" onSubmit={this.updateInfo}>
+            <input onChange={this.typingUpdate} className="form-control" placeholder="i.e. 10 mins"/>
+            <button onClick={this.updateInfo} type="button" className="btn blue-purple-gradient text-light mt-4 ">Submit</button>
           </form>
         </div>
       </>

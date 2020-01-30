@@ -28,15 +28,15 @@ export default class Frequnecy extends React.Component {
 
   render() {
     return (
-      <div className=" ">
-        <div className="d-flex flex-column mt-5 align-items-center ">
-          <div className="input-text">How often would you like to do this habit?</div>
-          <button onClick={this.updateInfoDaily} text="Daily" type="button" className="btn btn-primary mb-4 ">Daily</button>
-          <button onClick={this.updateInfoWeekly} type="button" className="btn btn-primary mb-4 ">Weekly</button>
-          <button onClick={this.updateInfoMonthly} type="button" className="btn btn-primary mb-4  ">Monthly</button>
+
+      <div className="d-flex flex-column justify-content-center h-75 align-items-center ">
+        <div className = "p-3">
+          <h2 className="text-center text-secondary">How often would you like to do this habit?</h2>
         </div>
-      </div>
-    );
+        <button onClick={this.updateInfoDaily} text="Daily" type="button" className="btn blue-purple-gradient text-light mb-4 ">Daily</button>
+        <button onClick={this.updateInfoWeekly} type="button" className="btn blue-purple-gradient text-light mb-4 ">Weekly</button>
+        <button onClick={this.updateInfoMonthly} type="button" className="btn blue-purple-gradient text-light mb-4  ">Monthly</button>
+      </div>);
   }
 
 }
