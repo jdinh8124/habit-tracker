@@ -141,7 +141,6 @@ const UserHabits = props => {
       return (
         <div className="bg-light h-100">
           <Header title={'Choose Habit'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseRoutine')} />
-          { isSideBarOpen() }
           <HabitList chooseHabitFunction={props.addingInfo} chooseHabit={true} changeView={changeView} userId={userId} userHabits={routineHabits} />
         </div>
       );
@@ -149,7 +148,6 @@ const UserHabits = props => {
       return (
         <div className="bg-light h-100">
           <Header title={'Choose Frequency'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseHabit')}/>
-          {isSideBarOpen()}
           <Frequency addingInfo={props.addingInfo} changeView={changeView} />
         </div>
       );
@@ -157,7 +155,6 @@ const UserHabits = props => {
       return (
         <div className="bg-light h-100">
           <Header title={'Choose Duration'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseFrequency')} />
-          {isSideBarOpen()}
           <Duration addingInfo={props.addingInfo} changeView={changeView} />
         </div>
       );
@@ -165,7 +162,6 @@ const UserHabits = props => {
       return (
         <div className="bg-light h-100">
           <Header title={'Congrats Message'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseDuration')} />
-          {isSideBarOpen()}
           <Congrats addingInfo={props.addingInfo} changeView={changeView}/>
         </div>
       );
@@ -173,7 +169,6 @@ const UserHabits = props => {
       return (
         <div className="bg-light h-100">
           <Header title={'Motivational Message'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseCongrats')} />
-          {isSideBarOpen()}
           <Motivation addingInfo={props.addingInfo} changeView={changeView}/>
         </div>
       );
