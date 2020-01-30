@@ -42,7 +42,7 @@ const UserRoutineHabitMain = props => {
 
   return (
     <div className="bg-light content-wrap pb-5">
-      <Header title={'User Routine'} headerView={'subMain'} openSideBar={props.openSideBar} setView={props.goBackView} />
+      <Header title={props.subHeaderTitle} headerView={'subMain'} openSideBar={props.openSideBar} setView={props.goBackView} />
       {isSideBarOpen()}
       <HabitList userHabits={routineHabit} />
       {createBlank()}

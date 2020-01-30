@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const Habit = props => {
   const [alreadyDidHabit, setAlreadyDidHabit] = useState(<></>);
+
   function handleDelete() {
     props.deleteHabit(props.id);
   }
