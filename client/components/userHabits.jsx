@@ -129,7 +129,7 @@ const UserHabits = props => {
     } else if (view === 'chooseRoutine') {
       return (
         <div className="bg-light h-100">
-          <Header title={'Choose Routine'} changeView={() => changeView('else')} backView={'scheduledHabit'} headerView={'subMain'} openSideBar = {props.openSideBar} clearAll={'true'} />
+          <Header title={'Choose Routine'} changeView={() => changeView('else')} backView={'scheduledHabit'} headerView={'subMainAndMenu'} openSideBar = {props.openSideBar} clearAll={'true'} />
           {isSideBarOpen()}
           <RoutineList changeView={changeView} view='notUserRoutineMain'
             routine={routine} userId={props.userId} setView={setView}

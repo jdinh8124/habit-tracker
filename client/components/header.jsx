@@ -28,12 +28,12 @@ export default function Header(props) {
           <div className="titleSize d-inline-block" >{props.title}</div>
         </div>
       );
-    } else if (props.headerView === 'newList') {
+    } else {
       return (
-        <div>
-          <div className=" p-3 titleSize"><i className="fas fa-chevron-left a"></i></div>
-          <div >{props.title}</div>
-          <div><i className="fas fa-check cursor-pointer"></i></div>
+        <div className="p-0 col-12">
+          <div onClick={headerClick} className="titleSize pr-2 d-inline"><i className="fas fa-chevron-left a"></i></div>
+          <div className="titleSize d-inline-block" >{props.title}</div>
+          <div onClick={props.openSideBar} className="titleSize d-inline pl-3"><i className="a fas fa-bars"></i></div>
         </div>
       );
     }
