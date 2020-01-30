@@ -231,10 +231,10 @@ app.put('/api/routine/:id', (req, res, next) => {
 });
 
 // Delete routine
-app.delete('/api/routine/:id', (req, res, next) => {
+app.delete('/api/routine', (req, res, next) => {
   const integerTest = /^[1-9]\d*$/;
-  if (!integerTest.exec(req.params.id)) {
-    next(new ClientError(`routineId ${req.params.id} is not an integer`, 400));
+  if (!integerTest.exec(req.body.id)) {
+    next(new ClientError(`routineId ${req.body.id} is not an integer`, 400));
   }
   const routineCheckSql = `
     select *
@@ -246,10 +246,10 @@ app.delete('/api/routine/:id', (req, res, next) => {
       from "userRoutine"
      where "routineId" = $1;
   `;
-  const value = [parseInt(req.params.id)];
+  const value = [parseInt(req.body.id)];
   db.query(routineCheckSql, value)
     .then(result => {
-      if (!result.rows.length) next(new ClientError(`routineId ${req.params.id} does not exist`, 404));
+      if (!result.rows.length) next(new ClientError(`routineId ${req.body.id} does not exist`, 404));
       else {
         db.query(sql, value)
           .then(result => {
@@ -383,15 +383,6 @@ app.put('/api/request/:id', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// edit habit
-app.put('/api/routine/:id/habit/:id', (req, res, next) => {
-  res.sendStatus(501);
-});
-
-app.post('/api/routine/:id/habit/:id', (req, res, next) => {
-  res.sendStatus(501);
-});
-
 // mark habit completion
 app.post('/api/user/habit', (req, res, next) => {
   const habitId = parseInt(req.body.habitId);
@@ -417,11 +408,6 @@ app.post('/api/user/habit', (req, res, next) => {
     }).catch(err => next(err));
 });
 
-// delete routine habit
-app.delete('/api/routine/:id/habit/:id', (req, res, next) => {
-  res.sendStatus(501);
-});
-
 // delete user habit
 app.delete('/api/habit/', (req, res, next) => {
   const habitId = parseInt(req.body.habitId);
@@ -434,6 +420,28 @@ app.delete('/api/habit/', (req, res, next) => {
      where "habitId" = $1;
   `;
   const params = [habitId];
+  db.query(deleteSQL, params)
+    .then(result => {
+      if (!result.rowCount) {
+        throw new ClientError(`cannot find item with habitId: ${habitId}`);
+      } else {
+        res.status(204).json({});
+      }
+    }).catch(err => next(err));
+});
+
+app.delete('/api/routine/habit', (req, res, next) => {
+  const habitId = parseInt(req.body.habitId);
+  const routineId = parseInt(req.body.routineId);
+  if (isNaN(habitId) || !habitId || isNaN(routineId) || !routineId) {
+    throw new ClientError('Habit Id and Routine Id must be a positive integers', 400);
+  }
+
+  const deleteSQL = `
+    delete from "routineHabit"
+    where "habitId" = $1 and "routineId" = $2;
+  `;
+  const params = [habitId, routineId];
   db.query(deleteSQL, params)
     .then(result => {
       if (!result.rowCount) {

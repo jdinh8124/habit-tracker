@@ -15,6 +15,25 @@ const UserRoutineHabitMain = props => {
     }
   }
 
+  function deleteHabit(habitId) {
+    fetch('/api/routine/habit', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        habitId: habitId,
+        routineId: props.routineId
+      })
+    })
+      .then(response => {
+        const habitsCopy = [...routineHabit];
+        const index = habitsCopy.findIndex(element => element.habitId === habitId);
+        habitsCopy.splice(index, 1);
+        setRoutineHabit(habitsCopy);
+      });
+  }
+
   React.useEffect(
     () => {
       fetch(`/api/routine/${props.routineId}`)
@@ -44,7 +63,7 @@ const UserRoutineHabitMain = props => {
     <div className="bg-light content-wrap pb-5">
       <Header title={props.subHeaderTitle} headerView={'subMain'} openSideBar={props.openSideBar} setView={props.goBackView} />
       {isSideBarOpen()}
-      <HabitList userHabits={routineHabit} />
+      <HabitList userHabits={routineHabit} deleteHabit={deleteHabit} routineHabit={true} />
       {createBlank()}
       <Footer routineId={props.routineId} setBlank={setBlank} setView={props.setView}
         screen='userRoutine' />

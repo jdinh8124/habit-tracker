@@ -141,3 +141,7 @@ input[type="text"]
 .text-lg{
   font-size: 24px;
 }
+
+.fa-check, .fa-times{
+  font-size:30px;
+}

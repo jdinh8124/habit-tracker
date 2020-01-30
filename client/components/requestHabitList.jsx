@@ -22,9 +22,9 @@ const RequestHabitList = props => {
   };
 
   return (
-    <div>
+    <div className="pb-5">
       {createHabitList()}
-      <div className="container footer h-50">
+      <div className="container footer">
         <div className="row">
           <div className="col-2 plane-sign">
             <i className="fas fa-check text-secondary col-2 fa-2x col-2"
