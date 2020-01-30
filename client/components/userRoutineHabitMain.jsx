@@ -41,7 +41,7 @@ const UserRoutineHabitMain = props => {
   };
 
   return (
-    <div className="bg-light h-100 vh-100">
+    <div className="bg-light content-wrap pb-5">
       <Header title={'User Routine'} headerView={'subMain'} openSideBar={props.openSideBar} setView={props.goBackView} />
       {isSideBarOpen()}
       <HabitList userHabits={routineHabit} />

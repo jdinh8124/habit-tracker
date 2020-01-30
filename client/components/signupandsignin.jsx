@@ -15,7 +15,7 @@ const SignUpandSignIn = props => {
 
   const welcomeRender = () => {
     if (view === 'welcome') {
-      return (<div className="h-100 blue-purple-gradient d-flex flex-column align-items-center justify-content-center">
+      return (<div className="h-100vh  blue-purple-gradient d-flex flex-column align-items-center justify-content-center">
         <h1 className="text-white">Hello, Friend</h1>
         <button className="btn btn-outline-light m-2 btn-lg" onClick={changeViewToSignUp}>Sign Up</button>
         <button className="btn btn-outline-light m-2 btn-lg" onClick={changeViewToSignIn}>Log In</button>

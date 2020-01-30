@@ -54,7 +54,7 @@ class SignIn extends React.Component {
 
   render() {
     return (
-      <div className="d-flex flex-column  align-items-center h-100 justify-content-center">
+      <div className="d-flex flex-column  align-items-center h-100vh justify-content-center">
         <h1 className="purple-font">Sign In</h1>
         <form className="d-flex align-items-center flex-column" onSubmit={this.checkAccount}>
           {this.isUserNameValid()}
