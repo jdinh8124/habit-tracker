@@ -8,10 +8,10 @@ const Habit = props => {
   }
 
   function handleClick() {
-    if (!props.chooseHabit) {
+    if (!props.chooseHabit && !props.routineHabit) {
       props.changeView('scheduledHabit');
       props.currentHabit(props.id);
-    } else {
+    } else if (!props.routineHabit) {
       checkIfHabitInProcess();
     }
   }
