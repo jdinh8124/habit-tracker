@@ -27,7 +27,7 @@ export default class Congrats extends React.Component {
         <div className="d-flex flex-column justify-content-center h-75 align-items-center">
           <h2 className="text-center mb-3 text-secondary">What will you tell yourself everytime you complete this habit?</h2>
           <div className="form-group p-3 w-100">
-            <textarea onChange={this.typingUpdate} className="form-control w-100" rows="10"></textarea>
+            <textarea onChange={this.typingUpdate} className="form-control w-100 text-lg" rows="5"></textarea>
           </div>
           <button onClick={this.updateInfo} type="button" className="btn blue-purple-gradient text-light mb-4">Submit</button>
         </div>

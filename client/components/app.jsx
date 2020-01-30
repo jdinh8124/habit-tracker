@@ -110,7 +110,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-        <div className="h-100">
+        <div className="h-inheirt">
           <Switch>
             <UserProvider value={{ userId: this.state.userId }}>
               {this.isUserSignedIn()}

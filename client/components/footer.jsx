@@ -25,7 +25,7 @@ const Footer = props => {
   };
 
   return (
-    <div className="container footer h-50">
+    <div className="container footer">
       <div className="row">
         <div className="col-2 plane-sign">
           {createPlane()}
