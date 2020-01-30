@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 const Habit = props => {
   const [alreadyDidHabit, setAlreadyDidHabit] = useState(<></>);
 
