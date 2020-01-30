@@ -6,7 +6,9 @@ class SignIn extends React.Component {
     this.state = {
       userName: '',
       userPwd: '',
-      wrongUsername: false
+      wrongUsername: false,
+      emptyFields: false
+
     };
     this.userNameChange = this.userNameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
@@ -32,7 +34,25 @@ class SignIn extends React.Component {
     }
   }
 
+  isUserFieldsEmpty() {
+    if (this.state.emptyFields) {
+      return (
+        <div className="invalid-feedback showError mb-3 warningDiv">
+          You Have Empty Fields
+        </div>
+      );
+    }
+  }
+
   checkAccount() {
+    event.preventDefault();
+    if (this.state.userPwd === '' || this.state.userName === '') {
+      this.setState(previousState => ({ emptyFields: true }));
+      return;
+    } else {
+      this.setState(previousState => ({ emptyFields: false }));
+    }
+
     const newObj = { ...this.state };
     event.preventDefault();
     fetch('/api/auth/login', {
@@ -47,8 +67,11 @@ class SignIn extends React.Component {
         else this.setState(previousState => ({ wrongUsername: true }));
       })
       .then(res => {
-        this.props.setUserId(res);
-        this.props.history.push('/userHabits');
+        if (res) {
+          this.props.setUserId(res);
+          this.props.history.push('/userHabits');
+        }
+
       });
   }
 
@@ -70,6 +93,7 @@ class SignIn extends React.Component {
             </div>
             <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control" placeholder="Password" />
           </div>
+          {this.isUserFieldsEmpty()}
           <button className="btn text-light blue-purple-gradient">Sign In</button>
         </form>
       </div>

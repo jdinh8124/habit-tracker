@@ -17,6 +17,10 @@ body{
   background-color:rgb(0, 0, 0, 0.4)
 }
 
+.warningDiv{
+  margin-top: -7px;
+}
+
 .open-side {
   background-color: white;
   height: 100vh;

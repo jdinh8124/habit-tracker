@@ -13,7 +13,7 @@ const RoutineRequest = props => {
 
   const isSideBarOpen = () => {
     if (props.isOpen) {
-      return <Sidebar sideRender={'requests'} closeSideBar={props.openSideBar} />;
+      return <Sidebar signOut={props.signOut} sideRender={'requests'} closeSideBar={props.openSideBar} />;
     }
   };
 

@@ -15,7 +15,7 @@ import UserContext from './userContext';
 const UserHabits = props => {
   function isSideBarOpen() {
     if (props.isOpen) {
-      return <Sidebar sideRender={'inHabits'} closeSideBar={props.openSideBar} />;
+      return <Sidebar signOut={props.signOut} sideRender={'inHabits'} closeSideBar={props.openSideBar} />;
     }
   }
 
