@@ -4,6 +4,10 @@ const BlankCard = props => {
   const [name, setName] = React.useState('');
 
   const postHabit = habitName => {
+    if (!name) {
+      return;
+    }
+
     const init = {
       method: 'POST',
       headers: {
@@ -52,26 +56,28 @@ const BlankCard = props => {
         <i className="fas fa-check cursor-pointer text-secondary col-2 fa-2x" onClick={
           () => {
             props.setBlank(false);
-            if (props.blank === 'routine') {
-              const newArr = props.routine;
-              const newRoutine = {
-                routineName: name,
-                routineDescription: 'will be deleted soon',
-                createdBy: props.user
-              };
-              newArr.push(newRoutine);
-              postRoutine(newRoutine);
+            if (name) {
+              if (props.blank === 'routine') {
+                const newArr = props.routine;
+                const newRoutine = {
+                  routineName: name,
+                  routineDescription: 'will be deleted soon',
+                  createdBy: props.user
+                };
+                newArr.push(newRoutine);
+                postRoutine(newRoutine);
               // props.setRoutine(newArr);
-            } else {
-              const newArr = props.routine;
-              const newHabit = {
-                habitName: name,
-                habitDescription: 'will be deleted soon',
-                createdBy: props.user
-              };
-              newArr.push(newHabit);
-              postHabit(name);
-              props.setRoutine(newArr);
+              } else {
+                const newArr = props.routine;
+                const newHabit = {
+                  habitName: name,
+                  habitDescription: 'will be deleted soon',
+                  createdBy: props.user
+                };
+                newArr.push(newHabit);
+                postHabit(name);
+                props.setRoutine(newArr);
+              }
             }
             setName('');
           }
