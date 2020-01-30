@@ -11,6 +11,7 @@ import Duration from './duration';
 import Congrats from './congrats';
 import Motivation from './motivation';
 import UserContext from './userContext';
+import BlankCard from './blankCard';
 
 const UserHabits = props => {
   function isSideBarOpen() {
@@ -26,6 +27,7 @@ const UserHabits = props => {
   const [currentRoutine, setCurrentRoutine] = useState(0);
   const [routine, setRoutine] = React.useState(null);
   const [routineHabits, setRoutineHabits] = useState([]);
+  const [blank, setBlank] = React.useState(false);
   const userId = React.useContext(UserContext).userId;
 
   function getUserHabits(userId) {
@@ -52,6 +54,16 @@ const UserHabits = props => {
 
       });
   }
+
+  const createBlankRoutine = () => {
+    return blank && <BlankCard setBlank={setBlank} blank='routine' routineId={props.routineId}
+      user={userId} routine={routine} setRoutine={setRoutine} />;
+  };
+
+  const createBlankHabit = () => {
+    return blank && <BlankCard setBlank={setBlank} blank='habit' routineId={currentRoutine}
+      user={userId} routine={routine} setRoutine={setRoutine} />;
+  };
 
   function updateLastCompletion(habitId) {
     fetch('/api/user/habit', {
@@ -134,6 +146,8 @@ const UserHabits = props => {
           <RoutineList changeView={changeView} view='notUserRoutineMain'
             routine={routine} userId={props.userId} setView={setView}
             findCurrentRoutine={findCurrentRoutine} addingInfo={props.addingInfo} />
+          {createBlankRoutine()}
+          <Footer screen="userRoutine" setBlank={setBlank}/>
         </div>
       );
     } else if (view === 'chooseHabit') {
@@ -142,6 +156,9 @@ const UserHabits = props => {
         <div className="bg-light h-100vh">
           <Header title={'Choose Habit'} headerView={'subMain'} openSideBar={props.openSideBar} changeView={() => changeView('chooseRoutine')} />
           <HabitList chooseHabitFunction={props.addingInfo} chooseHabit={true} changeView={changeView} userId={userId} userHabits={routineHabits} />
+          {createBlankHabit()}
+          <Footer screen="userRoutine" setBlank={setBlank} />
+
         </div>
       );
     } else if (view === 'chooseFrequency') {
