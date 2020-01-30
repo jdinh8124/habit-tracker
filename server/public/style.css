@@ -108,6 +108,9 @@ input {
       padding: 10px;
 }
 
+input.outline-input{
+  background-color: rgb(230, 230, 230);
+}
 input:focus{
   outline: none;
 }

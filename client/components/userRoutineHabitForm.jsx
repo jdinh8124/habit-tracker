@@ -6,7 +6,7 @@ const UserRoutineHabitForm = props => {
   return (
     <div className="d-flex justify-content-center align-items-center flex-column h-100 vh-100">
       <h2 className="h2 text-center purple-font">Send &apos;{props.routineName}&apos; to Friend</h2>
-      <input type="text" value={userName} onChange={
+      <input type="text" value={userName} className="outline-input" onChange={
         e => setUserName(e.target.value)
       }/>
       <button className="blue-purple-gradient btn btn-outline-light m-2 btn-lg " onClick={
