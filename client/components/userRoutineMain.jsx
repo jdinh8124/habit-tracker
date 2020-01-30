@@ -11,7 +11,7 @@ const UserRoutineMain = props => {
 
   function isSideBarOpen() {
     if (props.isOpen) {
-      return <Sidebar sideRender={'inRoutines'} closeSideBar={props.openSideBar} />;
+      return <Sidebar signOut={props.signOut} sideRender={'inRoutines'} closeSideBar={props.openSideBar} />;
     }
   }
 

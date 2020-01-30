@@ -30,6 +30,7 @@ export default class App extends React.Component {
     this.addingInputInfoToState = this.addingInputInfoToState.bind(this);
     this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
     this.setUserId = this.setUserId.bind(this);
+    this.signOut = this.signOut.bind(this);
   }
 
   isUserSignedIn() {
@@ -38,6 +39,12 @@ export default class App extends React.Component {
     } else {
       return <Redirect to="/" />;
     }
+  }
+
+  signOut() {
+    this.setState(previousState => ({
+      loggedIn: false
+    }));
   }
 
   setUserId(userId) {
@@ -49,9 +56,6 @@ export default class App extends React.Component {
         routineId: null,
         habitId: null
       }
-    }));
-    this.setState(previousState => ({
-
     }));
   }
 
@@ -111,9 +115,9 @@ export default class App extends React.Component {
             <UserProvider value={{ userId: this.state.userId }}>
               {this.isUserSignedIn()}
               <Route exact path="/" render={props => <SignUpandSignIn {...props} setUserId={this.setUserId} />} />
-              <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
-              <Route exact path="/userHabits" render={props => <UserHabits {...props} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
-              <Route exact path="/userRoutine" render={props => <UserRoutine {...props} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
+              <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
+              <Route exact path="/userHabits" render={props => <UserHabits {...props} signOut={this.signOut} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
+              <Route exact path="/userRoutine" render={props => <UserRoutine {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
             </UserProvider>
           </Switch>
         </div>
