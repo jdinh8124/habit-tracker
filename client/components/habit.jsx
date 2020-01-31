@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-
 const Habit = props => {
   const [alreadyDidHabit, setAlreadyDidHabit] = useState(<></>);
+
   function handleDelete() {
     props.deleteHabit(props.id);
   }
 
   function handleClick() {
-    if (!props.chooseHabit) {
+    if (!props.chooseHabit && !props.routineHabit) {
       props.changeView('scheduledHabit');
       props.currentHabit(props.id);
-    } else {
+    } else if (!props.routineHabit) {
       checkIfHabitInProcess();
     }
   }

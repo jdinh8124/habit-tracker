@@ -68,7 +68,8 @@ class SignIn extends React.Component {
       })
       .then(res => {
         if (res) {
-          this.props.setUserId(res);
+          sessionStorage.setItem('id', res);
+          this.props.setUserId();
           this.props.history.push('/userHabits');
         }
 
@@ -79,7 +80,7 @@ class SignIn extends React.Component {
     return (
       <div className="d-flex flex-column  align-items-center h-100vh justify-content-center">
         <h1 className="purple-font">Sign In</h1>
-        <form className="d-flex align-items-center flex-column" onSubmit={this.checkAccount}>
+        <form className="d-flex align-items-center flex-column" >
           {this.isUserNameValid()}
           <div className="input-group flex-nowrap mb-3 signup-input">
             <div className="input-group-prepend">
@@ -94,7 +95,10 @@ class SignIn extends React.Component {
             <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control" placeholder="Password" />
           </div>
           {this.isUserFieldsEmpty()}
-          <button className="btn text-light blue-purple-gradient">Sign In</button>
+          <div>
+            <button onClick={this.props.back} className="btn btn-outline-secondary d-inline mr-3">Go Back</button>
+            <button onClick={this.checkAccount} className="btn text-light blue-purple-gradient d-inline">Sign In</button>
+          </div>
         </form>
       </div>
     );

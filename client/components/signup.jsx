@@ -127,7 +127,7 @@ class SignUp extends React.Component {
     return (
       <div className="d-flex flex-column  align-items-center h-100vh justify-content-center ">
         <h1 className="purple-font">Create Account</h1>
-        <form className="d-flex align-items-center flex-column" onSubmit={this.createAccount}>
+        <form className="d-flex align-items-center flex-column">
           <div className="input-group flex-nowrap mb-3 signup-input">
             <div className="input-group-prepend">
               <span className="input-group-text" id="addon-wrapping"><i className="fas fa-user"></i></span>
@@ -158,8 +158,10 @@ class SignUp extends React.Component {
           </div>
           {this.passWordsDoNotMatch()}
           {this.isUserFieldsEmpty()}
-
-          <button className="btn text-light blue-purple-gradient">Submit</button>
+          <div>
+            <button onClick={this.props.back} className="btn btn-outline-secondary d-inline mr-3">Go Back</button>
+            <button onClick={this.createAccount} className="btn text-light blue-purple-gradient d-inline">Submit</button>
+          </div>
         </form>
       </div>
     );
