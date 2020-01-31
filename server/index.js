@@ -593,7 +593,7 @@ app.get('/api/default/:userId', (req, res, next) => {
   const sql = `
     select *
       from "defaultCheck"
-     where 'userId' = $1;
+     where "userId" = $1;
   `;
   const value = [parseInt(req.params.userId)];
   db.query(sql, value)

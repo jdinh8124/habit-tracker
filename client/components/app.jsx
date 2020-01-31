@@ -7,7 +7,6 @@ import { UserProvider } from './userContext';
 
 import {
   Switch,
-  Redirect,
   Route,
   BrowserRouter as Router
 } from 'react-router-dom';
@@ -31,14 +30,6 @@ export default class App extends React.Component {
     this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
     this.setUserId = this.setUserId.bind(this);
     this.signOut = this.signOut.bind(this);
-  }
-
-  isUserSignedIn() {
-    if (this.state.loggedIn) {
-      return <Redirect to="/userHabits"/>;
-    } else {
-      return <Redirect to="/" />;
-    }
   }
 
   signOut() {
@@ -114,7 +105,6 @@ export default class App extends React.Component {
 
         <Switch>
           <UserProvider value={{ userId: this.state.userId }}>
-            {this.isUserSignedIn()}
             <Route exact path="/" render={props => <SignUpandSignIn {...props} setUserId={this.setUserId} />} />
             <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
             <Route exact path="/userHabits" render={props => <UserHabits {...props} signOut={this.signOut} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />

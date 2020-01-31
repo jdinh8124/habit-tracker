@@ -695,11 +695,11 @@ COPY public."defaultCheck" ("userId", "createdAt") FROM stdin;
 --
 
 COPY public.habit ("habitId", "habitName", "createdBy", "createdAt") FROM stdin;
-1	Code often	1	2020-01-30 15:47:09.942776-08
-2	Networking	1	2020-01-30 15:47:09.942776-08
-3	Practice whiteboard	1	2020-01-30 15:47:09.942776-08
-4	Keep GitHub green	1	2020-01-30 15:47:09.942776-08
-5	Learn from other people	1	2020-01-30 15:47:09.942776-08
+1	Code often	1	2020-01-30 17:23:02.078595-08
+2	Networking	1	2020-01-30 17:23:02.078595-08
+3	Practice whiteboard	1	2020-01-30 17:23:02.078595-08
+4	Keep GitHub green	1	2020-01-30 17:23:02.078595-08
+5	Learn from other people	1	2020-01-30 17:23:02.078595-08
 \.
 
 
@@ -708,7 +708,7 @@ COPY public.habit ("habitId", "habitName", "createdBy", "createdAt") FROM stdin;
 --
 
 COPY public.routine ("routineId", "routineName", "createdBy", "createdAt") FROM stdin;
-1	Web Dev	1	2020-01-30 15:47:09.933651-08
+1	Web Dev	1	2020-01-30 17:23:02.075242-08
 \.
 
 
@@ -717,11 +717,11 @@ COPY public.routine ("routineId", "routineName", "createdBy", "createdAt") FROM 
 --
 
 COPY public."routineHabit" ("routineId", "habitId", "createdAt") FROM stdin;
-1	1	2020-01-30 15:47:09.947573-08
-1	2	2020-01-30 15:47:09.947573-08
-1	3	2020-01-30 15:47:09.947573-08
-1	4	2020-01-30 15:47:09.947573-08
-1	5	2020-01-30 15:47:09.947573-08
+1	1	2020-01-30 17:23:02.081043-08
+1	2	2020-01-30 17:23:02.081043-08
+1	3	2020-01-30 17:23:02.081043-08
+1	4	2020-01-30 17:23:02.081043-08
+1	5	2020-01-30 17:23:02.081043-08
 \.
 
 
@@ -730,7 +730,7 @@ COPY public."routineHabit" ("routineId", "habitId", "createdAt") FROM stdin;
 --
 
 COPY public."user" ("userId", "userName", email, "userPwd", "createdAt") FROM stdin;
-1	bob	bob@bob.com	noHashPwd	2020-01-30 15:47:09.911855-08
+1	bob	bob@bob.com	noHashPwd	2020-01-30 17:23:02.068464-08
 \.
 
 

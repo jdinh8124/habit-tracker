@@ -5,4 +5,4 @@ delete from "userRoutine";
 delete from "habit";
 delete from "userHabit";
 delete from "chat";
-delete frim "defaultCheck";
+delete from "defaultCheck";

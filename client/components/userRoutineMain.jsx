@@ -24,7 +24,7 @@ const UserRoutineMain = props => {
             .then(result => result.json())
             .then(result => {
               if (!res.length) {
-                result.shift({
+                result.unshift({
                   routineId: 1,
                   routineName: 'Web Dev',
                   createdBy: 1,
