@@ -43,9 +43,9 @@ export default class App extends React.Component {
 
   signOut() {
     this.setState(previousState => ({
-      loggedIn: false,
-      userId: null
+      loggedIn: false
     }));
+    sessionStorage.setItem('id', null);
   }
 
   setUserId() {
