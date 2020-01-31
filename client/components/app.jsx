@@ -7,7 +7,6 @@ import { UserProvider } from './userContext';
 
 import {
   Switch,
-  Redirect,
   Route,
   BrowserRouter as Router
 } from 'react-router-dom';
@@ -19,7 +18,7 @@ export default class App extends React.Component {
       loggedIn: false,
       newHabitToPush: null,
       sideBarOpen: false,
-      userId: null,
+      userId: parseInt(sessionStorage.getItem('id')),
       newUserHabit: {
         routineId: null,
         habitId: null
@@ -33,26 +32,19 @@ export default class App extends React.Component {
     this.signOut = this.signOut.bind(this);
   }
 
-  isUserSignedIn() {
-    if (this.state.loggedIn) {
-      return <Redirect to="/userHabits"/>;
-    } else {
-      return <Redirect to="/" />;
-    }
-  }
-
   signOut() {
     this.setState(previousState => ({
       loggedIn: false
     }));
+    sessionStorage.setItem('id', null);
   }
 
-  setUserId(userId) {
+  setUserId() {
     this.setState(previousState => ({
-      userId: userId,
+      userId: parseInt(sessionStorage.getItem('id')),
       loggedIn: true,
       newUserHabit: {
-        userId: userId,
+        userId: parseInt(sessionStorage.getItem('id')),
         routineId: null,
         habitId: null
       }
@@ -113,7 +105,6 @@ export default class App extends React.Component {
 
         <Switch>
           <UserProvider value={{ userId: this.state.userId }}>
-            {this.isUserSignedIn()}
             <Route exact path="/" render={props => <SignUpandSignIn {...props} setUserId={this.setUserId} />} />
             <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
             <Route exact path="/userHabits" render={props => <UserHabits {...props} signOut={this.signOut} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />

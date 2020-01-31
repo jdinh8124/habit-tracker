@@ -17,9 +17,23 @@ const UserRoutineMain = props => {
 
   React.useEffect(
     () => {
-      fetch(`/api/routine/user/${props.userId}`)
+      fetch(`/api/default/${props.userId}`)
         .then(res => res.json())
-        .then(res => setRoutine(res));
+        .then(res => {
+          fetch(`/api/routine/user/${props.userId}`)
+            .then(result => result.json())
+            .then(result => {
+              if (!res.length) {
+                result.unshift({
+                  routineId: 1,
+                  routineName: 'Web Dev',
+                  createdBy: 1,
+                  createdAt: '2020-01-30T15:47:09.933651-08:00'
+                });
+              }
+              setRoutine(result);
+            });
+        });
     }, []
   );
 

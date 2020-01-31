@@ -485,8 +485,7 @@ app.post('/api/habit', (req, res, next) => {
 
 // add habit to routine
 app.post('/api/routine/:id/habit', (req, res, next) => {
-  if (!req.params.id) next(new ClientError('Please enter a routine id', 400));
-  else if (!req.body.habitName) next(new ClientError('Please enter a habit name', 400));
+  if (!req.body.habitName) next(new ClientError('Please enter a habit name', 400));
   else if (!req.body.userId) next(new ClientError('Please enter a user id', 400));
   const integerTest = /^[1-9]\d*$/;
   if (!integerTest.exec(req.params.id) || !integerTest.exec(req.body.userId)) {
@@ -584,7 +583,38 @@ app.post('/api/auth/login', (req, res, next) => {
       });
     })
     .catch(err => next(err));
+});
 
+app.get('/api/default/:userId', (req, res, next) => {
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.userId)) {
+    next(new ClientError(`userId ${req.params.userId} is not an integer`, 404));
+  }
+  const sql = `
+    select *
+      from "defaultCheck"
+     where "userId" = $1;
+  `;
+  const value = [parseInt(req.params.userId)];
+  db.query(sql, value)
+    .then(idResult => res.status(200).json(idResult.rows))
+    .catch(err => next(err));
+});
+
+app.post('/api/default/:userId', (req, res, next) => {
+  const integerTest = /^[1-9]\d*$/;
+  if (!integerTest.exec(req.params.userId)) {
+    next(new ClientError(`userId ${req.params.userId} is not an integer`, 404));
+  }
+  const sql = `
+    insert into "defaultCheck"
+    values ($1)
+    returning *;
+  `;
+  const value = [parseInt(req.params.userId)];
+  db.query(sql, value)
+    .then(idResult => res.status(204))
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
