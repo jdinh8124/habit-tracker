@@ -134,6 +134,7 @@ app.post('/api/routine', (req, res, next) => {
   if (!integerTest.exec(req.body.user)) {
     next(new ClientError(`userId ${req.body.user} is not an integer`, 400));
   }
+
   let routineId = null;
   const userSql = `
     select "userName"
