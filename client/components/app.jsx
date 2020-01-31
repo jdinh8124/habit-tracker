@@ -48,12 +48,12 @@ export default class App extends React.Component {
     }));
   }
 
-  setUserId(userId) {
+  setUserId() {
     this.setState(previousState => ({
-      userId: userId,
+      userId: parseInt(sessionStorage.getItem('id')),
       loggedIn: true,
       newUserHabit: {
-        userId: userId,
+        userId: parseInt(sessionStorage.getItem('id')),
         routineId: null,
         habitId: null
       }

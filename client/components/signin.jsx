@@ -69,7 +69,7 @@ class SignIn extends React.Component {
       .then(res => {
         if (res) {
           sessionStorage.setItem('id', res);
-          this.props.setUserId(parseInt(sessionStorage.getItem('id')));
+          this.props.setUserId();
           this.props.history.push('/userHabits');
         }
 
