@@ -23,6 +23,9 @@ class SignUp extends React.Component {
 
   userNameChange(event) {
     this.setState({ userName: event.target.value });
+    if (this.state.duplicateUsername) {
+      this.setState({ duplicateUsername: false });
+    }
   }
 
   emailChange(event) {
