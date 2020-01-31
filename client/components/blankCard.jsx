@@ -24,6 +24,7 @@ const BlankCard = props => {
   };
 
   const postRoutine = newRoutine => {
+
     const init = {
       method: 'POST',
       headers: {
@@ -40,6 +41,7 @@ const BlankCard = props => {
       .then(res => {
         const newArr = [...props.routine];
         props.setRoutine(newArr.map(item => !item.routineId ? res : item));
+
       });
   };
 
