@@ -10,7 +10,11 @@ const SignUpandSignIn = props => {
   };
 
   const changeViewToSignIn = () => {
-    setAccountView('Sign In ');
+    setAccountView('Sign In');
+  };
+
+  const changeViewToHome = () => {
+    setAccountView('welcome');
   };
 
   const welcomeRender = () => {
@@ -22,10 +26,10 @@ const SignUpandSignIn = props => {
       </div>
       );
     } else if (view === 'sign up') {
-      return <Signup signIn={changeViewToSignIn}/>;
+      return <Signup signIn={changeViewToSignIn} back={changeViewToHome} />;
     } else {
       return (
-        <Signin setUserId={props.setUserId} {...props} />
+        <Signin setUserId={props.setUserId} {...props} back={changeViewToHome}/>
       );
     }
   };
