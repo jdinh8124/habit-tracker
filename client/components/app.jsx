@@ -31,6 +31,7 @@ export default class App extends React.Component {
     this.addingNewUserHabit = this.addingNewUserHabit.bind(this);
     this.setUserId = this.setUserId.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.clearAll = this.clearAll.bind(this);
   }
 
   signOut() {
@@ -46,6 +47,16 @@ export default class App extends React.Component {
       loggedIn: true,
       newUserHabit: {
         userId: parseInt(sessionStorage.getItem('id')),
+        routineId: null,
+        habitId: null
+      }
+    }));
+  }
+
+  clearAll() {
+    this.setState(previousState => ({
+      newUserHabit: {
+        userId: this.state.userId,
         routineId: null,
         habitId: null
       }
@@ -103,12 +114,11 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-
         <Switch>
           <UserProvider value={{ userId: this.state.userId }}>
             <Route exact path="/" render={props => <SignUpandSignIn {...props} setUserId={this.setUserId} />} />
             <Route exact path="/routineRequest" render={props => <RoutineRequest {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
-            <Route exact path="/userHabits" render={props => <UserHabits {...props} signOut={this.signOut} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
+            <Route exact path="/userHabits" render={props => <UserHabits {...props} clearAll={this.clearAll} signOut={this.signOut} newHabit={this.state.newHabitToPush} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} addingInfo={this.addingInputInfoToState} />} />
             <Route exact path="/userRoutine" render={props => <UserRoutine {...props} signOut={this.signOut} isOpen={this.state.sideBarOpen} openSideBar={this.openSideBar} />} />
           </UserProvider>
         </Switch>

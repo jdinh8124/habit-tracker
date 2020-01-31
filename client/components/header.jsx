@@ -8,7 +8,11 @@ export default function Header(props) {
   function headerClick() {
     if (props.setView) {
       props.setView('main');
+
     } else {
+      if (props.clearAllInfo) {
+        props.clearAllInfo();
+      }
       props.changeView();
     }
   }

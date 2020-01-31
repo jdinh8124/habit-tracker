@@ -156,7 +156,7 @@ const UserHabits = props => {
       return (
         <div className="bg-light content-wrap pb-5">
           <Header title={'Choose Routine'} changeView={() => changeView('else')} backView={'scheduledHabit'} headerView={'subMainAndMenu'}
-            openSideBar = {props.openSideBar} clearAll={'true'} />
+            openSideBar = {props.openSideBar} clearAll={'true'} clearAllInfo={props.clearAll} />
           {isSideBarOpen()}
           <RoutineList changeView={changeView} view='notUserRoutineMain'
             routine={routine} userId={props.userId} setView={setView}
