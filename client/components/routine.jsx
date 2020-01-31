@@ -55,27 +55,45 @@ const Routine = props => {
           }></i>
           <i className="fas fa-trash-alt text-secondary col-2 fa-2x" onClick={
             () => {
-              const init = {
-                method: 'DELETE',
-                headers: {
-                  'Content-Type': 'application/json'
-                }
-              };
-              fetch(`/api/routine/${props.routineId}`, init)
-                .then(res => true)
-                .then(res => {
-                  props.setRoutine(
+              if (props.routineId === 1) {
+                const init = {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                };
+                fetch(`/api/default/${props.userId}`, init)
+                  .then(res => true)
+                  .then(props.setRoutine(
                     () => {
                       const routineCopy = [...props.routine];
-                      for (let i = 0; i < props.routine.length; i++) {
-                        if (props.routine[i].routineId === props.routineId) {
-                          routineCopy.splice(i, 1);
-                          return routineCopy;
+                      routineCopy.shift();
+                      return routineCopy;
+                    }
+                  ));
+              } else {
+                const init = {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                };
+                fetch(`/api/routine/${props.routineId}`, init)
+                  .then(res => true)
+                  .then(res => {
+                    props.setRoutine(
+                      () => {
+                        const routineCopy = [...props.routine];
+                        for (let i = 0; i < props.routine.length; i++) {
+                          if (props.routine[i].routineId === props.routineId) {
+                            routineCopy.splice(i, 1);
+                            return routineCopy;
+                          }
                         }
                       }
-                    }
-                  );
-                });
+                    );
+                  });
+              }
             }
           }></i>
         </>

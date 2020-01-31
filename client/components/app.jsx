@@ -19,7 +19,7 @@ export default class App extends React.Component {
       loggedIn: false,
       newHabitToPush: null,
       sideBarOpen: false,
-      userId: null,
+      userId: parseInt(sessionStorage.getItem('id')),
       newUserHabit: {
         routineId: null,
         habitId: null
@@ -43,7 +43,8 @@ export default class App extends React.Component {
 
   signOut() {
     this.setState(previousState => ({
-      loggedIn: false
+      loggedIn: false,
+      userId: null
     }));
   }
 
