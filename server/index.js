@@ -138,13 +138,9 @@ app.post('/api/routine', (req, res, next) => {
   const userSql = `
     select "userName"
       from "user"
-     where "userId" = $1;
+      where "userId" = $1;
   `;
-  const duplicateRoutineSql = `
-    select *
-      from "routine"
-     where "routineName" = $1 and "createdBy" = $2;
-  `;
+
   const postRoutineSql = `
     insert into "routine" ("routineName", "routineDescription", "createdBy")
     values ($2, $3, $1)
@@ -156,27 +152,20 @@ app.post('/api/routine', (req, res, next) => {
     returning *;
   `;
   const userValue = [parseInt(req.body.user)];
-  const routineNameValue = [req.body.routineName, parseInt(req.body.user)];
+
   const routineValue = [parseInt(req.body.user), req.body.routineName, req.body.routineDesc];
   const selfValue = [parseInt(req.body.user), parseInt(req.body.user), routineId, req.body.routineName, true, 'Self-created routine'];
   db.query(userSql, userValue)
     .then(userResult => {
       if (!userResult.rows.length) next(new ClientError(`userId ${req.body.userId} does not exist`, 404));
       else {
-        db.query(duplicateRoutineSql, routineNameValue)
-          .then(routineResult => {
-            if (routineResult.rows.length) next(new ClientError(`routine name ${req.body.routineName} already existed`, 400));
-            else {
-              db.query(postRoutineSql, routineValue)
-                .then(result => {
-                  routineId = parseInt(result.rows[0].routineId);
-                  selfValue[2] = routineId;
-                  db.query(selfRoutineSql, selfValue)
-                    .then(selfResult => res.status(200).json(selfResult.rows[0]))
-                    .catch(err => next(err));
-                })
-                .catch(err => next(err));
-            }
+        db.query(postRoutineSql, routineValue)
+          .then(result => {
+            routineId = parseInt(result.rows[0].routineId);
+            selfValue[2] = routineId;
+            db.query(selfRoutineSql, selfValue)
+              .then(selfResult => res.status(200).json(selfResult.rows[0]))
+              .catch(err => next(err));
           })
           .catch(err => next(err));
       }
