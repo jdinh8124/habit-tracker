@@ -1,1 +1,1 @@
-drop table "chat", "habit", "routine", "routineHabit", "user", "userHabit", "userRoutine", "defaultCheck";
+drop table "chat", "habit", "routine", "routineHabit", "user", "userHabit", "userRoutine";

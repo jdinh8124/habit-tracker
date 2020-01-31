@@ -76,9 +76,12 @@ const Routine = props => {
                   method: 'DELETE',
                   headers: {
                     'Content-Type': 'application/json'
-                  }
+                  },
+                  body: JSON.stringify({
+                    id: props.routineId
+                  })
                 };
-                fetch(`/api/routine/${props.routineId}`, init)
+                fetch('/api/routine', init)
                   .then(res => true)
                   .then(res => {
                     props.setRoutine(

@@ -129,7 +129,6 @@ app.get('/api/routine/:id', (req, res, next) => {
 app.post('/api/routine', (req, res, next) => {
   if (!req.body.user) next(new ClientError('Please enter a userId', 400));
   else if (!req.body.routineName) next(new ClientError('Please enter a routine name', 400));
-  else if (!req.body.routineDesc) next(new ClientError('Please enter a routine description', 400));
   const integerTest = /^[1-9]\d*$/;
   if (!integerTest.exec(req.body.user)) {
     next(new ClientError(`userId ${req.body.user} is not an integer`, 400));
@@ -143,8 +142,8 @@ app.post('/api/routine', (req, res, next) => {
   `;
 
   const postRoutineSql = `
-    insert into "routine" ("routineName", "routineDescription", "createdBy")
-    values ($2, $3, $1)
+    insert into "routine" ("routineName", "createdBy")
+    values ($2, $1)
     returning *;
   `;
   const selfRoutineSql = `
@@ -154,7 +153,7 @@ app.post('/api/routine', (req, res, next) => {
   `;
   const userValue = [parseInt(req.body.user)];
 
-  const routineValue = [parseInt(req.body.user), req.body.routineName, req.body.routineDesc];
+  const routineValue = [parseInt(req.body.user), req.body.routineName];
   const selfValue = [parseInt(req.body.user), parseInt(req.body.user), routineId, req.body.routineName, true, 'Self-created routine'];
   db.query(userSql, userValue)
     .then(userResult => {
@@ -488,8 +487,8 @@ app.post('/api/routine/:id/habit', (req, res, next) => {
       where "habitName" = $1;
   `;
   const postHabitSql = `
-    insert into "habit" ("habitName", "habitDescription", "createdBy")
-    values ($1, 'Unneeded column', $2)
+    insert into "habit" ("habitName", "createdBy")
+    values ($1, $2)
     returning *;
   `;
   const postRoutineHabitSql = `
