@@ -20,6 +20,7 @@ export default class App extends React.Component {
       sideBarOpen: false,
       userId: parseInt(sessionStorage.getItem('id')),
       newUserHabit: {
+        userId: parseInt(sessionStorage.getItem('id')),
         routineId: null,
         habitId: null
       }
