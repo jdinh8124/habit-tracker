@@ -40,3 +40,4 @@ Link: https://habit-tracker.andieswift.dev/
 - User can see their previously writen congradulatory message or motivational message depending whether they completed a habit
 
 # Preview
+![Screenshot of App](server/public/images/habit-tracker.gif)

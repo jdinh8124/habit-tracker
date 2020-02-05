@@ -20,7 +20,6 @@ app.get('/api/health-check', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// See upcoming habits
 app.get('/api/habit/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId);
   const sql = `
@@ -44,7 +43,6 @@ app.get('/api/habit/:userId', (req, res, next) => {
 
 });
 
-// get specific habit
 app.get('/api/user/:userId/habit/:habitId', (req, res, next) => {
   const userId = parseInt(req.params.userId);
   const habitId = parseInt(req.params.habitId);
@@ -66,7 +64,6 @@ app.get('/api/user/:userId/habit/:habitId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// See routines
 app.get('/api/routine/user/:user', (req, res, next) => {
   const integerTest = /^[1-9]\d*$/;
   if (!integerTest.exec(req.params.user)) {
@@ -95,7 +92,6 @@ app.get('/api/routine/user/:user', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// View habits from routines
 app.get('/api/routine/:id', (req, res, next) => {
   const integerTest = /^[1-9]\d*$/;
   if (!integerTest.exec(req.params.id)) {
@@ -125,7 +121,6 @@ app.get('/api/routine/:id', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// Create routine
 app.post('/api/routine', (req, res, next) => {
   if (!req.body.user) next(new ClientError('Please enter a userId', 400));
   else if (!req.body.routineName) next(new ClientError('Please enter a routine name', 400));
@@ -173,7 +168,6 @@ app.post('/api/routine', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// Edit routine
 app.put('/api/routine/:id', (req, res, next) => {
   if (!req.body.routineName) next(new ClientError('Please enter a new routine name', 400));
   const integerTest = /^[1-9]\d*$/;
@@ -219,7 +213,6 @@ app.put('/api/routine/:id', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// Delete routine
 app.delete('/api/routine', (req, res, next) => {
   const integerTest = /^[1-9]\d*$/;
   if (!integerTest.exec(req.body.id)) {
@@ -250,7 +243,6 @@ app.delete('/api/routine', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// Send routine to user
 app.post('/api/share', (req, res, next) => {
   if (!req.body.routineId) next(new ClientError('Please enter a routine id', 400));
   else if (!req.body.routineName) next(new ClientError('Please enter a routine name', 400));
@@ -327,7 +319,6 @@ app.get('/api/request/:user', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// accept or deny routine
 app.put('/api/request/:id', (req, res, next) => {
   if (!req.params.id) next(new ClientError('Please enter a routine id', 400));
   else if (!req.body.receiverId) next(new ClientError('Please enter a user id for the receiver', 400));
@@ -372,7 +363,6 @@ app.put('/api/request/:id', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// mark habit completion
 app.post('/api/user/habit', (req, res, next) => {
   const habitId = parseInt(req.body.habitId);
   const userId = parseInt(req.body.userId);
@@ -397,7 +387,6 @@ app.post('/api/user/habit', (req, res, next) => {
     }).catch(err => next(err));
 });
 
-// delete user habit
 app.delete('/api/habit/', (req, res, next) => {
   const habitId = parseInt(req.body.habitId);
   if (isNaN(habitId) || !habitId) {
@@ -441,7 +430,6 @@ app.delete('/api/routine/habit', (req, res, next) => {
     }).catch(err => next(err));
 });
 
-// adding habit to userHabit
 app.post('/api/habit', (req, res, next) => {
   const integerTest = /^[1-9]\d*$/;
   if (!integerTest.exec(req.body.userId) || !integerTest.exec(req.body.routineId) || !integerTest.exec(req.body.habitId)) {
@@ -472,7 +460,6 @@ app.post('/api/habit', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// add habit to routine
 app.post('/api/routine/:id/habit', (req, res, next) => {
   if (!req.body.habitName) next(new ClientError('Please enter a habit name', 400));
   else if (!req.body.userId) next(new ClientError('Please enter a user id', 400));

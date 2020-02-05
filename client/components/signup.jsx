@@ -58,7 +58,7 @@ class SignUp extends React.Component {
     } else {
       this.setState(previousState => ({ passwordsDoNotMatch: false }));
     }
-    var re = /\S+@\S+\.\S+/;
+    const re = /\S+@\S+\.\S+/;
     if (!re.test(this.state.email)) {
       this.setState(previousState => ({ emailError: true }));
       return;
