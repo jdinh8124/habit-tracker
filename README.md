@@ -1,5 +1,5 @@
 # Habit Tracker
-A habit tracking app for people who want to set habits for themselves or create routines of habits to share to friends.
+Currently in progress. A habit tracking app for people who want to set habits for themselves or create routines of habits to share to friends.
 
 ### Figma
 - https://www.figma.com/file/nGFl4nbu4ItX02zhA2S9yE/Habit-Tracker
