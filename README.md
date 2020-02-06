@@ -22,7 +22,7 @@ Link: https://habit-tracker.andieswift.dev/
 - CSS3
 - AWS EC2
 
-# Features
+## Features
 - User can create an account to keep track of their habits
 - User can see their upcoming habits
 - User can see their lists of routines
@@ -39,5 +39,5 @@ Link: https://habit-tracker.andieswift.dev/
 - User can mark whether or not they completed a habit
 - User can see their previously writen congradulatory message or motivational message depending whether they completed a habit
 
-# Preview
+## Preview
 ![Screenshot of App](server/public/images/habit-tracker.gif)
