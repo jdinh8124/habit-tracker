@@ -10,7 +10,7 @@ Currently in progress. A habit tracking app for people who want to set habits fo
 ### Meistertask
 - https://www.meistertask.com/app/project/okSuQ35g/habit-tracker
 
-# Live Demo
+## Live Demo
 Link: https://habit-tracker.andieswift.dev/
 
 ## Technologies Used
