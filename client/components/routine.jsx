@@ -45,15 +45,15 @@ const Routine = props => {
       )
       : (
         <>
-          <h2 className="text-secondary col-8" onClick={() => props.setView(props.routineId)}>{newRoutine}</h2>
-          <i className="fas fa-edit text-secondary col-2 fa-2x" onClick={
+          <h2 className="text-secondary col-8 cursor-pointer" onClick={() => props.setView(props.routineId)}>{newRoutine}</h2>
+          <i className="fas fa-edit text-secondary col-2 fa-2x cursor-pointer" onClick={
             e => {
               setEdit(true);
               setRoutineMemory(newRoutine);
               if (props.editList === '') props.setEditList(props.routineItem.routineName);
             }
           }></i>
-          <i className="fas fa-trash-alt text-secondary col-2 fa-2x" onClick={
+          <i className="fas fa-trash-alt text-secondary col-2 fa-2x cursor-pointer" onClick={
             () => {
               if (props.routineId === 1) {
                 const init = {

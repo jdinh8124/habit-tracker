@@ -74,7 +74,7 @@ const Sidebar = props => {
 
   return (
     <div className="shadow-div container " onClick={props.closeSideBar}>
-      <div className="open-side offset-5 purple">
+      <div className="open-side offset-5 offset-md-6 offset-lg-9 purple">
         {sideBarItems()}
       </div>
     </div>

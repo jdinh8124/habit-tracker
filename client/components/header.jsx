@@ -22,22 +22,22 @@ export default function Header(props) {
       return (
         <>
           <div className="titleSize" >{props.title}</div>
-          <div onClick={props.openSideBar} className="titleSize"><i className="a fas fa-bars"></i></div>
+          <div onClick={props.openSideBar} className="titleSize cursor-pointer"><i className="a fas fa-bars"></i></div>
         </>
       );
     } else if (props.headerView === 'subMain') {
       return (
         <div className="p-0 col-12">
-          <div onClick={headerClick} className="titleSize pr-2 d-inline"><i className="fas fa-chevron-left a"></i></div>
+          <div onClick={headerClick} className="titleSize pr-2 d-inline cursor-pointer"><i className="fas fa-chevron-left a"></i></div>
           <div className="titleSize d-inline-block" >{props.title}</div>
         </div>
       );
     } else {
       return (
         <div className="p-0 col-12">
-          <div onClick={headerClick} className="titleSize pr-2 d-inline"><i className="fas fa-chevron-left a"></i></div>
+          <div onClick={headerClick} className="titleSize pr-2 d-inline cursor-pointer "><i className="fas fa-chevron-left a"></i></div>
           <div className="titleSize d-inline-block" >{props.title}</div>
-          <div onClick={props.openSideBar} className="titleSize d-inline pl-3"><i className="a fas fa-bars"></i></div>
+          <div onClick={props.openSideBar} className="titleSize d-inline pl-3"><i className="a fas fa-bars cursor-pointer"></i></div>
         </div>
       );
     }
