@@ -27,11 +27,11 @@ const Footer = props => {
   return (
     <div className="container footer">
       <div className="row">
-        <div className="col-2 plane-sign">
+        <div className="col-2 plane-sign cursor-pointer">
           {createPlane()}
         </div>
         <div className="col-8"></div>
-        <div className="col-2 plus-sign">
+        <div className="col-2 plus-sign cursor-pointer">
           {chooseOnClick()}
         </div>
       </div>

@@ -32,7 +32,7 @@ const Habit = props => {
 
   function canDelete() {
     if (!props.chooseHabit) {
-      return (<i className="fas fa-trash-alt cursor-pointer text-secondary col-2 fa-2x" onClick={handleDelete}></i>);
+      return (<i className="fas fa-trash-alt cursor-pointer text-secondary col-2 fa-2x " onClick={handleDelete}></i>);
     }
   }
 
