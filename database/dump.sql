@@ -700,6 +700,10 @@ COPY public.habit ("habitId", "habitName", "createdBy", "createdAt") FROM stdin;
 3	Practice whiteboard	1	2020-01-30 17:23:02.078595-08
 4	Keep GitHub green	1	2020-01-30 17:23:02.078595-08
 5	Learn from other people	1	2020-01-30 17:23:02.078595-08
+6	Eat	2	2020-01-30 19:46:27.454691-08
+7	Sleep	2	2020-01-30 19:46:34.744802-08
+8	hello	23	2020-02-09 14:48:25.964097-08
+9	Yolo	23	2020-02-09 14:49:13.337504-08
 \.
 
 
@@ -709,6 +713,13 @@ COPY public.habit ("habitId", "habitName", "createdBy", "createdAt") FROM stdin;
 
 COPY public.routine ("routineId", "routineName", "createdBy", "createdAt") FROM stdin;
 1	Web Dev	1	2020-01-30 17:23:02.075242-08
+2	New Routine	2	2020-01-30 18:10:05.920014-08
+3	Hello	2	2020-01-30 18:12:38.913683-08
+4	Hello Dev	2	2020-01-30 19:46:18.051686-08
+5	Sleep	2	2020-01-30 19:47:01.238489-08
+6	Sleep	2	2020-01-30 19:47:10.685441-08
+7	Training Day	2	2020-01-31 09:09:20.336569-08
+8	Hello	23	2020-02-09 14:39:27.445637-08
 \.
 
 
@@ -722,6 +733,10 @@ COPY public."routineHabit" ("routineId", "habitId", "createdAt") FROM stdin;
 1	3	2020-01-30 17:23:02.081043-08
 1	4	2020-01-30 17:23:02.081043-08
 1	5	2020-01-30 17:23:02.081043-08
+4	6	2020-01-30 19:46:27.467162-08
+4	7	2020-01-30 19:46:34.757545-08
+1	8	2020-02-09 14:48:25.980429-08
+8	9	2020-02-09 14:49:13.355727-08
 \.
 
 
@@ -731,6 +746,14 @@ COPY public."routineHabit" ("routineId", "habitId", "createdAt") FROM stdin;
 
 COPY public."user" ("userId", "userName", email, "userPwd", "createdAt") FROM stdin;
 1	bob	bob@bob.com	noHashPwd	2020-01-30 17:23:02.068464-08
+2	x	xxx@g.com	$2b$10$hbH5zatHDmgk.qd0RD3DZOj4in4P4IV85veQt0aZXrW0JVlW5GfIu	2020-01-30 17:36:54.585669-08
+3	hello	hello@gmail.com	$2b$10$jJukNBqNqhwCWrf5F/FUU.IxyeMb7Gf2d29Gl72BuW3UGB8ZWcZ1u	2020-01-30 18:30:45.031143-08
+4	james	hello@gmail.com	$2b$10$RXeY9uaywC/I4adQ0LUXK.9IJ.RMrjmw/X3zwso1KtXPMHkUbEeE6	2020-01-30 19:48:21.361324-08
+11	xxasdasdadasdsadsadassadsad	x@gmail.com	$2b$10$hgoun.Ic1EhHEdKlyzCniO/vKYHl6vYNhxexqJO3L4t7pA9fkfXTm	2020-01-31 09:13:48.960874-08
+13	xx	x@gmail.com	$2b$10$8DNt.xFW470wj/wtHkQHhOicDvOPj7BcuMl4BvfYQ6JHXUhmVhbhq	2020-01-31 09:14:06.720433-08
+19	xxx	x@f.x	$2b$10$IoKBMUB1TGyZaBqi3BU9w.MRjajkpyQS8qf0DYh3nhHmolb8Hmg9a	2020-01-31 09:15:53.124832-08
+23	a	a@a.com	$2b$10$iwWtvM3ECNfHUpNQib7PJOpCCPw6UNVdkjFLMIceUjubaU.293ysO	2020-02-09 14:37:25.418987-08
+24	guest	guest@google.com	$2b$10$z3cCgdZoHGZ0khvxTNCtU./PUuqW3tJjTetjjl0aHoL1nhodFZj6u	2020-03-29 20:20:27.866094-07
 \.
 
 
@@ -739,6 +762,9 @@ COPY public."user" ("userId", "userName", email, "userPwd", "createdAt") FROM st
 --
 
 COPY public."userHabit" ("userId", "routineId", "habitId", "timesCompleted", "lastCompleted", frequency, "nextCompletion", duration, "congratsMessage", "motivationalMessage", "createdAt") FROM stdin;
+2	1	4	1	18:38:42.140253	7	2020-01-31	Hello	effwfwe	sdfsdf	2020-01-30 18:38:38.320751-08
+24	1	1	0	04:05:06.789	1	2019-02-08	10 mins	Good job!!!	Get them next time champ	2020-03-29 20:33:17.009871-07
+24	1	5	0	04:05:06.789	7	2019-02-08	15 mins	Good job champ!	Next time!	2020-03-29 20:33:37.773289-07
 \.
 
 
@@ -747,6 +773,9 @@ COPY public."userHabit" ("userId", "routineId", "habitId", "timesCompleted", "la
 --
 
 COPY public."userRoutine" ("receiverId", "senderId", "routineId", "routineName", "accepted?", "requestMessage", "createdAt") FROM stdin;
+2	2	4	Hello Dev	t	Self-created routine	2020-01-30 19:46:18.062742-08
+2	2	7	Training Day	t	Self-created routine	2020-01-31 09:09:20.344525-08
+23	23	8	Hello	t	Self-created routine	2020-02-09 14:39:27.48135-08
 \.
 
 
@@ -789,7 +818,7 @@ SELECT pg_catalog.setval('public."habit_createdBy_seq"', 1, false);
 -- Name: habit_habitId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."habit_habitId_seq"', 5, true);
+SELECT pg_catalog.setval('public."habit_habitId_seq"', 9, true);
 
 
 --
@@ -817,7 +846,7 @@ SELECT pg_catalog.setval('public."routine_createdBy_seq"', 1, false);
 -- Name: routine_routineId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."routine_routineId_seq"', 1, true);
+SELECT pg_catalog.setval('public."routine_routineId_seq"', 8, true);
 
 
 --
@@ -866,7 +895,7 @@ SELECT pg_catalog.setval('public."userRoutine_senderId_seq"', 1, false);
 -- Name: user_userId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."user_userId_seq"', 1, true);
+SELECT pg_catalog.setval('public."user_userId_seq"', 24, true);
 
 
 --
