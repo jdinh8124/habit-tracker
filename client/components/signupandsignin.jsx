@@ -13,6 +13,12 @@ const SignUpandSignIn = props => {
     setAccountView('Sign In');
   };
 
+  const changeViewToGuestSignIn = () => {
+    sessionStorage.setItem('id', 24);
+    props.setUserId();
+    props.history.push('/userHabits');
+  };
+
   const changeViewToHome = () => {
     setAccountView('welcome');
   };
@@ -23,10 +29,13 @@ const SignUpandSignIn = props => {
         <h1 className="text-white">Hello, Friend</h1>
         <button className="btn btn-outline-light m-2 btn-lg" onClick={changeViewToSignUp}>Sign Up</button>
         <button className="btn btn-outline-light m-2 btn-lg" onClick={changeViewToSignIn}>Log In</button>
+        <button className="btn btn-outline-light m-2 btn-lg" onClick={changeViewToGuestSignIn}>Guest</button>
       </div>
       );
     } else if (view === 'sign up') {
       return <Signup signIn={changeViewToSignIn} back={changeViewToHome} />;
+    } else if (view === 'Sign In Guest') {
+      return <Signin setUserId={props.setUserId} {...props} back={changeViewToHome}/>;
     } else {
       return (
         <Signin setUserId={props.setUserId} {...props} back={changeViewToHome}/>
