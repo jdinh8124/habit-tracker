@@ -35,7 +35,7 @@ const SignUpandSignIn = props => {
     } else if (view === 'sign up') {
       return <Signup signIn={changeViewToSignIn} back={changeViewToHome} />;
     } else if (view === 'Sign In Guest') {
-      return <Signin setUserId={props.setUserId} guest={true} {...props} back={changeViewToHome}/>;
+      return <Signin setUserId={props.setUserId} {...props} back={changeViewToHome}/>;
     } else {
       return (
         <Signin setUserId={props.setUserId} {...props} back={changeViewToHome}/>
