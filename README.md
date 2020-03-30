@@ -11,7 +11,7 @@ Currently in progress. A habit tracking app for people who want to set habits fo
 - https://www.meistertask.com/app/project/okSuQ35g/habit-tracker
 
 ## Live Demo
-Link: https://habit-tracker.andieswift.dev/
+Link: https://habit-tracker.jamestdinh.com/
 
 ## Technologies Used
 - React.js
