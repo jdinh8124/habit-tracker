@@ -14,7 +14,9 @@ const SignUpandSignIn = props => {
   };
 
   const changeViewToGuestSignIn = () => {
-    setAccountView('Sign In Guest');
+    sessionStorage.setItem('id', 24);
+    props.setUserId();
+    props.history.push('/userHabits');
   };
 
   const changeViewToHome = () => {

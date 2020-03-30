@@ -44,12 +44,6 @@ class SignIn extends React.Component {
     }
   }
 
-  isItGuest() {
-    if (this.props.guest()) {
-
-    }
-  }
-
   checkAccount() {
     event.preventDefault();
     if (this.state.userPwd === '' || this.state.userName === '') {
@@ -92,20 +86,18 @@ class SignIn extends React.Component {
             <div className="input-group-prepend">
               <span className="input-group-text" id="addon-wrapping"><i className="fas fa-user"></i></span>
             </div>
-            <input id="user" onChange={this.userNameChange} className="form-control" placeholder="Username" />
+            <input onChange={this.userNameChange} className="form-control" placeholder="Username" />
           </div>
           <div className="input-group flex-nowrap mb-3 signup-input">
             <div className="input-group-prepend">
               <span className="input-group-text" id="addon-wrapping"><i className="fas fa-lock"></i></span>
             </div>
-            <input id="password" type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control" placeholder="Password" />
+            <input type="password" name="password" autoComplete="on" onChange={this.passwordChange} className="form-control" placeholder="Password" />
           </div>
           {this.isUserFieldsEmpty()}
-          {this.isItGuest()}
           <div>
             <button onClick={this.props.back} className="btn btn-outline-secondary d-inline mr-3">Go Back</button>
             <button onClick={this.checkAccount} className="btn text-light blue-purple-gradient d-inline">Sign In</button>
-            <button onClick={this.checkAccount} className="btn text-light blue-purple-gradient ml-3 d-inline">Guest Sign In</button>
           </div>
         </form>
       </div>
