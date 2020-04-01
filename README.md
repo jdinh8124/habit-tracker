@@ -42,5 +42,9 @@ Link: https://habit-tracker.jamestdinh.com/
 - User can mark whether or not they completed a habit
 - User can see their previously writen congradulatory message or motivational message depending whether they completed a habit
 
+## Future Additions
+- Animations using SASS or motion UI
+- Chat feature
+
 ## Preview
 ![Screenshot of App](server/public/images/habit-tracker.gif)
