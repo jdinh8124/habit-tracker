@@ -13,7 +13,7 @@
 ### Meistertask
 - https://www.meistertask.com/app/project/okSuQ35g/habit-tracker
 
-## Live Demo
+## Live Demo (You can now try it as guest!)
 Link: https://habit-tracker.jamestdinh.com/
 
 ## Technologies Used
@@ -41,6 +41,7 @@ Link: https://habit-tracker.jamestdinh.com/
 - User can write a motivational message to themselves in the case that they miss a scheduled habit
 - User can mark whether or not they completed a habit
 - User can see their previously writen congradulatory message or motivational message depending whether they completed a habit
+- Guest can now see a working account with routines & habits
 
 ## Future Additions
 - Animations using SASS or motion UI
