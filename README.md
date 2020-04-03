@@ -21,6 +21,7 @@ Link: https://habit-tracker.jamestdinh.com/
 - Webpack 4
 - Bootstrap 4
 - Node.js
+- Express.js
 - HTML5
 - CSS3
 - AWS EC2
