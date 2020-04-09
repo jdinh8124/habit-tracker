@@ -25,6 +25,7 @@ Link: https://habit-tracker.jamestdinh.com/
 - HTML5
 - CSS3
 - AWS EC2
+- Babel
 
 ## Features
 - User can create an account to keep track of their habits
