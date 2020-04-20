@@ -1,5 +1,5 @@
 # Habit Tracker
-- A habit tracking app for people who want to set habits for themselves or create routines of habits to share to friends.
+- A habit tracking app for people who want to set habits for themselves or create routines of habits to share to friends built in React, Node, and PostgreSQL.
 
 > - Maintained by: `James Dinh - jdinh8124`
 > - Contributions by: `Yun Yang, Andie Swift, and James Dinh`
