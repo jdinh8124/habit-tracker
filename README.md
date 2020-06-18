@@ -1,5 +1,8 @@
 # Habit Tracker
-Currently in progress. A habit tracking app for people who want to set habits for themselves or create routines of habits to share to friends.
+- A habit tracking app for people who want to set habits for themselves or create routines of habits to share to friends built in React, Node, and PostgreSQL.
+
+> - Maintained by: `James Dinh - jdinh8124`
+> - Contributions by: `Yun Yang, Andie Swift, and James Dinh`
 
 ### Figma
 - https://www.figma.com/file/nGFl4nbu4ItX02zhA2S9yE/Habit-Tracker
@@ -10,7 +13,7 @@ Currently in progress. A habit tracking app for people who want to set habits fo
 ### Meistertask
 - https://www.meistertask.com/app/project/okSuQ35g/habit-tracker
 
-## Live Demo
+## Live Demo (You can now try it as guest!)
 Link: https://habit-tracker.jamestdinh.com/
 
 ## Technologies Used
@@ -18,9 +21,11 @@ Link: https://habit-tracker.jamestdinh.com/
 - Webpack 4
 - Bootstrap 4
 - Node.js
+- Express.js
 - HTML5
 - CSS3
 - AWS EC2
+- Babel
 
 ## Features
 - User can create an account to keep track of their habits
@@ -38,6 +43,11 @@ Link: https://habit-tracker.jamestdinh.com/
 - User can write a motivational message to themselves in the case that they miss a scheduled habit
 - User can mark whether or not they completed a habit
 - User can see their previously writen congradulatory message or motivational message depending whether they completed a habit
+- Guest can now see a working account with routines & habits
+
+## Future Additions
+- Animations using SASS or motion UI
+- Chat feature
 
 ## Preview
 ![Screenshot of App](server/public/images/habit-tracker.gif)
