@@ -7,9 +7,6 @@
 ### Figma
 - https://www.figma.com/file/nGFl4nbu4ItX02zhA2S9yE/Habit-Tracker
 
-### Meistertask
-- https://www.meistertask.com/app/project/okSuQ35g/habit-tracker
-
 ## Live Demo (You can now try it as guest!)
 Link: https://habit-tracker.jamestdinh.com/
 
