@@ -7,9 +7,6 @@
 ### Figma
 - https://www.figma.com/file/nGFl4nbu4ItX02zhA2S9yE/Habit-Tracker
 
-### DB Designer
-- https://app.dbdesigner.net/designer/schema/297743
-
 ### Meistertask
 - https://www.meistertask.com/app/project/okSuQ35g/habit-tracker
 
